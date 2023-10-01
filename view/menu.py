@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QMainWindow, QMessageBox
 from models.ui_menu import Ui_MainWindow as Ui_MainWindow_Menu
 from view.configuracion import Configuracion
 from view.menu_registros import MenuRegistros
-from view.menu_reportes import reporteEjemplo1
+
 from view.menu_contabilidad import MenuContabilidad
 from view.variables_globales import GlobalVar
 from database.connection import *
@@ -16,7 +16,6 @@ class Menu(QMainWindow, Ui_MainWindow_Menu):
         self.setupUi(self)
 
         self.pushButton.clicked.connect(self.mostrar_registros)
-        self.pushButton_2.clicked.connect(self.mostrar_reportes)
         self.pushButton_3.clicked.connect(self.mostrar_contabilidad)
         self.pushButton_4.clicked.connect(self.mostrar_defensa)
         self.pushButton_5.clicked.connect(self.mostrar_configuracion)
@@ -45,8 +44,6 @@ class Menu(QMainWindow, Ui_MainWindow_Menu):
     def mostrar_registros(self):
         self.mostrar(3, MenuRegistros, "Ingreso exitoso a Registros")
 
-    def mostrar_reportes(self):
-        self.mostrar(4, reporteEjemplo1, None, "En proceso....")
 
     def mostrar_contabilidad(self):
         self.mostrar(5, MenuContabilidad, "Ingreso exitoso a Contabilidad")

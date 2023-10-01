@@ -43,16 +43,7 @@ class ListarInventarios(QMainWindow, Ui_MainWindow_Listainventarios):
                 for col_idx, cell_data in enumerate(row_data):
                     item = QTableWidgetItem(str(cell_data))
                     self.tableWidget.setItem(row_idx, col_idx, item)
-                    if col_idx == 2:
-                        fecha_str = cell_data.strftime("%d-%m-%Y")
-                        item.setText(fecha_str)
-                    elif col_idx == 4:
-                        if cell_data == "0":
-                            item.setText("ENTRADA")
-                        else :
-                            item.setText("SALIDA")
-                    else:
-                        item.setText(str(cell_data))
+                    item.setText(str(cell_data))
 
 
             self.tableWidget.resizeColumnsToContents()

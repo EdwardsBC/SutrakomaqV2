@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>369</width>
-    <height>496</height>
+    <width>1333</width>
+    <height>756</height>
    </rect>
   </property>
   <property name="palette">
@@ -454,6 +454,7 @@
   </property>
   <property name="font">
    <font>
+    <family>Verdana</family>
     <pointsize>10</pointsize>
     <bold>true</bold>
    </font>
@@ -467,12 +468,13 @@
      <rect>
       <x>20</x>
       <y>21</y>
-      <width>161</width>
+      <width>181</width>
       <height>16</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -484,14 +486,15 @@
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>200</x>
       <y>19</y>
-      <width>151</width>
+      <width>351</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -505,8 +508,8 @@
      <rect>
       <x>20</x>
       <y>50</y>
-      <width>331</width>
-      <height>351</height>
+      <width>1291</width>
+      <height>561</height>
      </rect>
     </property>
     <column>
@@ -516,22 +519,62 @@
     </column>
     <column>
      <property name="text">
-      <string>ARTICULO</string>
+      <string>CODIGO</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>FECHA</string>
+      <string>DESCRIPCION</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>CANTIDAD</string>
+      <string>UNIDAD DE MEDIDA</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>TIPO</string>
+      <string>MEDIDAS</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>UBICACION</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>CONTEO</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>COLOR</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>ESTADO</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>MARCA</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>MODELO</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>SERIE</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>OBSERVACION</string>
      </property>
     </column>
    </widget>
@@ -541,8 +584,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>369</width>
-     <height>23</height>
+     <width>1333</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -568,8 +611,8 @@
   </widget>
   <action name="actionNuevo">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/nuevo.png</normaloff>:/icons/app/resources/icons/nuevo.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/nuevo.png</normaloff>:/icons/resources/icons/nuevo.png</iconset>
    </property>
    <property name="text">
     <string>Nuevo</string>
@@ -577,8 +620,8 @@
   </action>
   <action name="actionExportar">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/exportar.png</normaloff>:/icons/app/resources/icons/exportar.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/exportar.png</normaloff>:/icons/resources/icons/exportar.png</iconset>
    </property>
    <property name="text">
     <string>Exportar</string>
@@ -586,8 +629,8 @@
   </action>
   <action name="actionImprimir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/imprimir.png</normaloff>:/icons/app/resources/icons/imprimir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/imprimir.png</normaloff>:/icons/resources/icons/imprimir.png</iconset>
    </property>
    <property name="text">
     <string>Imprimir</string>
@@ -595,8 +638,8 @@
   </action>
   <action name="actionSalir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/salir.png</normaloff>:/icons/app/resources/icons/salir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/salir.png</normaloff>:/icons/resources/icons/salir.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -604,7 +647,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>
