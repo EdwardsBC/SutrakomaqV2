@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>resources/icons/eliminar.png</file>
+    <file>resources/icons/exportar.png</file>
+    <file>resources/icons/grabar.png</file>
+    <file>resources/icons/imprimir.png</file>
+    <file>resources/icons/nuevo.png</file>
+    <file>resources/icons/salir.png</file>
+  </qresource>
+</RCC>

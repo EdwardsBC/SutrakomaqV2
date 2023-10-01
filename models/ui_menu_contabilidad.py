@@ -1,0 +1,166 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'menu_contabilidadUmNDDj.ui'
+##
+## Created by: Qt User Interface Compiler version 6.4.3
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QMenu, QMenuBar,
+    QSizePolicy, QStatusBar, QWidget)
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(1366, 750)
+        palette = QPalette()
+        brush = QBrush(QColor(0, 0, 0, 255))
+        brush.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.WindowText, brush)
+        brush1 = QBrush(QColor(208, 208, 208, 255))
+        brush1.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.Button, brush1)
+        brush2 = QBrush(QColor(255, 255, 255, 255))
+        brush2.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.Light, brush2)
+        brush3 = QBrush(QColor(231, 231, 231, 255))
+        brush3.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.Midlight, brush3)
+        brush4 = QBrush(QColor(104, 104, 104, 255))
+        brush4.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.Dark, brush4)
+        brush5 = QBrush(QColor(139, 139, 139, 255))
+        brush5.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.Mid, brush5)
+        palette.setBrush(QPalette.Active, QPalette.Text, brush)
+        palette.setBrush(QPalette.Active, QPalette.BrightText, brush2)
+        palette.setBrush(QPalette.Active, QPalette.ButtonText, brush)
+        palette.setBrush(QPalette.Active, QPalette.Base, brush2)
+        palette.setBrush(QPalette.Active, QPalette.Window, brush1)
+        palette.setBrush(QPalette.Active, QPalette.Shadow, brush)
+        palette.setBrush(QPalette.Active, QPalette.AlternateBase, brush3)
+        brush6 = QBrush(QColor(255, 255, 220, 255))
+        brush6.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.ToolTipBase, brush6)
+        palette.setBrush(QPalette.Active, QPalette.ToolTipText, brush)
+        brush7 = QBrush(QColor(0, 0, 0, 128))
+        brush7.setStyle(Qt.SolidPattern)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette.setBrush(QPalette.Active, QPalette.PlaceholderText, brush7)
+#endif
+        palette.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.Button, brush1)
+        palette.setBrush(QPalette.Inactive, QPalette.Light, brush2)
+        palette.setBrush(QPalette.Inactive, QPalette.Midlight, brush3)
+        palette.setBrush(QPalette.Inactive, QPalette.Dark, brush4)
+        palette.setBrush(QPalette.Inactive, QPalette.Mid, brush5)
+        palette.setBrush(QPalette.Inactive, QPalette.Text, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.BrightText, brush2)
+        palette.setBrush(QPalette.Inactive, QPalette.ButtonText, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.Base, brush2)
+        palette.setBrush(QPalette.Inactive, QPalette.Window, brush1)
+        palette.setBrush(QPalette.Inactive, QPalette.Shadow, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.AlternateBase, brush3)
+        palette.setBrush(QPalette.Inactive, QPalette.ToolTipBase, brush6)
+        palette.setBrush(QPalette.Inactive, QPalette.ToolTipText, brush)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush7)
+#endif
+        palette.setBrush(QPalette.Disabled, QPalette.WindowText, brush4)
+        palette.setBrush(QPalette.Disabled, QPalette.Button, brush1)
+        palette.setBrush(QPalette.Disabled, QPalette.Light, brush2)
+        palette.setBrush(QPalette.Disabled, QPalette.Midlight, brush3)
+        palette.setBrush(QPalette.Disabled, QPalette.Dark, brush4)
+        palette.setBrush(QPalette.Disabled, QPalette.Mid, brush5)
+        palette.setBrush(QPalette.Disabled, QPalette.Text, brush4)
+        palette.setBrush(QPalette.Disabled, QPalette.BrightText, brush2)
+        palette.setBrush(QPalette.Disabled, QPalette.ButtonText, brush4)
+        palette.setBrush(QPalette.Disabled, QPalette.Base, brush1)
+        palette.setBrush(QPalette.Disabled, QPalette.Window, brush1)
+        palette.setBrush(QPalette.Disabled, QPalette.Shadow, brush)
+        palette.setBrush(QPalette.Disabled, QPalette.AlternateBase, brush1)
+        palette.setBrush(QPalette.Disabled, QPalette.ToolTipBase, brush6)
+        palette.setBrush(QPalette.Disabled, QPalette.ToolTipText, brush)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush7)
+#endif
+        MainWindow.setPalette(palette)
+        font = QFont()
+        font.setFamilies([u"Verdana"])
+        font.setPointSize(10)
+        font.setBold(True)
+        MainWindow.setFont(font)
+        self.actionLista_de_Cuotas = QAction(MainWindow)
+        self.actionLista_de_Cuotas.setObjectName(u"actionLista_de_Cuotas")
+        self.actionLista_de_Cuotas.setFont(font)
+        self.actionRegistro_de_Cuotas = QAction(MainWindow)
+        self.actionRegistro_de_Cuotas.setObjectName(u"actionRegistro_de_Cuotas")
+        self.actionRegistro_de_Cuotas.setFont(font)
+        self.actionLista_de_Ingresos_y_Egresos = QAction(MainWindow)
+        self.actionLista_de_Ingresos_y_Egresos.setObjectName(u"actionLista_de_Ingresos_y_Egresos")
+        self.actionLista_de_Ingresos_y_Egresos.setFont(font)
+        self.actionRegistro_de_Ingresos_y_Egresos = QAction(MainWindow)
+        self.actionRegistro_de_Ingresos_y_Egresos.setObjectName(u"actionRegistro_de_Ingresos_y_Egresos")
+        self.actionRegistro_de_Ingresos_y_Egresos.setFont(font)
+        self.actionLista_de_Recibos = QAction(MainWindow)
+        self.actionLista_de_Recibos.setObjectName(u"actionLista_de_Recibos")
+        self.actionLista_de_Recibos.setFont(font)
+        self.actionRegistro_de_Recibos = QAction(MainWindow)
+        self.actionRegistro_de_Recibos.setObjectName(u"actionRegistro_de_Recibos")
+        self.actionRegistro_de_Recibos.setFont(font)
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QMenuBar(MainWindow)
+        self.menubar.setObjectName(u"menubar")
+        self.menubar.setGeometry(QRect(0, 0, 1366, 22))
+        self.menuCuotas = QMenu(self.menubar)
+        self.menuCuotas.setObjectName(u"menuCuotas")
+        self.menuInresos_y_Egresos = QMenu(self.menubar)
+        self.menuInresos_y_Egresos.setObjectName(u"menuInresos_y_Egresos")
+        self.menuRecibos = QMenu(self.menubar)
+        self.menuRecibos.setObjectName(u"menuRecibos")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.menubar.addAction(self.menuCuotas.menuAction())
+        self.menubar.addAction(self.menuInresos_y_Egresos.menuAction())
+        self.menubar.addAction(self.menuRecibos.menuAction())
+        self.menuCuotas.addAction(self.actionLista_de_Cuotas)
+        self.menuCuotas.addAction(self.actionRegistro_de_Cuotas)
+        self.menuInresos_y_Egresos.addAction(self.actionLista_de_Ingresos_y_Egresos)
+        self.menuInresos_y_Egresos.addAction(self.actionRegistro_de_Ingresos_y_Egresos)
+        self.menuRecibos.addAction(self.actionLista_de_Recibos)
+        self.menuRecibos.addAction(self.actionRegistro_de_Recibos)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.actionLista_de_Cuotas.setText(QCoreApplication.translate("MainWindow", u"Lista de Cuotas", None))
+        self.actionRegistro_de_Cuotas.setText(QCoreApplication.translate("MainWindow", u"Registro de Cuotas", None))
+        self.actionLista_de_Ingresos_y_Egresos.setText(QCoreApplication.translate("MainWindow", u"Lista de Ingresos y Egresos", None))
+        self.actionRegistro_de_Ingresos_y_Egresos.setText(QCoreApplication.translate("MainWindow", u"Registro de Ingresos y Egresos", None))
+        self.actionLista_de_Recibos.setText(QCoreApplication.translate("MainWindow", u"Lista de Recibos", None))
+        self.actionRegistro_de_Recibos.setText(QCoreApplication.translate("MainWindow", u"Registro de Recibos", None))
+        self.menuCuotas.setTitle(QCoreApplication.translate("MainWindow", u"Cuotas", None))
+        self.menuInresos_y_Egresos.setTitle(QCoreApplication.translate("MainWindow", u"Inresos y Egresos", None))
+        self.menuRecibos.setTitle(QCoreApplication.translate("MainWindow", u"Recibos", None))
+    # retranslateUi
+
