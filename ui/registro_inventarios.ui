@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
-    <height>331</height>
+    <width>759</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="palette">
@@ -1014,12 +1014,12 @@
      </property>
      <property name="dateTime">
       <datetime>
-       <hour>22</hour>
+       <hour>3</hour>
        <minute>0</minute>
        <second>0</second>
        <year>2000</year>
        <month>1</month>
-       <day>3</day>
+       <day>4</day>
       </datetime>
      </property>
      <property name="currentSection">
@@ -1094,7 +1094,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>478</width>
+     <width>759</width>
      <height>22</height>
     </rect>
    </property>
@@ -1128,8 +1128,8 @@
   </widget>
   <action name="actionNuevo">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/nuevo.png</normaloff>:/icons/app/resources/icons/nuevo.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/nuevo.png</normaloff>:/icons/resources/icons/nuevo.png</iconset>
    </property>
    <property name="text">
     <string>Nuevo</string>
@@ -1137,8 +1137,8 @@
   </action>
   <action name="actionGrabar">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/grabar.png</normaloff>:/icons/app/resources/icons/grabar.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/grabar.png</normaloff>:/icons/resources/icons/grabar.png</iconset>
    </property>
    <property name="text">
     <string>Grabar</string>
@@ -1146,8 +1146,8 @@
   </action>
   <action name="actionEliminar">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/eliminar.png</normaloff>:/icons/app/resources/icons/eliminar.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/eliminar.png</normaloff>:/icons/resources/icons/eliminar.png</iconset>
    </property>
    <property name="text">
     <string>Eliminar</string>
@@ -1155,8 +1155,8 @@
   </action>
   <action name="actionImprimir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/imprimir.png</normaloff>:/icons/app/resources/icons/imprimir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/imprimir.png</normaloff>:/icons/resources/icons/imprimir.png</iconset>
    </property>
    <property name="text">
     <string>Imprimir</string>
@@ -1164,8 +1164,8 @@
   </action>
   <action name="actionSalir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/salir.png</normaloff>:/icons/app/resources/icons/salir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/salir.png</normaloff>:/icons/resources/icons/salir.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -1173,7 +1173,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>
