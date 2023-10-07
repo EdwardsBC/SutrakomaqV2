@@ -13,7 +13,15 @@ class Historial(QMainWindow, Ui_MainWindowHistorial):
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
         
         self.load()
+        self.actionSalir.triggered.connect(self.cerrar)
 
+    def cerrar(self):
+        respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No)
+
+        if respuesta == QMessageBox.Yes:
+            self.close()
+        else:
+            pass 
 
     def load(self):
         self.listar()

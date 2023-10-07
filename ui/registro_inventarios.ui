@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>759</width>
-    <height>588</height>
+    <width>1366</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="palette">
@@ -452,6 +452,12 @@
     </disabled>
    </palette>
   </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -459,14 +465,15 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>30</y>
-      <width>81</width>
+      <x>20</x>
+      <y>20</y>
+      <width>111</width>
       <height>16</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -479,9 +486,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>70</y>
-      <width>431</width>
-      <height>171</height>
+      <y>60</y>
+      <width>1071</width>
+      <height>311</height>
      </rect>
     </property>
     <property name="palette">
@@ -928,6 +935,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -942,26 +950,26 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>127</y>
+       <y>140</y>
        <width>81</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>TIPO</string>
+      <string>MEDIDA</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>92</y>
-       <width>81</width>
+       <y>100</y>
+       <width>141</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>CANTIDAD*</string>
+      <string>UNIDAD DE MEDIDA</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -974,99 +982,245 @@
       </rect>
      </property>
      <property name="text">
-      <string>ARTICULO*</string>
+      <string>CODIGO</string>
      </property>
     </widget>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>58</y>
-       <width>49</width>
+       <y>60</y>
+       <width>111</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>FECHA</string>
+      <string>DESCRIPCION</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_2">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>180</x>
        <y>23</y>
        <width>291</width>
        <height>20</height>
       </rect>
      </property>
     </widget>
-    <widget class="QDateEdit" name="dateEdit">
+    <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>55</y>
-       <width>290</width>
-       <height>22</height>
+       <x>20</x>
+       <y>180</y>
+       <width>101</width>
+       <height>16</height>
       </rect>
      </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="dateTime">
-      <datetime>
-       <hour>3</hour>
-       <minute>0</minute>
-       <second>0</second>
-       <year>2000</year>
-       <month>1</month>
-       <day>4</day>
-      </datetime>
-     </property>
-     <property name="currentSection">
-      <enum>QDateTimeEdit::DaySection</enum>
-     </property>
-     <property name="calendarPopup">
-      <bool>true</bool>
+     <property name="text">
+      <string>UBICACION</string>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>90</y>
-       <width>291</width>
-       <height>22</height>
+       <x>20</x>
+       <y>220</y>
+       <width>81</width>
+       <height>16</height>
       </rect>
      </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <double>9999999.990000000223517</double>
+     <property name="text">
+      <string>CONTEO</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>125</y>
-       <width>291</width>
-       <height>22</height>
+       <x>20</x>
+       <y>260</y>
+       <width>81</width>
+       <height>16</height>
       </rect>
      </property>
-     <item>
-      <property name="text">
-       <string>ENTRADA</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SALIDA</string>
-      </property>
-     </item>
+     <property name="text">
+      <string>COLOR</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>20</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ESTADO</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>60</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MARCA</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>100</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MODELO</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>140</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SERIE</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>180</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>OBSERVACION</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>60</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_4">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>100</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>140</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>180</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_7">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>220</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_8">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>260</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_9">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>20</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_10">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>60</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_11">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>100</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_12">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>140</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_13">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>180</y>
+       <width>291</width>
+       <height>20</height>
+      </rect>
+     </property>
     </widget>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -1076,13 +1230,14 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>30</y>
+      <y>18</y>
       <width>101</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -1094,8 +1249,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>759</width>
-     <height>22</height>
+     <width>1366</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -1103,6 +1258,7 @@
   <widget class="QToolBar" name="toolBar">
    <property name="font">
     <font>
+     <family>Verdana</family>
      <pointsize>10</pointsize>
      <bold>true</bold>
     </font>

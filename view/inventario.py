@@ -1,5 +1,5 @@
 from database.connection import *
-from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog
+from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QSizePolicy
 from models.ui_lista_inventarios import Ui_MainWindow as Ui_MainWindow_Listainventarios
 from models.ui_registro_inventarios import Ui_MainWindow as Ui_MainWindow_Registroinventarios
 from PySide6.QtCore import QDate, Qt
@@ -55,10 +55,9 @@ class ListarInventarios(QMainWindow, Ui_MainWindow_Listainventarios):
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.registrar = RegistrarInventarios()
-            self.registrar.show()
+            self.menu_registros.mostrar_registrarInventario()
         else:
-            pass
+            pass 
 
     def exportarExcel(self):
         respuesta = QMessageBox.question(self, "Exportar a Excel", "¿Desea exportar la lista a Excel?", QMessageBox.Yes | QMessageBox.No)
@@ -142,18 +141,25 @@ class ListarInventarios(QMainWindow, Ui_MainWindow_Listainventarios):
         for col in range(self.tableWidget.columnCount()):
             data.append(self.tableWidget.item(row, col).text())
 
-        self.close()
-        self.registrar = RegistrarInventarios()
+        self.registrar = RegistrarInventarios(self.menu_registros, data)
         self.registrar.lineEdit.setText(data[0])
         self.registrar.lineEdit_2.setText(data[1])
-        fecha_formateada = data[2].split()[0] 
-        self.registrar.dateEdit.setDate(QDate.fromString(fecha_formateada, "dd-MM-yyyy"))
-        self.registrar.doubleSpinBox.setValue(float(data[3]))
-        if data[4] == "ENTRADA":
-            self.registrar.comboBox.setCurrentIndex(0)
-        elif data[4] == "SALIDA":
-            self.registrar.comboBox.setCurrentIndex(1)
-        self.registrar.show()
+        self.registrar.lineEdit_3.setText(data[2])
+        self.registrar.lineEdit_4.setText(data[3])
+        self.registrar.lineEdit_5.setText(data[4])
+        self.registrar.lineEdit_6.setText(data[5])
+        self.registrar.lineEdit_7.setText(data[6])
+        self.registrar.lineEdit_8.setText(data[7])
+        self.registrar.lineEdit_9.setText(data[8])
+        self.registrar.lineEdit_10.setText(data[9])
+        self.registrar.lineEdit_11.setText(data[10])
+        self.registrar.lineEdit_12.setText(data[11])
+        self.registrar.lineEdit_13.setText(data[12])
+
+        self.menu_registros.layout.addWidget(self.registrar)
+        self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.close()
 
     def cerrar(self):
         respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No)
