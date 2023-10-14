@@ -485,8 +485,15 @@
     </property>
     <addaction name="actionHistorial"/>
    </widget>
+   <widget class="QMenu" name="menuSalir">
+    <property name="title">
+     <string>Salir</string>
+    </property>
+    <addaction name="actionIr_al_Men"/>
+   </widget>
    <addaction name="menuConfiguraciones"/>
    <addaction name="menuObservaciones"/>
+   <addaction name="menuSalir"/>
   </widget>
   <action name="actionPermisos">
    <property name="text">
@@ -503,6 +510,18 @@
   <action name="actionHistorial">
    <property name="text">
     <string>Historial</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionIr_al_Men">
+   <property name="text">
+    <string>Ir al Menú</string>
    </property>
    <property name="font">
     <font>

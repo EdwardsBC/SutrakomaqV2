@@ -1,6 +1,6 @@
 from models.ui_registro_dirigentes import Ui_MainWindow as Ui_MainWindow_RegistroDirigentes
 from models.ui_lista_dirigentes import Ui_MainWindow as Ui_MainWindow_ListaDirigentes
-from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QWidget, QSizePolicy, QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QSizePolicy
 from PySide6.QtGui import QIntValidator
 from database.connection import *
 from datetime import date, timedelta

@@ -22,6 +22,14 @@ class Configuracion(QMainWindow, Ui_MainWindowConfiguracion):
         self.actionPermisos.triggered.connect(self.mostrar_permisos)
         self.actionHistorial.triggered.connect(self.mostrar_historial)
 
+        self.actionIr_al_Men.triggered.connect(self.salir)
+
+    def salir(self):
+        from view.menu import Menu
+        self.registros = Menu()
+        self.registros.show()
+        self.close()
+
     def mostrar_permisos(self):
         self.permisos = Permisos(self)
         self.layout.addWidget(self.permisos)

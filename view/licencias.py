@@ -185,7 +185,6 @@ class ListarLicencias(QMainWindow, Ui_MainWindow_ListaLicencias):
         for col in range(self.tableWidget.columnCount()):
             data.append(self.tableWidget.item(row, col).text())
 
-        self.close()
         self.registrar = RegistrarLicencias(self.menu_registros, data)
         self.registrar.lineEdit.setText(data[0])
         fecha_formateada = data[1].split()[0] 

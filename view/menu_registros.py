@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QApplication,QMainWindow, QVBoxLayout, QWidget, QSizePolicy, QMessageBox
 from models.ui_menu_registros import Ui_MainWindow as Ui_MainWindow_Menu_Registros
 from view.inventario import ListarInventarios,RegistrarInventarios
-from view.asistencias import ListarAsistencias,RegistrarAsitencias
+from view.asistencias import ListarAsistencias,RegistrarAsitencias,RegistrarAsistenciasDirigentes
 from view.dirigentes import ListarDirigentes,RegistrarDirigentes
 from view.licencias import ListarLicencias,RegistrarLicencias
 from view.afiliados import ListarAfiliados,RegistrarAfiliados
@@ -32,6 +32,15 @@ class MenuRegistros(QMainWindow, Ui_MainWindow_Menu_Registros):
         self.actionRegistro_de_Dirigentes.triggered.connect(self.mostrar_registrarDirigentes)
         self.actionRegistro_de_Inventario.triggered.connect(self.mostrar_registrarInventario)
         self.actionRegistro_de_Licencias.triggered.connect(self.mostrar_registrarLicencias)
+        self.actionRegisitro_de_Asamblea.triggered.connect(self.mostrar_registrarAsamblea)
+
+        self.actionIr_al_Men.triggered.connect(self.salir)
+
+    def salir(self):
+        from view.menu import Menu
+        self.registros = Menu()
+        self.registros.show()
+        self.close()
 
     def permisos_listado(self, inicio, fin, *args):
         return [permisos(self.global_var.id_secretaria, 3, args[0], i) for i in range(inicio, fin + 1)]
@@ -78,6 +87,9 @@ class MenuRegistros(QMainWindow, Ui_MainWindow_Menu_Registros):
 
     def mostrar_registrarLicencias(self):
         self.mostrar(9, RegistrarLicencias, "Ingreso exitoso a Registro de Licencias", "Usted no cuenta con los permisos necesarios.", 2, 4)
+
+    def mostrar_registrarAsamblea(self):
+        self.mostrar(3, RegistrarAsistenciasDirigentes, "Ingreso exitoso a Registro de Asistencias de dirigentes", "Usted no cuenta con los permisos necesarios.", 2, 4)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

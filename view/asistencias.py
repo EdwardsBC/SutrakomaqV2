@@ -2,6 +2,7 @@ from database.connection import *
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QComboBox, QProgressBar, QApplication, QVBoxLayout, QDialog, QWidget, QSizePolicy
 from models.ui_lista_asistencias import Ui_MainWindow as Ui_MainWindow_ListaAsistencias
 from models.ui_registro_asistencias import Ui_MainWindow as Ui_MainWindow_RegistroAsistencias
+from models.ui_registro_asistencia_dirigente import Ui_MainWindow as Ui_MainWindow_registroAsistenciasDirigentes
 from sqlalchemy import create_engine, update, Table, MetaData
 from PySide6.QtCore import Qt, QDate
 from tkinter import Tk, filedialog
@@ -527,6 +528,53 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
             self.close()
         else:
             pass 
+
+class RegistrarAsistenciasDirigentes(QMainWindow, Ui_MainWindow_registroAsistenciasDirigentes):
+    def __init__(self,menu_registros):
+        super().__init__()
+        self.setupUi(self)
+        self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+
+        self.load()
+
+        self.menu_registros = menu_registros
+
+    def load(self):
+        self.tableWidget.setColumnHidden(0, True)
+        self.listar()
+
+        items = ["ASISTIO", "FALTA", "JUSTIFICADO"]
+        justificacion_items = ["","VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"]
+
+        row_count = self.tableWidget.rowCount()
+
+        for row in range(row_count):
+            combo_asistencia = QComboBox()
+            combo_justificacion = QComboBox()
+
+            combo_asistencia.addItems(items)
+            combo_justificacion.addItems(justificacion_items)
+
+            self.tableWidget.setCellWidget(row, 4, combo_asistencia)
+            self.tableWidget.setCellWidget(row, 6, combo_justificacion)
+
+
+    def listar(self):
+        sp = "sp_listarAsistenciasDirigentes()"
+        asistencias = Listar(sp)
+
+        if len(asistencias) > 0:
+ 
+            self.tableWidget.setRowCount(len(asistencias))
+            for row_idx, row_data in enumerate(asistencias):
+                for col_idx, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.tableWidget.setItem(row_idx, col_idx, item)
+
+            self.tableWidget.resizeColumnsToContents()
+        else:
+            QMessageBox.information(self, "Alerta", "No se han encontrado datos que listar.")
+
 
 class ProgressDialog(QDialog):
     def __init__(self, maximum, parent=None):

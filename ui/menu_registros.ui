@@ -499,6 +499,7 @@
     </property>
     <addaction name="actionLista_de_Asistencias"/>
     <addaction name="actionRegistro_de_Asistencias"/>
+    <addaction name="actionRegisitro_de_Asamblea"/>
    </widget>
    <widget class="QMenu" name="menuInventario">
     <property name="title">
@@ -507,11 +508,18 @@
     <addaction name="actionLista_de_Inventario"/>
     <addaction name="actionRegistro_de_Inventario"/>
    </widget>
+   <widget class="QMenu" name="menuSalir">
+    <property name="title">
+     <string>Salir</string>
+    </property>
+    <addaction name="actionIr_al_Men"/>
+   </widget>
    <addaction name="menuAfiliados"/>
    <addaction name="menuAsistencias"/>
    <addaction name="menuDirigentes"/>
    <addaction name="menuInventario"/>
    <addaction name="menuLicencias"/>
+   <addaction name="menuSalir"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAfiliados">
@@ -788,6 +796,30 @@
   <action name="actionRegistro_de_Licencias">
    <property name="text">
     <string>Registro de Licencias</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionRegisitro_de_Asamblea">
+   <property name="text">
+    <string>Regisitro de Asamblea</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionIr_al_Men">
+   <property name="text">
+    <string>Ir al Menú</string>
    </property>
    <property name="font">
     <font>
