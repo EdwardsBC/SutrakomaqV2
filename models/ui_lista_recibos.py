@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'lista_recibosnsVHrA.ui'
+## Form generated from reading UI file 'lista_recibosrpBals.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -100,6 +100,7 @@ class Ui_MainWindow(object):
 #endif
         MainWindow.setPalette(palette)
         font = QFont()
+        font.setFamilies([u"Verdana"])
         font.setPointSize(10)
         font.setBold(True)
         MainWindow.setFont(font)
@@ -141,43 +142,43 @@ class Ui_MainWindow(object):
         __qtablewidgetitem5 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(20, 100, 901, 391))
+        self.tableWidget.setGeometry(QRect(20, 100, 931, 391))
         self.dateEdit_6 = QDateEdit(self.centralwidget)
         self.dateEdit_6.setObjectName(u"dateEdit_6")
-        self.dateEdit_6.setGeometry(QRect(169, 27, 161, 22))
+        self.dateEdit_6.setGeometry(QRect(195, 27, 161, 22))
         self.dateEdit_6.setFrame(True)
-        self.dateEdit_6.setDateTime(QDateTime(QDate(2000, 1, 3), QTime(17, 0, 0)))
+        self.dateEdit_6.setDateTime(QDateTime(QDate(2000, 1, 3), QTime(22, 0, 0)))
         self.dateEdit_6.setCurrentSection(QDateTimeEdit.DaySection)
         self.dateEdit_6.setCalendarPopup(True)
         self.dateEdit_7 = QDateEdit(self.centralwidget)
         self.dateEdit_7.setObjectName(u"dateEdit_7")
-        self.dateEdit_7.setGeometry(QRect(357, 27, 161, 22))
+        self.dateEdit_7.setGeometry(QRect(383, 27, 161, 22))
         self.dateEdit_7.setFrame(True)
-        self.dateEdit_7.setDateTime(QDateTime(QDate(2000, 1, 3), QTime(22, 0, 0)))
+        self.dateEdit_7.setDateTime(QDateTime(QDate(2000, 1, 4), QTime(3, 0, 0)))
         self.dateEdit_7.setCurrentSection(QDateTimeEdit.DaySection)
         self.dateEdit_7.setCalendarPopup(True)
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(29, 30, 171, 16))
+        self.label.setGeometry(QRect(29, 30, 161, 16))
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(339, 30, 21, 16))
+        self.label_2.setGeometry(QRect(365, 30, 21, 16))
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(29, 63, 171, 16))
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(169, 60, 351, 22))
+        self.lineEdit.setGeometry(QRect(195, 60, 351, 22))
         self.label_4 = QLabel(self.centralwidget)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(229, 10, 51, 16))
+        self.label_4.setGeometry(QRect(255, 10, 51, 16))
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(414, 9, 51, 16))
+        self.label_5.setGeometry(QRect(440, 9, 51, 16))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 967, 23))
+        self.menubar.setGeometry(QRect(0, 0, 967, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

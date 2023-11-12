@@ -19,6 +19,7 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
         self.lineEdit.setText(self.global_var.secretaria if self.global_var.secretaria else "Variable no definida")
         self.actionGrabar.triggered.connect(self.grabar)
         self.checkBox.stateChanged.connect(lambda state: self.setComboBoxEnabledState(2, 7, self.checkBox.isChecked()))
+        self.checkBox_2.stateChanged.connect(lambda state: self.setComboBoxEnabledState(7, 10, self.checkBox.isChecked()))
         self.comboBox.currentIndexChanged.connect(self.permisosSecretaria)
         self.actionSalir.triggered.connect(self.cerrar)
         
@@ -46,7 +47,7 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
 
     def permisosSecretaria(self):
         self.checkBox.setChecked(True)
-        for i in range(2, 7):
+        for i in range(2, 10):
             comboBox = getattr(self, f'comboBox_{i}')
             comboBox.setCurrentIndex(0)
 
@@ -56,20 +57,25 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
 
         if permisos is not None:
             for index, row in self.df.iterrows():
-                if row['id_seccion'] == 3:
-                    modulo = row['id_modulo']
-                    nivel = row['nivel']
+                modulo = row['id_modulo']
+                nivel = row['nivel']
 
-                    if modulo == 2:
-                        self.comboBox_2.setCurrentIndex(nivel)
-                    elif modulo == 3:
-                        self.comboBox_3.setCurrentIndex(nivel)
-                    elif modulo == 5:
-                        self.comboBox_4.setCurrentIndex(nivel)
-                    elif modulo == 8:
-                        self.comboBox_5.setCurrentIndex(nivel)
-                    elif modulo == 9:
-                        self.comboBox_6.setCurrentIndex(nivel)   
+                if modulo == 2:
+                    self.comboBox_2.setCurrentIndex(nivel)
+                elif modulo == 3:
+                    self.comboBox_3.setCurrentIndex(nivel)
+                elif modulo == 4:
+                    self.comboBox_7.setCurrentIndex(nivel)
+                elif modulo == 5:
+                    self.comboBox_4.setCurrentIndex(nivel)
+                elif modulo == 11:
+                    self.comboBox_8.setCurrentIndex(nivel)
+                elif modulo == 7:
+                    self.comboBox_9.setCurrentIndex(nivel)
+                elif modulo == 8:
+                    self.comboBox_5.setCurrentIndex(nivel)
+                elif modulo == 9:
+                    self.comboBox_6.setCurrentIndex(nivel)   
 
 
     def grabar(self):
@@ -84,6 +90,13 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
             for combo, third_val in zip([self.comboBox_2, self.comboBox_3, self.comboBox_4, self.comboBox_5, self.comboBox_6], [2, 3, 5, 8, 9]):
                 if combo.currentIndex() in [1, 2, 3, 4]:
                     data.append([idSecretario, 3, third_val, combo.currentIndex()])
+
+        if self.checkBox_2.isChecked():
+            data.append([idSecretario, 5, 0, 0])
+
+            for combo, third_val in zip([self.comboBox_7, self.comboBox_8, self.comboBox_9], [4, 11, 7]):
+                if combo.currentIndex() in [1, 2, 3, 4]:
+                    data.append([idSecretario, 5, third_val, combo.currentIndex()])
                 
         df = pd.concat([df, pd.DataFrame(data, columns=['id_secretaria', 'id_seccion', 'id_modulo', 'nivel'])]).reset_index(drop=True)
 

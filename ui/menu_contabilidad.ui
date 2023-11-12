@@ -493,9 +493,16 @@
     <addaction name="actionLista_de_Recibos"/>
     <addaction name="actionRegistro_de_Recibos"/>
    </widget>
+   <widget class="QMenu" name="menuSalir">
+    <property name="title">
+     <string>Salir</string>
+    </property>
+    <addaction name="actionIr_al_Menu"/>
+   </widget>
    <addaction name="menuCuotas"/>
    <addaction name="menuInresos_y_Egresos"/>
    <addaction name="menuRecibos"/>
+   <addaction name="menuSalir"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLista_de_Cuotas">
@@ -561,6 +568,18 @@
   <action name="actionRegistro_de_Recibos">
    <property name="text">
     <string>Registro de Recibos</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionIr_al_Menu">
+   <property name="text">
+    <string>Ir al Menú</string>
    </property>
    <property name="font">
     <font>

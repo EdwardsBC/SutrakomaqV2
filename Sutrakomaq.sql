@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : EdwardsBC
+Source Server         : sutrakomaq
 Source Server Version : 80026
 Source Host           : mysql-134847-0.cloudclusters.net:10005
 Source Database       : sutrakomaq
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80026
 File Encoding         : 65001
 
-Date: 2023-10-07 00:21:38
+Date: 2023-11-10 23:15:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -447,11 +447,12 @@ CREATE TABLE `cuotas` (
   PRIMARY KEY (`id`),
   KEY `id` (`id_afiliado`),
   CONSTRAINT `id` FOREIGN KEY (`id_afiliado`) REFERENCES `afiliados` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of cuotas
 -- ----------------------------
+INSERT INTO `cuotas` VALUES ('6', '133', '30.00', '360.00');
 
 -- ----------------------------
 -- Table structure for dirigentes
@@ -875,7 +876,7 @@ CREATE TABLE `historial` (
   `fechaHora` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `detalle` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=494 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of historial
@@ -950,6 +951,175 @@ INSERT INTO `historial` VALUES ('321', '1', '3', '8', 'Ingreso', '2023-10-01 11:
 INSERT INTO `historial` VALUES ('322', '1', '1', '1', 'Ingreso', '2023-10-06 22:25:15', 'Ingreso exitoso al sistema');
 INSERT INTO `historial` VALUES ('323', '1', '1', '1', 'Ingreso', '2023-10-06 22:34:19', 'Ingreso exitoso al sistema');
 INSERT INTO `historial` VALUES ('324', '1', '2', '1', 'Ingreso', '2023-10-06 23:03:01', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('325', '1', '1', '1', 'Ingreso', '2023-10-07 14:22:46', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('326', '1', '3', '1', 'Ingreso', '2023-10-07 14:23:11', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('327', '1', '1', '1', 'Ingreso', '2023-10-09 21:57:46', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('328', '1', '3', '1', 'Ingreso', '2023-10-09 21:58:02', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('329', '1', '3', '9', 'Ingreso', '2023-10-09 22:08:26', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES ('330', '1', '3', '9', 'Ingreso', '2023-10-09 22:09:38', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES ('331', '1', '3', '9', 'Ingreso', '2023-10-09 22:09:59', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES ('332', '1', '1', '1', 'Ingreso', '2023-10-09 22:22:43', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('333', '1', '3', '1', 'Ingreso', '2023-10-09 22:23:10', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('334', '1', '3', '9', 'Ingreso', '2023-10-09 22:23:28', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES ('335', '1', '3', '9', 'Ingreso', '2023-10-09 22:23:42', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES ('336', '1', '3', '9', 'Ingreso', '2023-10-09 22:24:10', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES ('337', '1', '3', '9', 'Ingreso', '2023-10-09 22:24:26', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES ('338', '1', '1', '1', 'Ingreso', '2023-10-14 10:20:02', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('339', '1', '3', '1', 'Ingreso', '2023-10-14 10:20:29', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('340', '1', '3', '2', 'Ingreso', '2023-10-14 10:20:42', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES ('341', '1', '1', '1', 'Ingreso', '2023-10-14 10:38:11', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('342', '1', '3', '1', 'Ingreso', '2023-10-14 10:38:25', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('343', '1', '1', '1', 'Ingreso', '2023-10-14 10:39:45', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('344', '1', '3', '1', 'Ingreso', '2023-10-14 10:39:50', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('345', '1', '1', '1', 'Ingreso', '2023-10-14 10:46:29', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('346', '1', '3', '1', 'Ingreso', '2023-10-14 10:47:11', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('347', '1', '2', '1', 'Ingreso', '2023-10-14 10:48:06', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('348', '1', '3', '1', 'Ingreso', '2023-10-14 10:48:36', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('349', '1', '3', '3', 'Ingreso', '2023-10-14 10:49:09', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES ('350', '1', '1', '1', 'Ingreso', '2023-10-14 15:37:31', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('351', '1', '3', '1', 'Ingreso', '2023-10-14 15:38:36', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('352', '1', '3', '3', 'Ingreso', '2023-10-14 15:38:48', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('353', '1', '1', '1', 'Ingreso', '2023-10-14 16:06:16', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('354', '1', '3', '1', 'Ingreso', '2023-10-14 16:06:22', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('355', '1', '3', '3', 'Ingreso', '2023-10-14 16:06:33', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('356', '1', '1', '1', 'Ingreso', '2023-10-14 16:13:12', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('357', '1', '3', '1', 'Ingreso', '2023-10-14 16:15:03', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('358', '1', '3', '3', 'Ingreso', '2023-10-14 16:15:13', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('359', '1', '1', '1', 'Ingreso', '2023-10-14 17:00:11', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('360', '1', '3', '1', 'Ingreso', '2023-10-14 17:00:17', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('361', '1', '3', '3', 'Ingreso', '2023-10-14 17:00:27', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('362', '1', '1', '1', 'Ingreso', '2023-10-14 17:01:54', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('363', '1', '3', '1', 'Ingreso', '2023-10-14 17:02:54', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('364', '1', '3', '3', 'Ingreso', '2023-10-14 17:03:05', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('365', '1', '1', '1', 'Ingreso', '2023-10-14 17:04:04', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('366', '1', '2', '1', 'Ingreso', '2023-10-14 17:04:12', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('367', '1', '3', '1', 'Ingreso', '2023-10-14 17:04:18', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('368', '1', '3', '3', 'Ingreso', '2023-10-14 17:04:30', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('369', '1', '1', '1', 'Ingreso', '2023-10-14 17:06:13', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('370', '1', '3', '1', 'Ingreso', '2023-10-14 17:06:18', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('371', '1', '3', '3', 'Ingreso', '2023-10-14 17:06:27', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES ('372', '1', '3', '3', 'Ingreso', '2023-10-14 17:06:39', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('373', '1', '1', '1', 'Ingreso', '2023-10-14 17:07:38', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('374', '1', '3', '1', 'Ingreso', '2023-10-14 17:07:50', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('375', '1', '3', '3', 'Ingreso', '2023-10-14 17:07:59', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('376', '1', '1', '1', 'Ingreso', '2023-10-14 17:10:59', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('377', '1', '3', '1', 'Ingreso', '2023-10-14 17:11:28', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('378', '1', '3', '3', 'Ingreso', '2023-10-14 17:11:37', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('379', '1', '1', '1', 'Ingreso', '2023-10-20 22:56:43', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('380', '1', '3', '1', 'Ingreso', '2023-10-20 22:57:30', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('381', '1', '3', '3', 'Ingreso', '2023-10-20 22:57:44', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES ('382', '1', '2', '1', 'Ingreso', '2023-10-20 22:58:31', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('383', '1', '3', '1', 'Ingreso', '2023-10-20 22:59:35', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('384', '1', '3', '9', 'Ingreso', '2023-10-20 23:32:21', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES ('385', '1', '3', '9', 'Ingreso', '2023-10-20 23:32:45', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES ('386', '1', '1', '1', 'Ingreso', '2023-10-24 07:35:26', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('387', '1', '2', '1', 'Ingreso', '2023-10-24 07:35:33', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('388', '1', '5', '1', 'Ingreso', '2023-10-24 07:37:06', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('389', '1', '1', '1', 'Ingreso', '2023-10-27 13:11:27', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('390', '1', '5', '1', 'Ingreso', '2023-10-27 13:16:57', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('391', '1', '1', '1', 'Ingreso', '2023-10-27 13:18:23', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('392', '1', '2', '1', 'Ingreso', '2023-10-27 13:18:39', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('393', '1', '5', '1', 'Ingreso', '2023-10-27 13:19:23', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('394', '1', '1', '1', 'Ingreso', '2023-10-27 13:23:10', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('395', '1', '2', '1', 'Ingreso', '2023-10-27 13:23:17', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('396', '1', '5', '1', 'Ingreso', '2023-10-27 13:23:49', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('397', '1', '1', '1', 'Ingreso', '2023-10-27 13:30:00', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('398', '1', '2', '1', 'Ingreso', '2023-10-27 13:30:09', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('399', '1', '5', '1', 'Ingreso', '2023-10-27 13:30:46', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('400', '1', '1', '1', 'Ingreso', '2023-10-27 13:32:27', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('401', '1', '5', '1', 'Ingreso', '2023-10-27 13:33:05', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('402', '1', '1', '1', 'Ingreso', '2023-10-27 13:35:58', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('403', '1', '1', '1', 'Ingreso', '2023-10-27 13:38:11', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('404', '1', '2', '1', 'Ingreso', '2023-10-27 13:38:17', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('405', '1', '5', '1', 'Ingreso', '2023-10-27 13:38:41', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('406', '1', '5', '4', 'Ingreso', '2023-10-27 13:38:51', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('407', '1', '1', '1', 'Ingreso', '2023-10-31 14:12:30', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('408', '1', '1', '1', 'Ingreso', '2023-11-01 14:31:19', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('409', '1', '2', '1', 'Ingreso', '2023-11-01 14:31:48', 'Ingreso exitoso a Configuracion');
+INSERT INTO `historial` VALUES ('410', '1', '5', '1', 'Ingreso', '2023-11-01 14:32:36', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('411', '1', '5', '4', 'Ingreso', '2023-11-01 14:33:13', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('412', '1', '1', '1', 'Ingreso', '2023-11-03 10:35:19', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('413', '1', '5', '1', 'Ingreso', '2023-11-03 10:35:28', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('414', '1', '5', '4', 'Ingreso', '2023-11-03 10:35:51', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('415', '1', '5', '4', 'Ingreso', '2023-11-03 10:36:20', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('416', '1', '5', '4', 'Ingreso', '2023-11-03 10:42:00', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('417', '1', '5', '4', 'Ingreso', '2023-11-03 10:42:56', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('418', '1', '1', '1', 'Ingreso', '2023-11-03 10:44:42', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('419', '1', '3', '1', 'Ingreso', '2023-11-03 10:45:28', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('420', '1', '5', '1', 'Ingreso', '2023-11-03 10:45:34', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('421', '1', '5', '4', 'Ingreso', '2023-11-03 10:45:43', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('422', '1', '1', '1', 'Ingreso', '2023-11-03 15:39:21', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('423', '1', '5', '1', 'Ingreso', '2023-11-03 15:39:32', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('424', '1', '5', '7', 'Ingreso', '2023-11-03 15:39:43', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES ('425', '1', '5', '7', 'Ingreso', '2023-11-03 15:39:57', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES ('426', '1', '5', '11', 'Ingreso', '2023-11-03 15:40:15', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES ('427', '1', '5', '11', 'Ingreso', '2023-11-03 15:43:46', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES ('428', '1', '1', '1', 'Ingreso', '2023-11-04 13:26:02', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('429', '1', '5', '1', 'Ingreso', '2023-11-04 13:26:39', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('430', '1', '5', '4', 'Ingreso', '2023-11-04 13:27:10', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('431', '1', '1', '1', 'Ingreso', '2023-11-04 13:37:23', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('432', '1', '5', '1', 'Ingreso', '2023-11-04 13:37:34', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('433', '1', '5', '4', 'Ingreso', '2023-11-04 13:37:45', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('434', '1', '1', '1', 'Ingreso', '2023-11-04 15:02:44', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('435', '1', '5', '1', 'Ingreso', '2023-11-04 15:03:16', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('436', '1', '5', '4', 'Ingreso', '2023-11-04 15:03:27', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('437', '1', '1', '1', 'Ingreso', '2023-11-04 15:09:14', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('438', '1', '5', '1', 'Ingreso', '2023-11-04 15:09:19', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('439', '1', '5', '4', 'Ingreso', '2023-11-04 15:09:28', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('440', '1', '1', '1', 'Ingreso', '2023-11-04 15:29:21', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('441', '1', '5', '1', 'Ingreso', '2023-11-04 15:29:26', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('442', '1', '5', '4', 'Ingreso', '2023-11-04 15:29:38', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('443', '1', '1', '1', 'Ingreso', '2023-11-04 15:44:20', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('444', '1', '5', '1', 'Ingreso', '2023-11-04 15:44:29', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('445', '1', '5', '4', 'Ingreso', '2023-11-04 15:44:39', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('446', '1', '1', '1', 'Ingreso', '2023-11-04 15:45:21', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('447', '1', '5', '1', 'Ingreso', '2023-11-04 15:45:37', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('448', '1', '5', '4', 'Ingreso', '2023-11-04 15:48:10', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('449', '1', '1', '1', 'Ingreso', '2023-11-04 17:35:08', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('450', '1', '5', '1', 'Ingreso', '2023-11-04 17:35:15', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('451', '1', '5', '4', 'Ingreso', '2023-11-04 17:35:25', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('452', '1', '5', '4', 'Ingreso', '2023-11-04 17:37:30', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('453', '1', '5', '4', 'Ingreso', '2023-11-04 17:38:36', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('454', '1', '1', '1', 'Ingreso', '2023-11-04 17:44:45', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('455', '1', '5', '1', 'Ingreso', '2023-11-04 17:45:23', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('456', '1', '5', '7', 'Ingreso', '2023-11-04 17:46:11', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES ('457', '1', '5', '11', 'Ingreso', '2023-11-04 17:48:15', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES ('458', '1', '1', '1', 'Ingreso', '2023-11-04 18:12:10', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('459', '1', '5', '1', 'Ingreso', '2023-11-04 18:12:44', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('460', '1', '5', '11', 'Ingreso', '2023-11-04 18:13:16', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES ('461', '1', '1', '1', 'Ingreso', '2023-11-04 18:14:41', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('462', '1', '5', '1', 'Ingreso', '2023-11-04 18:15:25', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('463', '1', '5', '7', 'Ingreso', '2023-11-04 18:15:38', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES ('464', '1', '5', '11', 'Ingreso', '2023-11-04 18:15:50', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES ('465', '1', '5', '11', 'Ingreso', '2023-11-04 18:20:56', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES ('466', '1', '1', '1', 'Ingreso', '2023-11-07 21:49:11', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('467', '1', '5', '1', 'Ingreso', '2023-11-07 21:49:20', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('468', '1', '5', '4', 'Ingreso', '2023-11-07 21:49:39', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('469', '1', '1', '1', 'Ingreso', '2023-11-07 22:12:14', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('470', '1', '5', '1', 'Ingreso', '2023-11-07 22:13:22', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('471', '1', '5', '4', 'Ingreso', '2023-11-07 22:13:39', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('472', '1', '1', '1', 'Ingreso', '2023-11-07 22:17:47', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('473', '1', '1', '1', 'Ingreso', '2023-11-07 22:26:50', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('474', '1', '5', '1', 'Ingreso', '2023-11-07 22:27:15', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('475', '1', '5', '1', 'Ingreso', '2023-11-07 22:27:23', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('476', '1', '5', '4', 'Ingreso', '2023-11-07 22:28:28', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('477', '1', '1', '1', 'Ingreso', '2023-11-07 22:30:19', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('478', '1', '5', '1', 'Ingreso', '2023-11-07 22:30:26', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('479', '1', '5', '4', 'Ingreso', '2023-11-07 22:30:36', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('480', '1', '5', '11', 'Ingreso', '2023-11-07 22:30:50', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES ('481', '1', '1', '1', 'Ingreso', '2023-11-08 18:11:21', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('482', '1', '5', '1', 'Ingreso', '2023-11-08 18:11:26', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('483', '1', '5', '4', 'Ingreso', '2023-11-08 18:11:42', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('484', '1', '1', '1', 'Ingreso', '2023-11-08 18:16:27', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('485', '1', '5', '1', 'Ingreso', '2023-11-08 18:16:32', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('486', '1', '5', '4', 'Ingreso', '2023-11-08 18:16:45', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('487', '1', '1', '1', 'Ingreso', '2023-11-08 18:21:25', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('488', '1', '5', '1', 'Ingreso', '2023-11-08 18:21:33', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('489', '1', '5', '4', 'Ingreso', '2023-11-08 18:21:44', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('490', '1', '1', '1', 'Ingreso', '2023-11-08 18:22:25', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('491', '1', '5', '1', 'Ingreso', '2023-11-08 18:22:30', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('492', '1', '5', '4', 'Ingreso', '2023-11-08 18:22:42', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('493', '1', '1', '1', 'Ingreso', '2023-11-08 18:23:14', 'Ingreso exitoso al sistema');
 
 -- ----------------------------
 -- Table structure for ingresos_egresos
@@ -1493,18 +1663,22 @@ CREATE TABLE `permisos` (
   `id_modulo` int NOT NULL,
   `nivel` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=575 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=637 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of permisos
 -- ----------------------------
 INSERT INTO `permisos` VALUES ('1', '1', '2', '0', '0');
-INSERT INTO `permisos` VALUES ('569', '1', '3', '0', '0');
-INSERT INTO `permisos` VALUES ('570', '1', '3', '2', '4');
-INSERT INTO `permisos` VALUES ('571', '1', '3', '3', '1');
-INSERT INTO `permisos` VALUES ('572', '1', '3', '5', '2');
-INSERT INTO `permisos` VALUES ('573', '1', '3', '8', '3');
-INSERT INTO `permisos` VALUES ('574', '1', '3', '9', '4');
+INSERT INTO `permisos` VALUES ('627', '1', '3', '0', '0');
+INSERT INTO `permisos` VALUES ('628', '1', '3', '2', '4');
+INSERT INTO `permisos` VALUES ('629', '1', '3', '3', '4');
+INSERT INTO `permisos` VALUES ('630', '1', '3', '5', '4');
+INSERT INTO `permisos` VALUES ('631', '1', '3', '8', '4');
+INSERT INTO `permisos` VALUES ('632', '1', '3', '9', '4');
+INSERT INTO `permisos` VALUES ('633', '1', '5', '0', '0');
+INSERT INTO `permisos` VALUES ('634', '1', '5', '4', '4');
+INSERT INTO `permisos` VALUES ('635', '1', '5', '11', '4');
+INSERT INTO `permisos` VALUES ('636', '1', '5', '7', '4');
 
 -- ----------------------------
 -- Table structure for recibos
@@ -1519,11 +1693,12 @@ CREATE TABLE `recibos` (
   PRIMARY KEY (`id`),
   KEY `id_dirigente` (`id_dirigente`),
   CONSTRAINT `id_dirigente` FOREIGN KEY (`id_dirigente`) REFERENCES `dirigentes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=464 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of recibos
 -- ----------------------------
+INSERT INTO `recibos` VALUES ('464', '2023-11-04', '1', '1', 'a');
 
 -- ----------------------------
 -- Table structure for secciones
@@ -1643,6 +1818,20 @@ END
 DELIMITER ;
 
 -- ----------------------------
+-- Procedure structure for sp_buscarAfiliadoPorDNI
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_buscarAfiliadoPorDNI`;
+DELIMITER ;;
+CREATE DEFINER=`admin`@`%` PROCEDURE `sp_buscarAfiliadoPorDNI`(IN dni_pattern VARCHAR(20))
+BEGIN
+    SELECT id, nombre
+    FROM afiliados
+    WHERE dni LIKE dni_pattern LIMIT 1;
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
 -- Procedure structure for sp_buscarAfiliados
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_buscarAfiliados`;
@@ -1663,6 +1852,20 @@ DELIMITER ;;
 CREATE DEFINER=`admin`@`%` PROCEDURE `sp_buscarDirigente`()
 BEGIN
     SELECT id, nombre,apellido FROM dirigentes;
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for sp_buscarDirigentePorDNI
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_buscarDirigentePorDNI`;
+DELIMITER ;;
+CREATE DEFINER=`admin`@`%` PROCEDURE `sp_buscarDirigentePorDNI`(IN dni_pattern VARCHAR(20))
+BEGIN
+    SELECT id, nombre
+    FROM dirigentes
+    WHERE dni LIKE dni_pattern LIMIT 1;
 END
 ;;
 DELIMITER ;
@@ -2278,6 +2481,22 @@ BEGIN
         cab.id = cab_id
     ORDER BY 
         det.id ASC;
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for sp_listarAsistenciasDirigentes
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_listarAsistenciasDirigentes`;
+DELIMITER ;;
+CREATE DEFINER=`admin`@`%` PROCEDURE `sp_listarAsistenciasDirigentes`()
+BEGIN
+    SELECT d.id as id_dirigente, d.apellido, d.nombre, d.dni 
+    FROM dirigentes d
+    INNER JOIN secretarias s ON d.id = s.id
+    WHERE d.estado = '1'
+    ORDER BY d.id ASC;
 END
 ;;
 DELIMITER ;

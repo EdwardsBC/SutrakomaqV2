@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'menu_contabilidadUmNDDj.ui'
+## Form generated from reading UI file 'menu_contabilidadAzBxqk.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -119,6 +119,9 @@ class Ui_MainWindow(object):
         self.actionRegistro_de_Recibos = QAction(MainWindow)
         self.actionRegistro_de_Recibos.setObjectName(u"actionRegistro_de_Recibos")
         self.actionRegistro_de_Recibos.setFont(font)
+        self.actionIr_al_Menu = QAction(MainWindow)
+        self.actionIr_al_Menu.setObjectName(u"actionIr_al_Menu")
+        self.actionIr_al_Menu.setFont(font)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -131,6 +134,8 @@ class Ui_MainWindow(object):
         self.menuInresos_y_Egresos.setObjectName(u"menuInresos_y_Egresos")
         self.menuRecibos = QMenu(self.menubar)
         self.menuRecibos.setObjectName(u"menuRecibos")
+        self.menuSalir = QMenu(self.menubar)
+        self.menuSalir.setObjectName(u"menuSalir")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -139,12 +144,14 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuCuotas.menuAction())
         self.menubar.addAction(self.menuInresos_y_Egresos.menuAction())
         self.menubar.addAction(self.menuRecibos.menuAction())
+        self.menubar.addAction(self.menuSalir.menuAction())
         self.menuCuotas.addAction(self.actionLista_de_Cuotas)
         self.menuCuotas.addAction(self.actionRegistro_de_Cuotas)
         self.menuInresos_y_Egresos.addAction(self.actionLista_de_Ingresos_y_Egresos)
         self.menuInresos_y_Egresos.addAction(self.actionRegistro_de_Ingresos_y_Egresos)
         self.menuRecibos.addAction(self.actionLista_de_Recibos)
         self.menuRecibos.addAction(self.actionRegistro_de_Recibos)
+        self.menuSalir.addAction(self.actionIr_al_Menu)
 
         self.retranslateUi(MainWindow)
 
@@ -159,8 +166,10 @@ class Ui_MainWindow(object):
         self.actionRegistro_de_Ingresos_y_Egresos.setText(QCoreApplication.translate("MainWindow", u"Registro de Ingresos y Egresos", None))
         self.actionLista_de_Recibos.setText(QCoreApplication.translate("MainWindow", u"Lista de Recibos", None))
         self.actionRegistro_de_Recibos.setText(QCoreApplication.translate("MainWindow", u"Registro de Recibos", None))
+        self.actionIr_al_Menu.setText(QCoreApplication.translate("MainWindow", u"Ir al Men\u00fa", None))
         self.menuCuotas.setTitle(QCoreApplication.translate("MainWindow", u"Cuotas", None))
         self.menuInresos_y_Egresos.setTitle(QCoreApplication.translate("MainWindow", u"Inresos y Egresos", None))
         self.menuRecibos.setTitle(QCoreApplication.translate("MainWindow", u"Recibos", None))
+        self.menuSalir.setTitle(QCoreApplication.translate("MainWindow", u"Salir", None))
     # retranslateUi
 

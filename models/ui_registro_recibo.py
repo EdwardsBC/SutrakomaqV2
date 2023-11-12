@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_reciboXnydRv.ui'
+## Form generated from reading UI file 'registro_reciboLVvblE.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(492, 318)
+        MainWindow.resize(492, 372)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -132,7 +132,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(30, 60, 431, 171))
+        self.groupBox_2.setGeometry(QRect(30, 60, 431, 221))
         palette1 = QPalette()
         palette1.setBrush(QPalette.Active, QPalette.WindowText, brush)
         brush8 = QBrush(QColor(180, 180, 180, 255))
@@ -201,21 +201,21 @@ class Ui_MainWindow(object):
         self.groupBox_2.setAutoFillBackground(True)
         self.label_4 = QLabel(self.groupBox_2)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(20, 127, 81, 16))
+        self.label_4.setGeometry(QRect(20, 157, 81, 16))
         self.label_3 = QLabel(self.groupBox_2)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(20, 92, 49, 16))
+        self.label_3.setGeometry(QRect(20, 122, 49, 16))
         self.label_2 = QLabel(self.groupBox_2)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(20, 24, 81, 16))
         self.label = QLabel(self.groupBox_2)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(20, 58, 49, 16))
+        self.label.setGeometry(QRect(20, 88, 49, 16))
         self.dateEdit = QDateEdit(self.groupBox_2)
         self.dateEdit.setObjectName(u"dateEdit")
-        self.dateEdit.setGeometry(QRect(110, 54, 290, 22))
+        self.dateEdit.setGeometry(QRect(110, 84, 290, 22))
         self.dateEdit.setFrame(True)
-        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 3), QTime(17, 0, 0)))
+        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 3), QTime(22, 0, 0)))
         self.dateEdit.setCurrentSection(QDateTimeEdit.DaySection)
         self.dateEdit.setCalendarPopup(True)
         self.lineEdit_3 = QLineEdit(self.groupBox_2)
@@ -223,17 +223,20 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setGeometry(QRect(149, 20, 251, 20))
         self.doubleSpinBox = QDoubleSpinBox(self.groupBox_2)
         self.doubleSpinBox.setObjectName(u"doubleSpinBox")
-        self.doubleSpinBox.setGeometry(QRect(110, 90, 291, 22))
+        self.doubleSpinBox.setGeometry(QRect(110, 120, 291, 22))
         self.doubleSpinBox.setFrame(True)
         self.doubleSpinBox.setButtonSymbols(QAbstractSpinBox.NoButtons)
         self.doubleSpinBox.setMaximum(9999999.990000000223517)
         self.lineEdit_4 = QLineEdit(self.groupBox_2)
         self.lineEdit_4.setObjectName(u"lineEdit_4")
-        self.lineEdit_4.setGeometry(QRect(110, 130, 290, 20))
+        self.lineEdit_4.setGeometry(QRect(110, 160, 290, 20))
         self.lineEdit_2 = QLineEdit(self.groupBox_2)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
         self.lineEdit_2.setEnabled(False)
         self.lineEdit_2.setGeometry(QRect(110, 20, 36, 20))
+        self.lineEdit_5 = QLineEdit(self.groupBox_2)
+        self.lineEdit_5.setObjectName(u"lineEdit_5")
+        self.lineEdit_5.setGeometry(QRect(110, 50, 291, 20))
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(40, 20, 71, 16))

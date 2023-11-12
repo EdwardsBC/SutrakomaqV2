@@ -663,3 +663,43 @@ def registrarHistorial(id_secretaria, id_seccion, id_modulo, interaccion, fechaH
             conn.close()
     else:
         print("No se pudo conectar a la base de datos")
+
+def buscarAfiliadoDNI(dni):
+    conn = connection()
+    cursor = conn.cursor()
+    try:
+        dni_pattern = f'{dni}%'  # Agregamos '%' antes del DNI
+        cursor.callproc("sp_buscarAfiliadoPorDNI", (dni_pattern,))
+        for result in cursor.stored_results():
+            rows = result.fetchall()
+            if rows:
+                return rows[0]
+            else:
+                print("No se encontraron resultados para el DNI:", dni)
+                return None
+    except mysql.connector.Error as err:
+        print(f"Error al llamar al procedimiento almacenado: {err}")
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+def buscarDirigenteDNI(dni):
+    conn = connection()
+    cursor = conn.cursor()
+    try:
+        dni_pattern = f'{dni}%'
+        cursor.callproc("sp_buscarDirigentePorDNI", (dni_pattern,))
+        for result in cursor.stored_results():
+            rows = result.fetchall()
+            if rows:
+                return rows[0]
+            else:
+                print("No se encontraron resultados para el DNI:", dni)
+                return None
+    except mysql.connector.Error as err:
+        print(f"Error al llamar al procedimiento almacenado: {err}")
+        return None
+    finally:
+        cursor.close()
+        conn.close()

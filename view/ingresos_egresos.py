@@ -1,5 +1,5 @@
 from database.connection import *
-from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog
+from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QWidget, QSizePolicy, QVBoxLayout
 from models.ui_lista_ingresos_egresos import Ui_MainWindow as Ui_MainWindow_Listaingresos_egresos
 from models.ui_registro_ingresos_egresos import Ui_MainWindow as Ui_MainWindow_Registroingresos_egresos
 from PySide6.QtCore import QDate, Qt
@@ -9,12 +9,14 @@ import pdfkit
 import os
 
 class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
-    def __init__(self):
+    def __init__(self,menu_contabilidad):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
         self.load()
+
+        self.menu_contabilidad = menu_contabilidad
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionExportar.triggered.connect(self.exportarExcel)
@@ -62,8 +64,7 @@ class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.registrar = RegistrarIngresosEgresos()
-            self.registrar.show()
+            self.menu_contabilidad.mostrar_registroCuotas()
         else:
             pass
 
@@ -149,8 +150,9 @@ class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
         for col in range(self.tableWidget.columnCount()):
             data.append(self.tableWidget.item(row, col).text())
 
-        self.close()
-        self.registrar = RegistrarIngresosEgresos()
+
+        self.registrar = RegistrarIngresosEgresos(self.menu_contabilidad, data)
+
         self.registrar.lineEdit.setText(data[0])
         fecha_formateada = data[1].split()[0] 
         self.registrar.dateEdit.setDate(QDate.fromString(fecha_formateada, "dd-MM-yyyy"))
@@ -162,15 +164,20 @@ class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
         self.registrar.doubleSpinBox.setValue(float(data[4]))
         self.registrar.doubleSpinBox_2.setValue(float(data[5]))
 
-        self.registrar.show()
+        self.close()
+
+        self.menu_contabilidad.layout.addWidget(self.registrar_cuotas)
+        self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
 class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egresos):
-    def __init__(self):
+    def __init__(self,menu_contabilidad,data=None):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
         self.load()
+
+        self.menu_contabilidad = menu_contabilidad
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionGrabar.triggered.connect(self.grabar)
@@ -187,8 +194,7 @@ class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egres
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.registrar = RegistrarIngresosEgresos()
-            self.registrar.show()
+            self.menu_contabilidad.mostrar_registroIngresosEgresos()
         else:
             pass
 
@@ -211,16 +217,12 @@ class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egres
                     editar_IngresoEgreso(id,fecha,concepto,tipo_movimiento,cantidad,saldo)
                     QMessageBox.information(self, "Éxito", "Se ha editado el registro con exito.")
                     self.close()
-
-                    self.listar = ListarIngresosEgresos()
-                    self.listar.show()
+                    self.menu_contabilidad.mostrar_listarIngresosEgresos()
                 else:
                     guardar_IngresoEgreso(fecha,concepto,tipo_movimiento,cantidad,saldo)
                     QMessageBox.information(self, "Éxito", "Se ha guardado el registro correctamente.")
                     self.close()
-
-                    self.listar = ListarIngresosEgresos()
-                    self.listar.show()
+                    self.menu_contabilidad.mostrar_listarIngresosEgresos()
             else:
                 QMessageBox.warning(self, "Advertencia", "Los campos que contienen un (*) son obligatorios.")
         else:
@@ -246,8 +248,7 @@ class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egres
                 QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
                 self.close()
 
-                self.listar = ListarIngresosEgresos()
-                self.listar.show()
+                self.menu_contabilidad.mostrar_listarIngresosEgresos()
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 
@@ -255,8 +256,6 @@ class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egres
         respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar la ventana de registro?", QMessageBox.Yes | QMessageBox.No)
 
         if respuesta == QMessageBox.Yes:
-            self.listar = ListarIngresosEgresos()
-            self.listar.show()
             self.close()
         else:
             pass 

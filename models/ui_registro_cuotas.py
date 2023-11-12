@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_cuotaszxyHwB.ui'
+## Form generated from reading UI file 'registro_cuotastFzWIb.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(524, 307)
+        MainWindow.resize(524, 364)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -99,33 +99,34 @@ class Ui_MainWindow(object):
 #endif
         MainWindow.setPalette(palette)
         font = QFont()
+        font.setFamilies([u"Verdana"])
         font.setPointSize(10)
         font.setBold(True)
         MainWindow.setFont(font)
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
-        icon.addFile(u":/icons/app/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionNuevo.setIcon(icon)
         self.actionGrabar = QAction(MainWindow)
         self.actionGrabar.setObjectName(u"actionGrabar")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/app/resources/icons/grabar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/resources/icons/grabar.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionGrabar.setIcon(icon1)
         self.actionEliminar = QAction(MainWindow)
         self.actionEliminar.setObjectName(u"actionEliminar")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/app/resources/icons/eliminar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/icons/resources/icons/eliminar.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionEliminar.setIcon(icon2)
         self.actionImprimir = QAction(MainWindow)
         self.actionImprimir.setObjectName(u"actionImprimir")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/app/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionImprimir.setIcon(icon3)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
         icon4 = QIcon()
-        icon4.addFile(u":/icons/app/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionSalir.setIcon(icon4)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -135,7 +136,7 @@ class Ui_MainWindow(object):
         self.label_5.setFont(font)
         self.groupBox_3 = QGroupBox(self.centralwidget)
         self.groupBox_3.setObjectName(u"groupBox_3")
-        self.groupBox_3.setGeometry(QRect(20, 60, 481, 61))
+        self.groupBox_3.setGeometry(QRect(20, 60, 481, 81))
         palette1 = QPalette()
         palette1.setBrush(QPalette.Active, QPalette.WindowText, brush)
         brush8 = QBrush(QColor(180, 180, 180, 255))
@@ -212,9 +213,12 @@ class Ui_MainWindow(object):
         self.lineEdit_3 = QLineEdit(self.groupBox_3)
         self.lineEdit_3.setObjectName(u"lineEdit_3")
         self.lineEdit_3.setGeometry(QRect(160, 23, 311, 20))
+        self.lineEdit_4 = QLineEdit(self.groupBox_3)
+        self.lineEdit_4.setObjectName(u"lineEdit_4")
+        self.lineEdit_4.setGeometry(QRect(110, 50, 361, 20))
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(20, 130, 481, 91))
+        self.groupBox_2.setGeometry(QRect(20, 160, 481, 91))
         palette2 = QPalette()
         palette2.setBrush(QPalette.Active, QPalette.WindowText, brush)
         palette2.setBrush(QPalette.Active, QPalette.Button, brush8)
@@ -299,7 +303,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 524, 23))
+        self.menubar.setGeometry(QRect(0, 0, 524, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

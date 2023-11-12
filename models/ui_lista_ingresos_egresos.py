@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'lista_ingresos_egresosWCOOUb.ui'
+## Form generated from reading UI file 'lista_ingresos_egresoswfDjOW.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(397, 442)
+        MainWindow.resize(970, 442)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -99,38 +99,39 @@ class Ui_MainWindow(object):
 #endif
         MainWindow.setPalette(palette)
         font = QFont()
+        font.setFamilies([u"Verdana"])
         font.setPointSize(10)
         font.setBold(True)
         MainWindow.setFont(font)
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
-        icon.addFile(u":/icons/app/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionNuevo.setIcon(icon)
         self.actionExportar = QAction(MainWindow)
         self.actionExportar.setObjectName(u"actionExportar")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/app/resources/icons/exportar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/resources/icons/exportar.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionExportar.setIcon(icon1)
         self.actionImprimir = QAction(MainWindow)
         self.actionImprimir.setObjectName(u"actionImprimir")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/app/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionImprimir.setIcon(icon2)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/app/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionSalir.setIcon(icon3)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(190, 18, 171, 20))
+        self.lineEdit.setGeometry(QRect(230, 18, 331, 20))
         self.lineEdit.setFont(font)
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(10, 20, 181, 16))
+        self.label.setGeometry(QRect(10, 20, 211, 16))
         self.label.setFont(font)
         self.tableWidget = QTableWidget(self.centralwidget)
         if (self.tableWidget.columnCount() < 6):
@@ -148,11 +149,11 @@ class Ui_MainWindow(object):
         __qtablewidgetitem5 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(10, 50, 371, 301))
+        self.tableWidget.setGeometry(QRect(10, 50, 931, 301))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 397, 23))
+        self.menubar.setGeometry(QRect(0, 0, 970, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

@@ -34,7 +34,6 @@ class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
         self.tableWidget.setColumnHidden(9, True)
         self.listar()
 
-
     def listar(self):
         sp = "sp_listarAfiliados()"
         afiliados = Listar(sp)

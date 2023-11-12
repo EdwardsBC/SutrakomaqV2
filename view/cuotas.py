@@ -1,6 +1,6 @@
 from models.ui_buscar_Afiliado import Ui_MainWindow as Ui_MainWindow_buscarAfiliado
 from models.ui_registro_cuotas import Ui_MainWindow as Ui_MainWindow_RegistroCuotas
-from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog
+from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QWidget, QSizePolicy, QVBoxLayout
 from models.ui_lista_cuotas import Ui_MainWindow as Ui_MainWindow_ListaCuotas
 from database.connection import *
 from PySide6.QtCore import Qt
@@ -10,12 +10,14 @@ import pdfkit
 import os
 
 class ListarCuotas(QMainWindow, Ui_MainWindow_ListaCuotas):
-    def __init__(self):
+    def __init__(self,menu_contabilidad):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
         self.load()
+
+        self.menu_contabilidad = menu_contabilidad
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionExportar.triggered.connect(self.exportarExcel)
@@ -26,9 +28,9 @@ class ListarCuotas(QMainWindow, Ui_MainWindow_ListaCuotas):
         self.tableWidget.itemDoubleClicked.connect(self.enviarSeleccionado)
 
     def load(self):
-        self.listar()
         self.tableWidget.setColumnHidden(0, True)
         self.tableWidget.setColumnHidden(1, True)
+        self.listar()
 
     def listar(self):
         sp = "sp_listarCuotas()"
@@ -53,8 +55,7 @@ class ListarCuotas(QMainWindow, Ui_MainWindow_ListaCuotas):
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.registrar = RegistrarCuotas()
-            self.registrar.show()
+            self.menu_contabilidad.mostrar_registroCuotas()
         else:
             pass
 
@@ -140,32 +141,46 @@ class ListarCuotas(QMainWindow, Ui_MainWindow_ListaCuotas):
         for col in range(self.tableWidget.columnCount()):
             data.append(self.tableWidget.item(row, col).text())
 
-        self.close()
-        self.registrar = RegistrarCuotas()
-        self.registrar.lineEdit.setText(data[0])
-        self.registrar.lineEdit_2.setText(data[1])
-        self.registrar.lineEdit_3.setText(data[2]+ " "+ data[3])
-        self.registrar.doubleSpinBox.setValue(float(data[4]))
-        self.registrar.doubleSpinBox_2.setValue(float(data[5]))
+        self.registrar_cuotas = RegistrarCuotas(self.menu_contabilidad, data)
 
-        self.registrar.doubleSpinBox.setFocus()
-        self.registrar.show()
+        self.registrar_cuotas.lineEdit.setText(data[0])
+        self.registrar_cuotas.lineEdit_2.setText(data[1])
+        self.registrar_cuotas.lineEdit_3.setText(data[2]+ " "+ data[3])
+        self.registrar_cuotas.doubleSpinBox.setValue(float(data[4]))
+        self.registrar_cuotas.doubleSpinBox_2.setValue(float(data[5]))
+
+        self.registrar_cuotas.doubleSpinBox.setFocus()
+
+        self.close()
+
+        self.menu_contabilidad.layout.addWidget(self.registrar_cuotas)
+        self.registrar_cuotas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
 class RegistrarCuotas(QMainWindow, Ui_MainWindow_RegistroCuotas):
-    def __init__(self):
+    def __init__(self,menu_contabilidad,data=None):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
         self.load()
 
+        self.menu_contabilidad = menu_contabilidad
+
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionGrabar.triggered.connect(self.grabar)
         self.actionEliminar.triggered.connect(self.eliminar)
         self.actionImprimir.triggered.connect(self.exportarPdf)
         self.actionSalir.triggered.connect(self.cerrar)
+        self.lineEdit_3.textChanged.connect(self.buscarAfiliado)
 
-        self.lineEdit_3.editingFinished.connect(self.show_popup)
+    def buscarAfiliado(self):
+        valor_a_buscar = str(self.lineEdit_3.text())
+        if len(valor_a_buscar) >= 8:
+            resultado = buscarAfiliadoDNI(valor_a_buscar)
+
+            if resultado:
+                self.lineEdit_2.setText(str(resultado[0]))
+                self.lineEdit_4.setText(resultado[1])
 
     def load(self):
         self.actionImprimir.setEnabled(False)
@@ -175,10 +190,9 @@ class RegistrarCuotas(QMainWindow, Ui_MainWindow_RegistroCuotas):
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.registrar = RegistrarCuotas()
-            self.registrar.show()
+            self.menu_contabilidad.mostrar_registroCuotas()
         else:
-            pass
+            pass 
 
     def grabar(self):
         respuesta = QMessageBox.question(self, "Grabar registro", "¿Desea grabar un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
@@ -200,9 +214,7 @@ class RegistrarCuotas(QMainWindow, Ui_MainWindow_RegistroCuotas):
                 QMessageBox.warning(self, "Advertencia", "Los campos que contienen un (*) son obligatorios.")
 
             self.close()
-
-            self.listar = ListarCuotas()
-            self.listar.show()
+            self.menu_contabilidad.mostrar_listarCuotas()
         else:
             pass 
 
@@ -217,9 +229,7 @@ class RegistrarCuotas(QMainWindow, Ui_MainWindow_RegistroCuotas):
                 Eliminar(sp,id)
                 QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
                 self.close()
-
-                self.listar = ListarCuotas()
-                self.listar.show()
+                self.menu_contabilidad.mostrar_listarCuotas()
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 
@@ -230,88 +240,6 @@ class RegistrarCuotas(QMainWindow, Ui_MainWindow_RegistroCuotas):
         respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar la ventana de registro?", QMessageBox.Yes | QMessageBox.No)
 
         if respuesta == QMessageBox.Yes:
-            self.listar = ListarCuotas()
-            self.listar.show()
             self.close()
         else:
             pass 
-
-    def show_popup(self):
-        self.buscar = BuscarAfiliado()
-        self.buscar.show()
-        self.close()
-
-
-class BuscarAfiliado(QMainWindow, Ui_MainWindow_buscarAfiliado):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-        self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
-
-        self.load()
-        
-        self.tableWidget.itemDoubleClicked.connect(self.enviarSeleccionado)
-        self.lineEdit.textChanged.connect(self.buscar)
-        self.actionSalir.triggered.connect(self.cerrar)
-
-    def load(self):
-        self.listar()
-
-    def listar(self):
-        afiliados = buscar_Afiliados()
-
-        if afiliados is not None:
-            self.tableWidget.setRowCount(len(afiliados))
-            self.tableWidget.setColumnCount(len(afiliados[0]))
-            self.tableWidget.setHorizontalHeaderLabels([])
-
-            for row_idx, row_data in enumerate(afiliados):
-                for col_idx, cell_data in enumerate(row_data):
-                    item = QTableWidgetItem(str(cell_data))
-                    self.tableWidget.setItem(row_idx, col_idx, item)
-
-
-            self.tableWidget.resizeColumnsToContents()
-        else:
-            QMessageBox.information(self, "Alerta", "No se han encontrado datos que listar.")
-
-    def enviarSeleccionado(self,item):
-        row = item.row()
-        data = []
-        for col in range(self.tableWidget.columnCount()):
-            data.append(self.tableWidget.item(row, col).text())
-
-        self.registrar = RegistrarCuotas()
-
-        self.registrar.lineEdit_2.setText(data[0])
-        self.registrar.lineEdit_3.setText(data[1])
-        self.close()
-        self.registrar.close()
-        self.registrar.show()
-        self.registrar.doubleSpinBox.setFocus()
-
-    def buscar(self,texto):
-        num_filas = self.tableWidget.rowCount()
-
-        for fila in range(num_filas):
-            nombree = self.tableWidget.item(fila, 1)
-            apellido = self.tableWidget.item(fila, 2)
-
-            if nombree is not None and apellido is not None:
-                afiliado = nombree.text()
-                concepto = apellido.text().lower()
-
-                if texto.lower() in afiliado.lower() or texto.lower() in concepto:
-                    self.tableWidget.setRowHidden(fila, False)
-                else:
-                    self.tableWidget.setRowHidden(fila, True)
-
-    def cerrar(self):
-        respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No)
-
-        if respuesta == QMessageBox.Yes:
-            self.close()
-            self.registrar = RegistrarCuotas()
-            self.registrar.show()
-        else:
-            pass

@@ -69,7 +69,7 @@ class MenuRegistros(QMainWindow, Ui_MainWindow_Menu_Registros):
 
     def mostrar_listarInventario(self):
         self.mostrar(8, ListarInventarios, "Ingreso exitoso a Listado de Inventario", "Usted no cuenta con los permisos necesarios.")
-
+    
     def mostrar_listarLicencias(self):
         self.mostrar(9, ListarLicencias, "Ingreso exitoso a Listado de Licencias", "Usted no cuenta con los permisos necesarios.")
 

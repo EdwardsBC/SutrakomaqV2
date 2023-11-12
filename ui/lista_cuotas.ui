@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>574</width>
+    <width>871</width>
     <height>455</height>
    </rect>
   </property>
@@ -490,9 +490,16 @@
      <rect>
       <x>30</x>
       <y>40</y>
-      <width>511</width>
+      <width>831</width>
       <height>331</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>10</pointsize>
+      <bold>true</bold>
+     </font>
     </property>
     <column>
      <property name="text">
@@ -531,7 +538,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>574</width>
+     <width>871</width>
      <height>23</height>
     </rect>
    </property>
@@ -558,8 +565,8 @@
   </widget>
   <action name="actionNuevo">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/nuevo.png</normaloff>:/icons/app/resources/icons/nuevo.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/nuevo.png</normaloff>:/icons/resources/icons/nuevo.png</iconset>
    </property>
    <property name="text">
     <string>Nuevo</string>
@@ -567,8 +574,8 @@
   </action>
   <action name="actionExportar">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/exportar.png</normaloff>:/icons/app/resources/icons/exportar.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/exportar.png</normaloff>:/icons/resources/icons/exportar.png</iconset>
    </property>
    <property name="text">
     <string>Exportar</string>
@@ -576,8 +583,8 @@
   </action>
   <action name="actionImprimir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/imprimir.png</normaloff>:/icons/app/resources/icons/imprimir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/imprimir.png</normaloff>:/icons/resources/icons/imprimir.png</iconset>
    </property>
    <property name="text">
     <string>Imprimir</string>
@@ -585,8 +592,8 @@
   </action>
   <action name="actionSalir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/salir.png</normaloff>:/icons/app/resources/icons/salir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/salir.png</normaloff>:/icons/resources/icons/salir.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -594,7 +601,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

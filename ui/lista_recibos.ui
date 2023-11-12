@@ -454,6 +454,7 @@
   </property>
   <property name="font">
    <font>
+    <family>Verdana</family>
     <pointsize>10</pointsize>
     <bold>true</bold>
    </font>
@@ -467,7 +468,7 @@
      <rect>
       <x>20</x>
       <y>100</y>
-      <width>901</width>
+      <width>931</width>
       <height>391</height>
      </rect>
     </property>
@@ -505,36 +506,7 @@
    <widget class="QDateEdit" name="dateEdit_6">
     <property name="geometry">
      <rect>
-      <x>169</x>
-      <y>27</y>
-      <width>161</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="frame">
-     <bool>true</bool>
-    </property>
-    <property name="dateTime">
-     <datetime>
-      <hour>17</hour>
-      <minute>0</minute>
-      <second>0</second>
-      <year>2000</year>
-      <month>1</month>
-      <day>3</day>
-     </datetime>
-    </property>
-    <property name="currentSection">
-     <enum>QDateTimeEdit::DaySection</enum>
-    </property>
-    <property name="calendarPopup">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QDateEdit" name="dateEdit_7">
-    <property name="geometry">
-     <rect>
-      <x>357</x>
+      <x>195</x>
       <y>27</y>
       <width>161</width>
       <height>22</height>
@@ -560,12 +532,41 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QDateEdit" name="dateEdit_7">
+    <property name="geometry">
+     <rect>
+      <x>383</x>
+      <y>27</y>
+      <width>161</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="dateTime">
+     <datetime>
+      <hour>3</hour>
+      <minute>0</minute>
+      <second>0</second>
+      <year>2000</year>
+      <month>1</month>
+      <day>4</day>
+     </datetime>
+    </property>
+    <property name="currentSection">
+     <enum>QDateTimeEdit::DaySection</enum>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>29</x>
       <y>30</y>
-      <width>171</width>
+      <width>161</width>
       <height>16</height>
      </rect>
     </property>
@@ -576,7 +577,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>339</x>
+      <x>365</x>
       <y>30</y>
       <width>21</width>
       <height>16</height>
@@ -602,7 +603,7 @@
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>169</x>
+      <x>195</x>
       <y>60</y>
       <width>351</width>
       <height>22</height>
@@ -612,7 +613,7 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>229</x>
+      <x>255</x>
       <y>10</y>
       <width>51</width>
       <height>16</height>
@@ -625,7 +626,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>414</x>
+      <x>440</x>
       <y>9</y>
       <width>51</width>
       <height>16</height>
@@ -642,7 +643,7 @@
      <x>0</x>
      <y>0</y>
      <width>967</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

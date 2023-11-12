@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
+    <width>970</width>
     <height>442</height>
    </rect>
   </property>
@@ -454,6 +454,7 @@
   </property>
   <property name="font">
    <font>
+    <family>Verdana</family>
     <pointsize>10</pointsize>
     <bold>true</bold>
    </font>
@@ -465,14 +466,15 @@
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>230</x>
       <y>18</y>
-      <width>171</width>
+      <width>331</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -486,12 +488,13 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>181</width>
+      <width>211</width>
       <height>16</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -505,7 +508,7 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>371</width>
+      <width>931</width>
       <height>301</height>
      </rect>
     </property>
@@ -546,8 +549,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>397</width>
-     <height>23</height>
+     <width>970</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -573,8 +576,8 @@
   </widget>
   <action name="actionNuevo">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/nuevo.png</normaloff>:/icons/app/resources/icons/nuevo.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/nuevo.png</normaloff>:/icons/resources/icons/nuevo.png</iconset>
    </property>
    <property name="text">
     <string>Nuevo</string>
@@ -582,8 +585,8 @@
   </action>
   <action name="actionExportar">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/exportar.png</normaloff>:/icons/app/resources/icons/exportar.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/exportar.png</normaloff>:/icons/resources/icons/exportar.png</iconset>
    </property>
    <property name="text">
     <string>Exportar</string>
@@ -591,8 +594,8 @@
   </action>
   <action name="actionImprimir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/imprimir.png</normaloff>:/icons/app/resources/icons/imprimir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/imprimir.png</normaloff>:/icons/resources/icons/imprimir.png</iconset>
    </property>
    <property name="text">
     <string>Imprimir</string>
@@ -600,8 +603,8 @@
   </action>
   <action name="actionSalir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/salir.png</normaloff>:/icons/app/resources/icons/salir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/salir.png</normaloff>:/icons/resources/icons/salir.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -609,7 +612,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -575,7 +575,6 @@ class RegistrarAsistenciasDirigentes(QMainWindow, Ui_MainWindow_registroAsistenc
         else:
             QMessageBox.information(self, "Alerta", "No se han encontrado datos que listar.")
 
-
 class ProgressDialog(QDialog):
     def __init__(self, maximum, parent=None):
         super().__init__(parent)

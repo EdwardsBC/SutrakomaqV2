@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'lista_cuotasUtlPzl.ui'
+## Form generated from reading UI file 'lista_cuotaskAbyZZ.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(574, 455)
+        MainWindow.resize(871, 455)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -105,22 +105,22 @@ class Ui_MainWindow(object):
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
-        icon.addFile(u":/icons/app/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionNuevo.setIcon(icon)
         self.actionExportar = QAction(MainWindow)
         self.actionExportar.setObjectName(u"actionExportar")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/app/resources/icons/exportar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/resources/icons/exportar.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionExportar.setIcon(icon1)
         self.actionImprimir = QAction(MainWindow)
         self.actionImprimir.setObjectName(u"actionImprimir")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/app/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionImprimir.setIcon(icon2)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/app/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionSalir.setIcon(icon3)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -146,11 +146,16 @@ class Ui_MainWindow(object):
         __qtablewidgetitem5 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(30, 40, 511, 331))
+        self.tableWidget.setGeometry(QRect(30, 40, 831, 331))
+        font1 = QFont()
+        font1.setFamilies([u"Verdana"])
+        font1.setPointSize(10)
+        font1.setBold(True)
+        self.tableWidget.setFont(font1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 574, 23))
+        self.menubar.setGeometry(QRect(0, 0, 871, 23))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

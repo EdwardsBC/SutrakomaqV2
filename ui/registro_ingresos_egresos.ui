@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>481</width>
+    <width>526</width>
     <height>352</height>
    </rect>
   </property>
@@ -454,6 +454,7 @@
   </property>
   <property name="font">
    <font>
+    <family>Verdana</family>
     <pointsize>10</pointsize>
     <bold>true</bold>
    </font>
@@ -467,12 +468,13 @@
      <rect>
       <x>30</x>
       <y>20</y>
-      <width>111</width>
+      <width>121</width>
       <height>16</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -486,7 +488,7 @@
      <rect>
       <x>20</x>
       <y>60</y>
-      <width>431</width>
+      <width>481</width>
       <height>201</height>
      </rect>
     </property>
@@ -934,6 +936,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -975,7 +978,7 @@
       <rect>
        <x>20</x>
        <y>65</y>
-       <width>81</width>
+       <width>91</width>
        <height>16</height>
       </rect>
      </property>
@@ -1012,9 +1015,9 @@
     <widget class="QDateEdit" name="dateEdit">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>120</x>
        <y>30</y>
-       <width>290</width>
+       <width>341</width>
        <height>22</height>
       </rect>
      </property>
@@ -1023,7 +1026,7 @@
      </property>
      <property name="dateTime">
       <datetime>
-       <hour>8</hour>
+       <hour>13</hour>
        <minute>0</minute>
        <second>0</second>
        <year>2000</year>
@@ -1041,9 +1044,9 @@
     <widget class="QLineEdit" name="lineEdit_2">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>120</x>
        <y>60</y>
-       <width>291</width>
+       <width>341</width>
        <height>20</height>
       </rect>
      </property>
@@ -1051,9 +1054,9 @@
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>120</x>
        <y>90</y>
-       <width>291</width>
+       <width>341</width>
        <height>22</height>
       </rect>
      </property>
@@ -1071,9 +1074,9 @@
     <widget class="QDoubleSpinBox" name="doubleSpinBox">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>120</x>
        <y>120</y>
-       <width>291</width>
+       <width>341</width>
        <height>22</height>
       </rect>
      </property>
@@ -1090,9 +1093,9 @@
     <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>120</x>
        <y>150</y>
-       <width>291</width>
+       <width>341</width>
        <height>22</height>
       </rect>
      </property>
@@ -1113,14 +1116,15 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>20</y>
+      <x>170</x>
+      <y>18</y>
       <width>101</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -1132,8 +1136,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>481</width>
-     <height>23</height>
+     <width>526</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -1160,8 +1164,8 @@
   </widget>
   <action name="actionNuevo">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/nuevo.png</normaloff>:/icons/app/resources/icons/nuevo.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/nuevo.png</normaloff>:/icons/resources/icons/nuevo.png</iconset>
    </property>
    <property name="text">
     <string>Nuevo</string>
@@ -1169,8 +1173,8 @@
   </action>
   <action name="actionGrabar">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/grabar.png</normaloff>:/icons/app/resources/icons/grabar.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/grabar.png</normaloff>:/icons/resources/icons/grabar.png</iconset>
    </property>
    <property name="text">
     <string>Grabar</string>
@@ -1178,8 +1182,8 @@
   </action>
   <action name="actionEliminar">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/eliminar.png</normaloff>:/icons/app/resources/icons/eliminar.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/eliminar.png</normaloff>:/icons/resources/icons/eliminar.png</iconset>
    </property>
    <property name="text">
     <string>Eliminar</string>
@@ -1187,8 +1191,8 @@
   </action>
   <action name="actionImprimir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/imprimir.png</normaloff>:/icons/app/resources/icons/imprimir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/imprimir.png</normaloff>:/icons/resources/icons/imprimir.png</iconset>
    </property>
    <property name="text">
     <string>Imprimir</string>
@@ -1196,8 +1200,8 @@
   </action>
   <action name="actionSalir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/salir.png</normaloff>:/icons/app/resources/icons/salir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/salir.png</normaloff>:/icons/resources/icons/salir.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -1205,7 +1209,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>
