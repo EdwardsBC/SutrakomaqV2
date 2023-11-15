@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80026
 File Encoding         : 65001
 
-Date: 2023-11-10 23:15:54
+Date: 2023-11-14 23:03:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -876,7 +876,7 @@ CREATE TABLE `historial` (
   `fechaHora` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `detalle` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=494 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=504 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of historial
@@ -1120,6 +1120,16 @@ INSERT INTO `historial` VALUES ('490', '1', '1', '1', 'Ingreso', '2023-11-08 18:
 INSERT INTO `historial` VALUES ('491', '1', '5', '1', 'Ingreso', '2023-11-08 18:22:30', 'Ingreso exitoso a Contabilidad');
 INSERT INTO `historial` VALUES ('492', '1', '5', '4', 'Ingreso', '2023-11-08 18:22:42', 'Ingreso exitoso a Listado de Cuotas');
 INSERT INTO `historial` VALUES ('493', '1', '1', '1', 'Ingreso', '2023-11-08 18:23:14', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('494', '1', '1', '1', 'Ingreso', '2023-11-12 16:06:29', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES ('495', '1', '3', '1', 'Ingreso', '2023-11-12 16:06:36', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('496', '1', '3', '1', 'Ingreso', '2023-11-12 16:07:40', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES ('497', '1', '5', '1', 'Ingreso', '2023-11-12 16:08:08', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES ('498', '1', '5', '4', 'Ingreso', '2023-11-12 16:08:29', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES ('499', '1', '5', '4', 'Ingreso', '2023-11-12 16:08:44', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES ('500', '1', '5', '7', 'Ingreso', '2023-11-12 16:09:02', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES ('501', '1', '5', '11', 'Ingreso', '2023-11-12 16:09:20', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES ('502', '1', '5', '11', 'Ingreso', '2023-11-12 16:09:35', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES ('503', '1', '2', '1', 'Ingreso', '2023-11-12 16:09:51', 'Ingreso exitoso a Configuracion');
 
 -- ----------------------------
 -- Table structure for ingresos_egresos
