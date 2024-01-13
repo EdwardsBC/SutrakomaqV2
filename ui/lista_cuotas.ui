@@ -508,27 +508,22 @@
     </column>
     <column>
      <property name="text">
-      <string>ID AFILIADO</string>
+      <string>FECHA</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>NOMBRE</string>
+      <string>CUOTA</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>APELLIDO</string>
+      <string>MULTA</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>CUOTA ORDINARIA</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>CUOTA ANUAL</string>
+      <string>TOTAL</string>
      </property>
     </column>
    </widget>

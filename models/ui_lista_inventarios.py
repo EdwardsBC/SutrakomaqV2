@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'lista_inventariosCwREhL.ui'
+## Form generated from reading UI file 'lista_inventariosNKZWLc.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -16,9 +16,10 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QHeaderView, QLabel, QLineEdit,
-    QMainWindow, QMenuBar, QSizePolicy, QStatusBar,
-    QTableWidget, QTableWidgetItem, QToolBar, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHeaderView, QLabel,
+    QLineEdit, QMainWindow, QMenuBar, QSizePolicy,
+    QStatusBar, QTableWidget, QTableWidgetItem, QToolBar,
+    QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -163,7 +164,9 @@ class Ui_MainWindow(object):
         __qtablewidgetitem12 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(12, __qtablewidgetitem12)
         self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setEnabled(True)
         self.tableWidget.setGeometry(QRect(20, 50, 1291, 561))
+        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")

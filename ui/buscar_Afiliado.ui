@@ -452,6 +452,13 @@
     </disabled>
    </palette>
   </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+    <pointsize>10</pointsize>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -467,6 +474,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -516,6 +524,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -527,14 +536,15 @@
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>170</x>
       <y>20</y>
-      <width>231</width>
+      <width>321</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -558,6 +568,7 @@
   <widget class="QToolBar" name="toolBar">
    <property name="font">
     <font>
+     <family>Verdana</family>
      <pointsize>10</pointsize>
      <bold>true</bold>
     </font>
@@ -578,8 +589,8 @@
   </widget>
   <action name="actionSalir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/salir.png</normaloff>:/icons/app/resources/icons/salir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/salir.png</normaloff>:/icons/resources/icons/salir.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -587,7 +598,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

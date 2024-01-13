@@ -10,12 +10,16 @@ from sqlalchemy import create_engine
 
 class Permisos(QMainWindow, Ui_MainWindowPermisos):
     global_var = GlobalVar()
-    def __init__(self,menu_configuracion):
+    def __init__(self,menu_configuracion, engine):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
-        self.load()
+
         self.menu_configuracion = menu_configuracion
+        self.engine = engine
+
+        self.load()
+
         self.lineEdit.setText(self.global_var.secretaria if self.global_var.secretaria else "Variable no definida")
         self.actionGrabar.triggered.connect(self.grabar)
         self.checkBox.stateChanged.connect(lambda state: self.setComboBoxEnabledState(2, 7, self.checkBox.isChecked()))
@@ -33,6 +37,7 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
 
     def load(self):
         self.checkBox.setChecked(True)
+        self.checkBox_2.setChecked(True)
         secretarias = obtener_secretarias()
         for secretaria in secretarias:
             self.comboBox.addItem(secretaria[0])

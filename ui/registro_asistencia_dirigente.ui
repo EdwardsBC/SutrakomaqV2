@@ -452,6 +452,13 @@
     </disabled>
    </palette>
   </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+    <pointsize>10</pointsize>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -462,7 +469,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>179</x>
+      <x>180</x>
       <y>18</y>
       <width>161</width>
       <height>20</height>
@@ -1000,7 +1007,7 @@
      </property>
      <property name="dateTime">
       <datetime>
-       <hour>6</hour>
+       <hour>21</hour>
        <minute>0</minute>
        <second>0</second>
        <year>2000</year>
@@ -1042,7 +1049,7 @@
       <x>30</x>
       <y>160</y>
       <width>991</width>
-      <height>291</height>
+      <height>341</height>
      </rect>
     </property>
     <property name="font">

@@ -411,31 +411,6 @@ def buscar_Dirigente():
             return None
     else:
         return None
-    
-
-def login(username, password):
-    conn = connection()
-    if conn is not None:
-        try:
-            cursor = conn.cursor()
-            
-            cursor.callproc('sp_login', (username, password))
-
-            result = None
-            for res in cursor.stored_results():
-                result = res.fetchall()
-
-            conn.commit()
-
-            return result
-
-        except mysql.connector.Error as error:
-            print("Error:", error)
-            
-        finally:
-            if conn.is_connected():
-                cursor.close()
-                conn.close()
 
 def obtener_afiliado_por_dni(dni):
     conn = connection()
@@ -524,12 +499,12 @@ def obtener_asistencias_cab(id):
     else:
         return None
     
-def actualizar_asistencia_cab(id, asamblea, fecha):
+def actualizar_asistencia_cab(id, asamblea, fecha, descripcion):
     conn = connection()
     if conn is not None:
         try:
             cursor = conn.cursor()
-            cursor.execute("UPDATE asistencias_cab SET asamblea = %s, fecha = %s WHERE id = %s", (asamblea, fecha, id))
+            cursor.execute("UPDATE asistencias_cab SET asamblea = %s, fecha = %s, descripcion = %s WHERE id = %s", (asamblea, fecha, descripcion, id))
             conn.commit()
             conn.close()
         except mysql.connector.Error as e:

@@ -4,22 +4,14 @@
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr>
-<td style="width: 12.5%; text-align: center;">ID</td>
-<td style="width: 12.5%; text-align: center;">NOMBRE</td>
-<td style="width: 12.5%; text-align: center;">APELLIDO</td>
-<td style="width: 12.5%; text-align: center;">ASAMBLEA</td>
-<td style="width: 12.5%; text-align: center;">FECHA</td>
-<td style="width: 12.5%; text-align: center;">MULTA</td>
+<td style="width: 12.5%; text-align: center;">TIPO DE ASAMBLEA</td>
+<td style="width: 12.5%; text-align: center;">FECHA DE ASAMBLEA</td>
 </tr>
 {% for result in results %}
 <tr>
-    <td style="width: 12.5%; text-align: center;">{{result[0]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[1]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[2]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[4]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[5]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[6]}}</td>
     </tr>
 {% endfor %}
 </tbody>
-</table>
+</table>mm

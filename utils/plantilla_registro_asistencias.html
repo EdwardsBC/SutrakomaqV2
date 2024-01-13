@@ -1,0 +1,50 @@
+<h1 style="text-align: center;"><img style="float: left;" src="https://i.imgur.com/aMiUUnO.jpg" alt="" width="70" height="80" /><strong><span style="color: #800000;">LISTADO DE AFILIADOS</span></strong></h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr>
+    <td style="width: 12.5%; text-align: center;">APELLIDOS Y NOMBRES</td>
+    <td style="width: 12.5%; text-align: center;">DNI</td>
+    <td style="width: 12.5%; text-align: center;">ASISTENCIA</td>
+    <td style="width: 12.5%; text-align: center;">MULTA</td>
+    <td style="width: 12.5%; text-align: center;">OBSERVACION</td>
+</tr>
+<p>&nbsp;</p>
+<p><span style="color: #800000;"><strong>ASISTENCIAS</strong></span></p>
+<hr />
+{% for result in results %}
+<tr>
+    <td style="width: 12.5%; text-align: center;">{{result[2]}}  {{result[1]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[4]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[5]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[6]}}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+<table style="border-collapse: collapse; width: 100%;" border="1">
+    <tbody>
+    <tr>
+        <td style="width: 12.5%; text-align: center;">APELLIDOS Y NOMBRES</td>
+        <td style="width: 12.5%; text-align: center;">DNI</td>
+        <td style="width: 12.5%; text-align: center;">ASISTENCIA</td>
+        <td style="width: 12.5%; text-align: center;">MULTA</td>
+        <td style="width: 12.5%; text-align: center;">OBSERVACION</td>
+    </tr>
+    <p>&nbsp;</p>
+    <p><span style="color: #800000;"><strong>FALTAS</strong></span></p>
+    <hr />
+    {% for result2 in results2 %}
+    <tr>
+        <td style="width: 12.5%; text-align: center;">{{result2[2]}}  {{result2[1]}}</td>
+        <td style="width: 12.5%; text-align: center;">{{result2[4]}}</td>
+        <td style="width: 12.5%; text-align: center;">{{result2[3]}}</td>
+        <td style="width: 12.5%; text-align: center;">{{result2[5]}}</td>
+        <td style="width: 12.5%; text-align: center;">{{result2[6]}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>

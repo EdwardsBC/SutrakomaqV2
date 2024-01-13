@@ -2,21 +2,25 @@ from database.connection import *
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QWidget, QSizePolicy, QVBoxLayout
 from models.ui_lista_ingresos_egresos import Ui_MainWindow as Ui_MainWindow_Listaingresos_egresos
 from models.ui_registro_ingresos_egresos import Ui_MainWindow as Ui_MainWindow_Registroingresos_egresos
+from models.ui_buscar_Afiliado import Ui_MainWindow as Ui_MainWindow_buscarAfiliado
 from PySide6.QtCore import QDate, Qt
 from jinja2 import Template
+from sqlalchemy import text
+import pandas as pd
 import datetime
 import pdfkit
 import os
 
 class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
-    def __init__(self,menu_contabilidad):
+    def __init__(self,menu_contabilidad, engine):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
-        self.load()
-
         self.menu_contabilidad = menu_contabilidad
+        self.engine = engine
+
+        self.load()
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionExportar.triggered.connect(self.exportarExcel)
@@ -31,16 +35,19 @@ class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
         self.listar()
 
     def listar(self):
-        sp = "sp_listarIngresosEgresos()"
-        escolaridades = Listar(sp)
-        
-        if len(escolaridades) > 0:
-            self.tableWidget.setRowCount(len(escolaridades))
-            self.tableWidget.setColumnCount(len(escolaridades[0]))
-            self.tableWidget.setHorizontalHeaderLabels([])
+        query = """
+            SELECT * FROM ingresos_egresos
+            ORDER BY fecha DESC;
+        """
+        df_ingresos_egresos = pd.read_sql(query, self.engine)
 
-            for row_idx, row_data in enumerate(escolaridades):
-                for col_idx, cell_data in enumerate(row_data):
+        if not df_ingresos_egresos.empty:
+            num_columns = len(df_ingresos_egresos.columns)
+            self.tableWidget.setColumnCount(num_columns)
+            self.tableWidget.setRowCount(len(df_ingresos_egresos))
+
+            for row_idx, row in df_ingresos_egresos.iterrows():
+                for col_idx, cell_data in enumerate(row):
                     item = QTableWidgetItem(str(cell_data))
                     self.tableWidget.setItem(row_idx, col_idx, item)
                     if col_idx == 1:
@@ -64,7 +71,7 @@ class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.menu_contabilidad.mostrar_registroCuotas()
+            self.menu_contabilidad.mostrar_registroIngresosEgresos()
         else:
             pass
 
@@ -151,7 +158,7 @@ class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
             data.append(self.tableWidget.item(row, col).text())
 
 
-        self.registrar = RegistrarIngresosEgresos(self.menu_contabilidad, data)
+        self.registrar = RegistrarIngresosEgresos(self.menu_contabilidad, self.engine, data)
 
         self.registrar.lineEdit.setText(data[0])
         fecha_formateada = data[1].split()[0] 
@@ -164,20 +171,21 @@ class ListarIngresosEgresos(QMainWindow, Ui_MainWindow_Listaingresos_egresos):
         self.registrar.doubleSpinBox.setValue(float(data[4]))
         self.registrar.doubleSpinBox_2.setValue(float(data[5]))
 
-        self.close()
-
-        self.menu_contabilidad.layout.addWidget(self.registrar_cuotas)
+        self.menu_contabilidad.layout.addWidget(self.registrar)
         self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
+        self.close()
+
 class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egresos):
-    def __init__(self,menu_contabilidad,data=None):
+    def __init__(self,menu_contabilidad, engine=None,data=None):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
-        self.load()
-
         self.menu_contabilidad = menu_contabilidad
+        self.engine = engine
+
+        self.load()
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionGrabar.triggered.connect(self.grabar)
@@ -206,23 +214,43 @@ class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egres
             fecha = self.dateEdit.date().toString("yyyy-MM-dd")
             concepto = self.lineEdit_2.text()
             if self.comboBox.currentIndex() == 0:
-                tipo_movimiento = 0
+                tipo = 0
             elif self.comboBox.currentIndex() == 1:
-                tipo_movimiento = 1
+                tipo = 1
             cantidad = self.doubleSpinBox.value()
             saldo = self.doubleSpinBox_2.value()
 
             if concepto and cantidad and saldo:
-                if id:
-                    editar_IngresoEgreso(id,fecha,concepto,tipo_movimiento,cantidad,saldo)
-                    QMessageBox.information(self, "Éxito", "Se ha editado el registro con exito.")
-                    self.close()
-                    self.menu_contabilidad.mostrar_listarIngresosEgresos()
-                else:
-                    guardar_IngresoEgreso(fecha,concepto,tipo_movimiento,cantidad,saldo)
-                    QMessageBox.information(self, "Éxito", "Se ha guardado el registro correctamente.")
-                    self.close()
-                    self.menu_contabilidad.mostrar_listarIngresosEgresos()
+
+                id = int(id) if id.isdigit() else None
+                ingreso_egreso = {
+                    'id':id,
+                    'fecha':fecha,
+                    'concepto':concepto,
+                    'tipo':tipo,
+                    'cantidad':cantidad,
+                    'saldo':saldo,
+                }
+
+                with self.engine.begin() as conn:
+                    if id:
+                        update_stmt = text("""
+                            UPDATE ingresos_egresos 
+                            SET fecha=:fecha,concepto=:concepto,tipo=:tipo,cantidad=:cantidad,saldo=:saldo
+                            WHERE id=:id;
+                        """)
+                        conn.execute(update_stmt, ingreso_egreso)
+
+                        QMessageBox.information(self, "Éxito", "Se ha editado el recibo correctamente.")
+                        self.close()
+                    else:
+                        insert_stmt = text("""
+                            INSERT INTO ingresos_egresos (fecha,concepto,tipo,cantidad,saldo)
+                            VALUES (:fecha,:concepto,:tipo,:cantidad,:saldo)
+                        """)
+                        conn.execute(insert_stmt, ingreso_egreso)
+                        QMessageBox.information(self, "Éxito", "Se ha guardado el recibo correctamente.")
+                        self.close()
             else:
                 QMessageBox.warning(self, "Advertencia", "Los campos que contienen un (*) son obligatorios.")
         else:
@@ -241,14 +269,14 @@ class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egres
 
         if id:
             respuesta = QMessageBox.question(self, "Confirmar Eliminación", "¿Estás seguro de eliminar el registro?", QMessageBox.Yes | QMessageBox.No)
-                        
             if respuesta == QMessageBox.Yes:
-                sp = "sp_eliminarIngresosEgresos"
-                Eliminar(sp,id)
-                QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
-                self.close()
-
-                self.menu_contabilidad.mostrar_listarIngresosEgresos()
+                with self.engine.begin() as conn:
+                    delete_ingresos_egresos_query = text("DELETE FROM ingresos_egresos WHERE id = :id")
+                    conn.execute(delete_ingresos_egresos_query, {'id': id})
+                    QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
+                    self.close()
+            else:
+                QMessageBox.warning(self, "Advertencia", "Operación cancelada.")
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 
@@ -259,3 +287,79 @@ class RegistrarIngresosEgresos(QMainWindow, Ui_MainWindow_Registroingresos_egres
             self.close()
         else:
             pass 
+
+class BuscarAfiliado(QMainWindow, Ui_MainWindow_buscarAfiliado):
+    def __init__(self,menu_contabilidad, engine=None,data=None):
+        super().__init__()
+        self.setupUi(self)
+        self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+
+        self.engine = engine
+        self.menu_contabilidad = menu_contabilidad
+
+        self.load()
+
+        self.lineEdit.textChanged.connect(self.buscar)
+        self.tableWidget.itemDoubleClicked.connect(self.enviarSeleccionado)
+        self.actionSalir.triggered.connect(self.cerrar)
+
+    def load(self):
+        self.listar()
+
+    def listar(self):
+        dirigentes = buscar_Afiliados()
+
+        if dirigentes is not None:
+            self.tableWidget.setRowCount(len(dirigentes))
+            self.tableWidget.setColumnCount(len(dirigentes[0]))
+            self.tableWidget.setHorizontalHeaderLabels([])
+
+            for row_idx, row_data in enumerate(dirigentes):
+                for col_idx, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.tableWidget.setItem(row_idx, col_idx, item)
+
+
+            self.tableWidget.resizeColumnsToContents()
+        else:
+            QMessageBox.information(self, "Alerta", "No se han encontrado datos que listar.")
+
+    def buscar(self,texto):
+        num_filas = self.tableWidget.rowCount()
+
+        for fila in range(num_filas):
+            nombree = self.tableWidget.item(fila, 1)
+            apellido = self.tableWidget.item(fila, 2)
+
+            if nombree is not None and apellido is not None:
+                dirigente = nombree.text()
+                concepto = apellido.text().lower()
+
+                if texto.lower() in dirigente.lower() or texto.lower() in concepto:
+                    self.tableWidget.setRowHidden(fila, False)
+                else:
+                    self.tableWidget.setRowHidden(fila, True)
+
+    def enviarSeleccionado(self,item):
+        row = item.row()
+        data = []
+        for col in range(self.tableWidget.columnCount()):
+            data.append(self.tableWidget.item(row, col).text())
+
+        self.registrar = RegistrarIngresosEgresos(self.menu_contabilidad, self.engine, data)
+        self.registrar.lineEdit_2.setText(data[0])
+        self.registrar.lineEdit_3.setText(data[1]+ " "+ data[2])
+        self.registrar.dateEdit.setFocus()
+        
+        self.menu_contabilidad.layout.addWidget(self.registrar)
+        self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.close()
+
+    def cerrar(self):
+        respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No)
+
+        if respuesta == QMessageBox.Yes:
+            self.close()
+        else:
+            pass

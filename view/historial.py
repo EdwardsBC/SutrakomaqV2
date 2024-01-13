@@ -2,17 +2,19 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, Q
 from PySide6.QtCore import Qt
 from models.ui_historial import Ui_MainWindow as Ui_MainWindowHistorial
 from view.variables_globales import GlobalVar
-from database.connection import *
-
+import pandas as pd
 #=======================================================================================================#
 class Historial(QMainWindow, Ui_MainWindowHistorial):
     global_var = GlobalVar()
-    def __init__(self,menu_configuracion):
+    def __init__(self,menu_configuracion, engine):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
         
+        self.engine = engine
+
         self.load()
+
         self.actionSalir.triggered.connect(self.cerrar)
 
     def cerrar(self):
@@ -28,16 +30,24 @@ class Historial(QMainWindow, Ui_MainWindowHistorial):
 
 
     def listar(self):
-        sp = "sp_listarHistorial()"
-        historial = Listar(sp)
+        query = """
+            SELECT h.id, h.detalle, s.secretaria, sec.seccion, m.modulo, h.interaccion, h.fechaHora
+            FROM historial h
+            INNER JOIN secretarias s ON h.id_secretaria = s.id
+            INNER JOIN secciones sec ON h.id_seccion = sec.id
+            INNER JOIN modulos m ON h.id_modulo = m.id
+            ORDER BY h.id DESC;
+        """
+        df_historial = pd.read_sql(query, self.engine)
 
-        if len(historial) > 0:
-            self.tableWidget.setRowCount(len(historial))
-            self.tableWidget.setColumnCount(len(historial[0]))
-            self.tableWidget.setHorizontalHeaderLabels([])
+        if not df_historial.empty:
+            num_columns = len(df_historial.columns)
+            self.tableWidget.setColumnCount(num_columns)
 
-            for row_idx, row_data in enumerate(historial):
-                for col_idx, cell_data in enumerate(row_data):
+            self.tableWidget.setRowCount(len(df_historial))
+
+            for row_idx, row in df_historial.iterrows():
+                for col_idx, cell_data in enumerate(row):
                     item = QTableWidgetItem(str(cell_data))
                     self.tableWidget.setItem(row_idx, col_idx, item)
 

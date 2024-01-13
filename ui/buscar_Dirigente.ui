@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>405</width>
-    <height>564</height>
+    <width>521</width>
+    <height>586</height>
    </rect>
   </property>
   <property name="palette">
@@ -452,6 +452,13 @@
     </disabled>
    </palette>
   </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+    <pointsize>10</pointsize>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -459,14 +466,15 @@
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>160</x>
       <y>19</y>
-      <width>231</width>
+      <width>331</width>
       <height>20</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -486,6 +494,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -499,12 +508,13 @@
      <rect>
       <x>20</x>
       <y>50</y>
-      <width>361</width>
+      <width>471</width>
       <height>441</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Verdana</family>
       <pointsize>10</pointsize>
       <bold>true</bold>
      </font>
@@ -549,7 +559,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>405</width>
+     <width>521</width>
      <height>22</height>
     </rect>
    </property>
@@ -1000,6 +1010,7 @@
    </property>
    <property name="font">
     <font>
+     <family>Verdana</family>
      <pointsize>10</pointsize>
      <bold>true</bold>
     </font>
@@ -1020,8 +1031,8 @@
   </widget>
   <action name="actionSalir">
    <property name="icon">
-    <iconset resource="../../resources.qrc">
-     <normaloff>:/icons/app/resources/icons/salir.png</normaloff>:/icons/app/resources/icons/salir.png</iconset>
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/resources/icons/salir.png</normaloff>:/icons/resources/icons/salir.png</iconset>
    </property>
    <property name="text">
     <string>Salir</string>
@@ -1029,7 +1040,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

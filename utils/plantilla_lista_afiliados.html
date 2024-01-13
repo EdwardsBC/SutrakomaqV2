@@ -4,38 +4,24 @@
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr>
-    <td style="width: 12.5%; text-align: center;">ID</td>
-    <td style="width: 12.5%; text-align: center;">NOMBRE</td>
-    <td style="width: 12.5%; text-align: center;">APELLIDO</td>
-    <td style="width: 12.5%; text-align: center;">LUGAR VIVIENDA</td>
+    <td style="width: 12.5%; text-align: center;">APELLIDOS Y NOMBRES</td>
     <td style="width: 12.5%; text-align: center;">DNI</td>
+    <td style="width: 12.5%; text-align: center;">LUGAR VIVIENDA</td>
     <td style="width: 12.5%; text-align: center;">FECHA NACIMIENTO</td>
     <td style="width: 12.5%; text-align: center;">CELULAR</td>
-    <td style="width: 12.5%; text-align: center;">NOMBRE BANCO</td>
-    <td style="width: 12.5%; text-align: center;">NOMBRE CUENTA BANCARIA</td>
-    <td style="width: 12.5%; text-align: center;">NUMERO CCI BANCARIO</td>
     <td style="width: 12.5%; text-align: center;">PUESTO DE TRABAJO</td>
     <td style="width: 12.5%; text-align: center;">ZONA LABORAL</td>
-    <td style="width: 12.5%; text-align: center;">FECHA INGRESO KMMP</td>
-    <td style="width: 12.5%; text-align: center;">FECHA INGRESO SINDICAL</td>
     <td style="width: 12.5%; text-align: center;">ESTADO</td>
 </tr>
 {% for result in results %}
 <tr>
-    <td style="width: 12.5%; text-align: center;">{{result[0]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[1]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[2]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[2]}}  {{result[1]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[4]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[5]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[6]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[7]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[8]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[9]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[10]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[11]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[12]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[13]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[14]}}</td>
     </tr>
 {% endfor %}

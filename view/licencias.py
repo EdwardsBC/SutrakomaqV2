@@ -5,19 +5,22 @@ from models.ui_registro_licencias import Ui_MainWindow as Ui_MainWindow_Registro
 from models.ui_buscar_Dirigente import Ui_MainWindow as Ui_MainWindow_buscarDirigente
 from PySide6.QtCore import QDate, Qt
 from jinja2 import Template
+from sqlalchemy import text
+import pandas as pd
 import datetime
 import pdfkit
 import os
 
 class ListarLicencias(QMainWindow, Ui_MainWindow_ListaLicencias):
-    def __init__(self,menu_registros):
+    def __init__(self,menu_registros, engine):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
-        self.load()
-
         self.menu_registros = menu_registros
+        self.engine = engine
+
+        self.load()
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionExportar.triggered.connect(self.exportarExcel)
@@ -33,16 +36,21 @@ class ListarLicencias(QMainWindow, Ui_MainWindow_ListaLicencias):
         self.listar()
 
     def listar(self):
-        sp = "sp_listarLicencias()"
-        inventarios = Listar(sp)
+        query = """
+            SELECT l.id, l.fecha, d.id AS id_dirigente, d.nombre, d.apellido, l.tipo, l.motivo, l.estado_asistencia, l.registro, l.estado_canje, l.tadanza, l.monto, l.movilidad
+            FROM licencias l
+            INNER JOIN dirigentes d ON l.id_dirigente = d.id
+            ORDER BY l.id DESC;
+        """
+        df_licencias = pd.read_sql(query, self.engine)
         
-        if len(inventarios) > 0:
-            self.tableWidget.setRowCount(len(inventarios))
-            self.tableWidget.setColumnCount(len(inventarios[0]))
-            self.tableWidget.setHorizontalHeaderLabels([])
+        if not df_licencias.empty:
+            num_columns = len(df_licencias.columns)
+            self.tableWidget.setColumnCount(num_columns)
+            self.tableWidget.setRowCount(len(df_licencias))
 
-            for row_idx, row_data in enumerate(inventarios):
-                for col_idx, cell_data in enumerate(row_data):
+            for row_idx, row in df_licencias.iterrows():
+                for col_idx, cell_data in enumerate(row):
                     item = QTableWidgetItem(str(cell_data))
                     self.tableWidget.setItem(row_idx, col_idx, item)
                     
@@ -89,7 +97,7 @@ class ListarLicencias(QMainWindow, Ui_MainWindow_ListaLicencias):
         respuesta = QMessageBox.question(self, "Nuevo Registro", "¿Desea hacer un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.menu_registros.mostrar_listarLicencias()
+            self.menu_registros.mostrar_registrarLicencias()
         else:
             pass
 
@@ -185,7 +193,8 @@ class ListarLicencias(QMainWindow, Ui_MainWindow_ListaLicencias):
         for col in range(self.tableWidget.columnCount()):
             data.append(self.tableWidget.item(row, col).text())
 
-        self.registrar = RegistrarLicencias(self.menu_registros, data)
+        self.registrar = RegistrarLicencias(self.menu_registros, self.engine, data)
+
         self.registrar.lineEdit.setText(data[0])
         fecha_formateada = data[1].split()[0] 
         self.registrar.dateEdit.setDate(QDate.fromString(fecha_formateada, "dd-MM-yyyy"))
@@ -213,19 +222,27 @@ class ListarLicencias(QMainWindow, Ui_MainWindow_ListaLicencias):
         elif data[9] == "PAGADO":
             self.registrar.comboBox_4.setCurrentIndex(1)
 
+        self.registrar.doubleSpinBox.setValue(float(data[10]))
+        self.registrar.doubleSpinBox_2.setValue(float(data[11]))
+        self.registrar.doubleSpinBox_3.setValue(float(data[12]))
+
         self.menu_registros.layout.addWidget(self.registrar)
         self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.registrar.dateEdit.setFocus()
 
         self.close()
 
 class RegistrarLicencias(QMainWindow, Ui_MainWindow_RegistroLicencias):
-    def __init__(self,menu_registros,data=None):
+    def __init__(self,menu_registros, engine=None,data=None):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
-        self.load()
-
+        
         self.menu_registros = menu_registros
+        self.engine = engine
+
+        self.load()
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionGrabar.triggered.connect(self.grabar)
@@ -233,10 +250,9 @@ class RegistrarLicencias(QMainWindow, Ui_MainWindow_RegistroLicencias):
         self.actionImprimir.triggered.connect(self.exportarPdf)
         self.actionSalir.triggered.connect(self.cerrar)
 
-        self.lineEdit_3.editingFinished.connect(self.show_popup)
+        self.pushButton.clicked.connect(self.show_popup)
 
     def load(self):
-        self.actionImprimir.setEnabled(False)
         self.dateEdit.setDate(QDate.currentDate())
         self.dateEdit.setFocus()
 
@@ -283,41 +299,115 @@ class RegistrarLicencias(QMainWindow, Ui_MainWindow_RegistroLicencias):
             monto_pago = self.doubleSpinBox_2.value()
             movilidad = self.doubleSpinBox_3.value()
 
+            id = int(id) if id.isdigit() else None
+
             if id_dirigente and motivo:
-                if id:
-                    editar_Licencias(id,fecha,id_dirigente,tipo_lic,motivo,estado_lic,registro,estado,tardanza,monto_pago,movilidad)
-                    QMessageBox.information(self, "Éxito", "Se ha editado el registro con exito.")
-                else:
-                    guardar_Licencias(fecha,id_dirigente,tipo_lic,motivo,estado_lic,registro,estado,tardanza,monto_pago,movilidad)
-                    QMessageBox.information(self, "Éxito", "Se ha guardado el registro correctamente.")
+
+                datos_licencias = {
+                    'id': id,
+                    'fecha':fecha,
+                    'id_dirigente':id_dirigente,
+                    'tipo':tipo_lic,
+                    'motivo':motivo,
+                    'estado_asistencia':estado_lic,
+                    'registro':registro,
+                    'estado_canje':estado,
+                    'tadanza':tardanza,
+                    'monto':monto_pago,
+                    'movilidad':movilidad,
+                }
+
+                with self.engine.begin() as conn:
+                    if id:
+                        update_stmt = text("""
+                            UPDATE licencias 
+                            SET fecha=:fecha,id_dirigente=:id_dirigente,tipo=:tipo,motivo=:motivo,estado_asistencia=:estado_asistencia,registro=:registro,estado_canje=:estado_canje,tadanza=:tadanza,monto=:monto,movilidad=:movilidad
+                            WHERE id=:id;
+                        """)
+                        conn.execute(update_stmt, datos_licencias)
+
+                        QMessageBox.information(self, "Éxito", "Se ha editado el dirigente correctamente.")
+                        self.close()
+                    else:
+                        insert_stmt = text("""
+                            INSERT INTO licencias (fecha,id_dirigente,tipo,motivo,estado_asistencia,registro,estado_canje,tadanza,monto,movilidad)
+                            VALUES (:fecha,:id_dirigente,:tipo,:motivo,:estado_asistencia,:registro,:estado_canje,:tadanza,:monto,:movilidad)
+                        """)
+                        conn.execute(insert_stmt, datos_licencias)
+                        QMessageBox.information(self, "Éxito", "Se ha guardado el dirigente correctamente.")
+                        self.close()
             else:
                 QMessageBox.warning(self, "Advertencia", "Los campos que contienen un (*) son obligatorios.")
 
-            self.close()
-            self.menu_registros.mostrar_registrarLicencias()
         else:
             pass 
 
     def exportarPdf(self):
-        respuesta = QMessageBox.question(self, "Exportar a PDF", "¿Desea exportar la lista a PDF?", QMessageBox.Yes | QMessageBox.No)
 
-        if respuesta == QMessageBox.Yes:
-            print("Exportar a PDF")
-        else:
-            pass 
+            if not self.lineEdit.text():
+                QMessageBox.warning(self, "Alerta", "Necesita seleccionar un registro primero")
+            else:
+                respuesta = QMessageBox.question(self, "Exportar a PDF", "¿Desea exportar el registro seleccionado a PDF?", QMessageBox.Yes | QMessageBox.No)
+
+                if respuesta == QMessageBox.Yes:
+                    nombre = self.lineEdit_3.text() #
+                    fecha = self.dateEdit.date().toString("dd-MM-yyyy")
+                    tipo_lic = self.comboBox.currentText()
+                    motivo = self.lineEdit_4.text() #
+                    estado_lic = self.comboBox_2.currentText()
+                    registro = self.comboBox_3.currentText()
+                    estado = self.comboBox_4.currentText()
+                    tardanza = self.doubleSpinBox.value()
+                    monto = self.doubleSpinBox_2.value()
+                    movilidad = self.doubleSpinBox_3.value()
+
+                    ruta_actual = os.path.abspath(os.path.dirname(__file__))
+                    ruta_template = os.path.join(ruta_actual, "..", "utils", "plantilla_registro_licencias.html")
+                    with open(ruta_template, "r") as archivo_html_template:
+                        contenido_template = archivo_html_template.read()
+                    template = Template(contenido_template)
+
+                    html_renderizado = template.render(nombre=nombre, fecha=fecha, tipo_lic=tipo_lic, motivo=motivo,
+                                                    estado_lic=estado_lic, registro=registro,
+                                                    estado=estado,tardanza=tardanza,
+                                                    monto=monto, movilidad=movilidad)
+
+                    ruta_resultado = os.path.join(ruta_actual, "..", "utils", "registro_licencias.html")
+                    with open(ruta_resultado, "w") as archivo_html_resultado:
+                        archivo_html_resultado.write(html_renderizado)
+
+                    dialogo = QFileDialog()
+                    dialogo.setAcceptMode(QFileDialog.AcceptSave)
+                    dialogo.setNameFilter("Archivos PDF (*.pdf)")
+                    dialogo.setDefaultSuffix("pdf")
+
+                    nombre_archivo = f"Licencia de - {nombre} el {fecha}.pdf"
+                    dialogo.selectFile(nombre_archivo)
+
+                    if dialogo.exec():
+                        rutas_seleccionadas = dialogo.selectedFiles()
+                        if rutas_seleccionadas:
+                            ruta_pdf = rutas_seleccionadas[0]
+                            options = {'enable-local-file-access': None}
+                            pdfkit.from_file(ruta_resultado, ruta_pdf, options=options)
+
+                else:
+                    pass 
 
     def eliminar(self):
         id = int(self.lineEdit.text()) 
 
         if id:
             respuesta = QMessageBox.question(self, "Confirmar Eliminación", "¿Estás seguro de eliminar el registro?", QMessageBox.Yes | QMessageBox.No)
-                        
             if respuesta == QMessageBox.Yes:
-                sp = "sp_eliminarLicencias"
-                Eliminar(sp,id)
-                QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
-                self.close()
-                self.menu_registros.mostrar_listarLicencias()
+                with self.engine.begin() as conn:
+                    delete_licencias_query = text("DELETE FROM licencias WHERE id = :id")
+                    conn.execute(delete_licencias_query, {'id': id})
+                    QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
+                    self.close()
+                    self.menu_registros.mostrar_listarLicencias()
+            else:
+                QMessageBox.warning(self, "Advertencia", "Operación cancelada.")
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 
@@ -326,21 +416,26 @@ class RegistrarLicencias(QMainWindow, Ui_MainWindow_RegistroLicencias):
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.menu_registros.mostrar_listarLicencias()
         else:
             pass 
 
     def show_popup(self):
-        self.buscar = BuscarDirigente()
-        self.buscar.show()
+
+        self.registrar = BuscarDirigente(self.menu_registros, self.engine)
+        self.menu_registros.layout.addWidget(self.registrar)
+        self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
         self.close()
 
 
 class BuscarDirigente(QMainWindow, Ui_MainWindow_buscarDirigente):
-    def __init__(self):
+    def __init__(self,menu_registros, engine=None,data=None):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+
+        self.engine = engine
+        self.menu_registros = menu_registros
 
         self.load()
 
@@ -391,21 +486,20 @@ class BuscarDirigente(QMainWindow, Ui_MainWindow_buscarDirigente):
         for col in range(self.tableWidget.columnCount()):
             data.append(self.tableWidget.item(row, col).text())
 
-        self.registrar = RegistrarLicencias()
-
+        self.registrar = RegistrarLicencias(self.menu_registros, self.engine, data)
         self.registrar.lineEdit_2.setText(data[0])
         self.registrar.lineEdit_3.setText(data[1]+ " "+ data[2])
-        self.close()
-        self.registrar.close()
         self.registrar.dateEdit.setFocus()
-        self.registrar.show()
+        
+        self.menu_registros.layout.addWidget(self.registrar)
+        self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.close()
 
     def cerrar(self):
         respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No)
 
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.registrar = RegistrarLicencias()
-            self.registrar.show()
         else:
             pass

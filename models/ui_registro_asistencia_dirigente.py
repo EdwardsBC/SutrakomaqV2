@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_asistencia_dirigenteEKRNxM.ui'
+## Form generated from reading UI file 'registro_asistencia_dirigenterqaspE.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -99,6 +99,11 @@ class Ui_MainWindow(object):
         palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush7)
 #endif
         MainWindow.setPalette(palette)
+        font = QFont()
+        font.setFamilies([u"Verdana"])
+        font.setPointSize(10)
+        font.setBold(True)
+        MainWindow.setFont(font)
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
@@ -134,11 +139,7 @@ class Ui_MainWindow(object):
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setEnabled(False)
-        self.lineEdit.setGeometry(QRect(179, 18, 161, 20))
-        font = QFont()
-        font.setFamilies([u"Verdana"])
-        font.setPointSize(10)
-        font.setBold(True)
+        self.lineEdit.setGeometry(QRect(180, 18, 161, 20))
         self.lineEdit.setFont(font)
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
@@ -223,7 +224,7 @@ class Ui_MainWindow(object):
         self.dateEdit.setObjectName(u"dateEdit")
         self.dateEdit.setGeometry(QRect(150, 56, 821, 22))
         self.dateEdit.setFrame(True)
-        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 7), QTime(6, 0, 0)))
+        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 7), QTime(21, 0, 0)))
         self.dateEdit.setCurrentSection(QDateTimeEdit.DaySection)
         self.dateEdit.setCalendarPopup(True)
         self.comboBox = QComboBox(self.groupBox_2)
@@ -256,7 +257,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem6.setFont(font);
         self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(30, 160, 991, 291))
+        self.tableWidget.setGeometry(QRect(30, 160, 991, 341))
         self.tableWidget.setFont(font)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)

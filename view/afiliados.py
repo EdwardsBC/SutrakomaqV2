@@ -1,23 +1,27 @@
-from database.connection import *
 from models.ui_registro_afiliados import Ui_MainWindow as Ui_MainWindow_RegistroAfiliados
 from models.ui_lista_afiliados import Ui_MainWindow as Ui_MainWindow_ListaAfiliados
-from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QWidget, QSizePolicy, QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QSizePolicy, QFileDialog
 from PySide6.QtCore import QDate, Qt
 from datetime import datetime
 from jinja2 import Template
+from sqlalchemy import text
+import pandas as pd
 import datetime
 import pdfkit
 import os
 
+
 class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
-    def __init__(self,menu_registros):
+    def __init__(self, menu_registros, engine):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
+        self.menu_registros = menu_registros
+        self.engine = engine
+
         self.load()
 
-        self.menu_registros = menu_registros
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionExportar.triggered.connect(self.exportarExcel)
@@ -35,16 +39,21 @@ class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
         self.listar()
 
     def listar(self):
-        sp = "sp_listarAfiliados()"
-        afiliados = Listar(sp)
+        query = """
+        SELECT id, nombre, apellido, lugarVivienda, dni, fechaNacimiento, celular,nombreBancario, numeroBancario, CCIBancario, puestoTrabajo, zonaLaboral,fechaIngresoKMMP, fechaIngresoSindical, estado 
+        FROM afiliados 
+        ORDER BY apellido ASC;
+        """
+        df_afiliados = pd.read_sql(query, self.engine)
 
-        if len(afiliados) > 0:
-            num_columns = len(afiliados[0])
+        if not df_afiliados.empty:
+            num_columns = len(df_afiliados.columns)
             self.tableWidget.setColumnCount(num_columns)
 
-            self.tableWidget.setRowCount(len(afiliados))
-            for row_idx, row_data in enumerate(afiliados):
-                for col_idx, cell_data in enumerate(row_data):
+            self.tableWidget.setRowCount(len(df_afiliados))
+
+            for row_idx, row in df_afiliados.iterrows():
+                for col_idx, cell_data in enumerate(row):
                     item = QTableWidgetItem(str(cell_data))
                     self.tableWidget.setItem(row_idx, col_idx, item)
 
@@ -115,13 +124,11 @@ class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
             with open(ruta_resultado, "w") as archivo_html_resultado:
                 archivo_html_resultado.write(html_renderizado)
 
-            # Mostrar el diálogo de selección de archivo
             dialogo = QFileDialog()
             dialogo.setAcceptMode(QFileDialog.AcceptSave)
             dialogo.setNameFilter("Archivos PDF (*.pdf)")
             dialogo.setDefaultSuffix("pdf")
 
-            # Establecer el nombre por defecto del archivo
             fecha_actual = datetime.datetime.now().strftime("%d-%m-%Y")
             nombre_archivo = f"Lista de afiliados - {fecha_actual}.pdf"
             dialogo.selectFile(nombre_archivo)
@@ -130,7 +137,6 @@ class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
                 rutas_seleccionadas = dialogo.selectedFiles()
                 if rutas_seleccionadas:
                     ruta_pdf = rutas_seleccionadas[0]
-                    # Convertir el archivo HTML a PDF
                     options = {'enable-local-file-access': None}
                     pdfkit.from_file(ruta_resultado, ruta_pdf, options=options)
         else:
@@ -173,7 +179,7 @@ class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
             else:
                 data.append("")
 
-        self.registrar_afiliados = RegistrarAfiliados(self.menu_registros, data)
+        self.registrar_afiliados = RegistrarAfiliados(self.menu_registros, self.engine, data)
 
         self.registrar_afiliados.lineEdit.setText(data[0]) 
         self.registrar_afiliados.lineEdit_1.setText(data[1])
@@ -209,28 +215,31 @@ class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
         else :
             self.registrar_afiliados.comboBox.setCurrentIndex(4)
 
-        escolaridad = obtener_Escolaridad(int(data[0]))
-        if len(escolaridad) > 0 :
-            self.registrar_afiliados.spinBox_2.setValue(escolaridad[0][2])
-            self.registrar_afiliados.spinBox_3.setValue(escolaridad[0][3])
-            self.registrar_afiliados.spinBox_4.setValue(escolaridad[0][4])
-            self.registrar_afiliados.spinBox_5.setValue(escolaridad[0][5])
-            self.registrar_afiliados.spinBox_6.setValue(escolaridad[0][6])
-            
-        self.close()
+        id_afiliado = data[0]
+
+        query = "SELECT * FROM escolaridades WHERE id_afiliado = %s;"
+        df_escolaridad = pd.read_sql(query, self.engine, params=(id_afiliado,))
+        
+        if not df_escolaridad.empty:
+            self.registrar_afiliados.spinBox_2.setValue(df_escolaridad.iloc[0]['nacido'])
+            self.registrar_afiliados.spinBox_3.setValue(df_escolaridad.iloc[0]['inicial'])
+            self.registrar_afiliados.spinBox_4.setValue(df_escolaridad.iloc[0]['primaria'])
+            self.registrar_afiliados.spinBox_5.setValue(df_escolaridad.iloc[0]['secundaria'])
+            self.registrar_afiliados.spinBox_6.setValue(df_escolaridad.iloc[0]['superior'])
 
         self.menu_registros.layout.addWidget(self.registrar_afiliados)
         self.registrar_afiliados.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-
+        self.close()
 
 class RegistrarAfiliados(QMainWindow, Ui_MainWindow_RegistroAfiliados):
-    def __init__(self,menu_registros,data=None):
+    def __init__(self, menu_registros, engine=None, data=None):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
         self.load()
 
+        self.engine = engine
         self.menu_registros = menu_registros
 
         self.actionNuevo.triggered.connect(self.nuevo)
@@ -256,7 +265,6 @@ class RegistrarAfiliados(QMainWindow, Ui_MainWindow_RegistroAfiliados):
 
     def grabar(self):
         respuesta = QMessageBox.question(self, "Grabar registro", "¿Desea grabar un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
-
         if respuesta == QMessageBox.Yes:
             id = self.lineEdit.text()
             nombre = self.lineEdit_1.text()
@@ -272,62 +280,162 @@ class RegistrarAfiliados(QMainWindow, Ui_MainWindow_RegistroAfiliados):
             zona_laboral = self.lineEdit_9.text()
             fecha_ingreso_kmmp = self.dateEdit_2.date().toString("yyyy-MM-dd")
             fecha_ingreso_sindical = self.dateEdit_3.date().toString("yyyy-MM-dd")
-            if self.comboBox.currentIndex() == 0:
-                estado = "AFILIADO"
-            elif self.comboBox.currentIndex() == 1:
-                estado = "DESAFILIADO"
-            elif self.comboBox.currentIndex() == 2:
-                estado = "SUSPENSION PERFEFCTA"
-            elif self.comboBox.currentIndex() == 3:
-                estado = "CESADO"
-            else :
-                estado = "PROCESO JUICIO"
+            estado = self.comboBox.currentText()
+
+            nacido = int(self.spinBox_2.value())
+            inicial = int(self.spinBox_3.value())
+            primaria = int(self.spinBox_4.value())
+            secundaria = int(self.spinBox_5.value())
+            superior = int(self.spinBox_6.value())
+            
+            id = int(id) if id.isdigit() else None
 
             if nombre and apellido and dni:
-                if id:
-                    editar_afiliado(id,nombre, apellido,lugar_vivienda, dni, fecha_nacimiento, celular, nombre_entidad_bancaria, numero_cuenta_bancaria, numero_cci_bancario, puesto_trabajo, zona_laboral, fecha_ingreso_kmmp, fecha_ingreso_sindical, estado)
-                    
-                    escolaridad = obtener_Escolaridad(id)
-                    if escolaridad:
-                        id_escolaridad = int(escolaridad[0][0])
-                        nacido = int(self.spinBox_2.value())
-                        inicial = int(self.spinBox_3.value())
-                        primaria = int(self.spinBox_4.value())
-                        secundaria = int(self.spinBox_5.value())
-                        superior = int(self.spinBox_6.value())
-                    editar_escolaridad(id_escolaridad,id,nacido,inicial,primaria,secundaria,superior)
-                    QMessageBox.information(self, "Éxito", "Se ha editado el registro con exito.")
-                else:
-                    guardar_afiliado(nombre, apellido,lugar_vivienda, dni, fecha_nacimiento, celular, nombre_entidad_bancaria, numero_cuenta_bancaria, numero_cci_bancario, puesto_trabajo, zona_laboral, fecha_ingreso_kmmp, fecha_ingreso_sindical, estado)
-                    id = obtener_ultimo_id()
-                    nacido = int(self.spinBox_2.value())
-                    inicial = int(self.spinBox_3.value())
-                    primaria = int(self.spinBox_4.value())
-                    secundaria = int(self.spinBox_5.value())
-                    superior = int(self.spinBox_6.value())
+                datos_afiliado = {
+                    'id': id,  
+                    'nombre': nombre,
+                    'apellido': apellido,
+                    'lugarVivienda': lugar_vivienda, 
+                    'dni': dni,
+                    'fechaNacimiento': fecha_nacimiento, 
+                    'celular': celular,
+                    'nombreBancario': nombre_entidad_bancaria,
+                    'numeroBancario': numero_cuenta_bancaria,
+                    'CCIBancario': numero_cci_bancario,
+                    'puestoTrabajo': puesto_trabajo,
+                    'zonaLaboral': zona_laboral,
+                    'fechaIngresoKMMP': fecha_ingreso_kmmp,
+                    'fechaIngresoSindical': fecha_ingreso_sindical,
+                    'estado': estado
+                }
 
-                    guardar_escolaridad(id,nacido,inicial,primaria,secundaria,superior)
-                    QMessageBox.information(self, "Éxito", "Se ha guardado el registro correctamente.")
-            else:
-                QMessageBox.warning(self, "Advertencia", "Los campos que contienen un (*) son obligatorios.")
+                datos_escolaridad = {
+                    'id_afiliado': id,
+                    'nacido': nacido,
+                    'inicial': inicial,
+                    'primaria': primaria,
+                    'secundaria': secundaria,
+                    'superior': superior
+                }
 
-            self.close()
-            self.menu_registros.mostrar_listarAfiliados()
-        else:
-            pass 
+                with self.engine.begin() as conn:
+                    if id:
+                        update_stmt = text("""
+                            UPDATE afiliados
+                            SET nombre=:nombre, apellido=:apellido, lugarVivienda=:lugarVivienda,
+                                dni=:dni, fechaNacimiento=:fechaNacimiento, celular=:celular,
+                                nombreBancario=:nombreBancario, numeroBancario=:numeroBancario,
+                                CCIBancario=:CCIBancario, puestoTrabajo=:puestoTrabajo,
+                                zonaLaboral=:zonaLaboral, fechaIngresoKMMP=:fechaIngresoKMMP,
+                                fechaIngresoSindical=:fechaIngresoSindical, estado=:estado
+                            WHERE id=:id
+                        """)
+                        conn.execute(update_stmt, datos_afiliado)
 
-    def eliminar(self):
-        id = int(self.lineEdit.text()) 
-
-        if id:
-            respuesta = QMessageBox.question(self, "Confirmar Eliminación", "¿Estás seguro de eliminar el registro?", QMessageBox.Yes | QMessageBox.No)
+                        update_escolaridad_stmt = text("""
+                            UPDATE escolaridades
+                            SET nacido=:nacido, inicial=:inicial, primaria=:primaria, 
+                                secundaria=:secundaria, superior=:superior
+                            WHERE id_afiliado=:id_afiliado
+                        """)
+                        conn.execute(update_escolaridad_stmt, datos_escolaridad)
+                    else:
+                        insert_stmt = text("""
+                            INSERT INTO afiliados (nombre, apellido, lugarVivienda, dni, fechaNacimiento, celular,
+                                nombreBancario, numeroBancario, CCIBancario, puestoTrabajo,
+                                zonaLaboral, fechaIngresoKMMP, fechaIngresoSindical, estado)
+                            VALUES (:nombre, :apellido, :lugarVivienda, :dni, :fechaNacimiento, :celular,
+                                :nombreBancario, :numeroBancario, :CCIBancario, :puestoTrabajo,
+                                :zonaLaboral, :fechaIngresoKMMP, :fechaIngresoSindical, :estado)
+                        """)
+                        conn.execute(insert_stmt, datos_afiliado)
                         
-            if respuesta == QMessageBox.Yes:
-                sp = "sp_eliminarAfiliados"
-                Eliminar(sp,id)
-                QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
+                        ultimo_id_stmt = text("""
+                            SELECT id FROM afiliados ORDER BY id DESC LIMIT 1
+                        """)
+                        result = conn.execute(ultimo_id_stmt)
+                        ultimo_id = result.fetchone()[0]
+
+                        insert_escolaridad_stmt = text("""
+                            INSERT INTO escolaridades (id_afiliado, nacido, inicial, primaria, secundaria, superior)
+                            VALUES (:ultimo_id, :nacido, :inicial, :primaria, :secundaria, :superior)
+                        """)
+
+                        datos_escolaridad['ultimo_id'] = ultimo_id
+                        conn.execute(insert_escolaridad_stmt, datos_escolaridad)
+
+                QMessageBox.information(self, "Éxito", "Registro actualizado o guardado correctamente.")
                 self.close()
                 self.menu_registros.mostrar_listarAfiliados()
+            else:
+                QMessageBox.warning(self, "Advertencia", "Los campos marcados con (*) son obligatorios.")
+
+        else:
+            pass
+
+
+    def eliminar(self):
+        id_str = self.lineEdit.text()
+        if id_str.isdigit():
+            id = int(id_str)
+            respuesta = QMessageBox.question(self, "Confirmar deshabilitacion", "¿Estás seguro de deshabilitar el registro?", QMessageBox.Yes | QMessageBox.No)
+
+            if respuesta == QMessageBox.Yes:
+                with self.engine.begin() as conn:
+                    id = self.lineEdit.text()
+                    nombre = self.lineEdit_1.text()
+                    apellido = self.lineEdit_2.text()
+                    lugar_vivienda = self.lineEdit_3.text()
+                    dni = self.lineEdit_4.text()
+                    fecha_nacimiento = self.dateEdit.date().toString("yyyy-MM-dd")
+                    celular = self.spinBox.value()
+                    nombre_entidad_bancaria = self.lineEdit_5.text()
+                    numero_cuenta_bancaria = self.lineEdit_6.text()
+                    numero_cci_bancario = self.lineEdit_7.text()
+                    puesto_trabajo = self.lineEdit_8.text()
+                    zona_laboral = self.lineEdit_9.text()
+                    fecha_ingreso_kmmp = self.dateEdit_2.date().toString("yyyy-MM-dd")
+                    fecha_ingreso_sindical = self.dateEdit_3.date().toString("yyyy-MM-dd")
+                    estado = "DESAFILIADO"
+            
+                    id = int(id) if id.isdigit() else None
+
+                    if nombre and apellido and dni:
+                        datos_afiliado = {
+                            'id': id,  
+                            'nombre': nombre,
+                            'apellido': apellido,
+                            'lugarVivienda': lugar_vivienda, 
+                            'dni': dni,
+                            'fechaNacimiento': fecha_nacimiento, 
+                            'celular': celular,
+                            'nombreBancario': nombre_entidad_bancaria,
+                            'numeroBancario': numero_cuenta_bancaria,
+                            'CCIBancario': numero_cci_bancario,
+                            'puestoTrabajo': puesto_trabajo,
+                            'zonaLaboral': zona_laboral,
+                            'fechaIngresoKMMP': fecha_ingreso_kmmp,
+                            'fechaIngresoSindical': fecha_ingreso_sindical,
+                            'estado': estado
+                        }
+
+                        update_stmt = text("""
+                            UPDATE afiliados
+                            SET nombre=:nombre, apellido=:apellido, lugarVivienda=:lugarVivienda,
+                                dni=:dni, fechaNacimiento=:fechaNacimiento, celular=:celular,
+                                nombreBancario=:nombreBancario, numeroBancario=:numeroBancario,
+                                CCIBancario=:CCIBancario, puestoTrabajo=:puestoTrabajo,
+                                zonaLaboral=:zonaLaboral, fechaIngresoKMMP=:fechaIngresoKMMP,
+                                fechaIngresoSindical=:fechaIngresoSindical, estado=:estado
+                            WHERE id=:id
+                        """)
+                        conn.execute(update_stmt, datos_afiliado)
+
+                QMessageBox.information(self, "Éxito", "Se ha deshabilitado el registro correctamente.")
+                self.close()
+                self.menu_registros.mostrar_listarAfiliados()
+            else:
+                QMessageBox.warning(self, "Advertencia", "Operación cancelada.")
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 

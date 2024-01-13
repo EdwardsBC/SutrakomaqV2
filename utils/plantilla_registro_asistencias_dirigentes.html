@@ -4,21 +4,22 @@
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr>
-<td style="width: 12.5%; text-align: center;">APELLIDOS Y NOMBRES</td>
-<td style="width: 12.5%; text-align: center;">DNI</td>
-<td style="width: 12.5%; text-align: center;">INICIO PERIODO</td>
-<td style="width: 12.5%; text-align: center;">TERMINO PERIODO</td>
-<td style="width: 12.5%; text-align: center;">PERIODO VIGENCIA</td>
-<td style="width: 12.5%; text-align: center;">VIGENCIA</td>
+    <td style="width: 12.5%; text-align: center;">APELLIDOS Y NOMBRES</td>
+    <td style="width: 12.5%; text-align: center;">DNI</td>
+    <td style="width: 12.5%; text-align: center;">ASISTENCIA</td>
+    <td style="width: 12.5%; text-align: center;">MULTA</td>
+    <td style="width: 12.5%; text-align: center;">OBSERVACION</td>
 </tr>
+<p>&nbsp;</p>
+<p><span style="color: #800000;"><strong>ASISTENCIAS</strong></span></p>
+<hr />
 {% for result in results %}
 <tr>
-    <td style="width: 12.5%; text-align: center;">{{result[2]}} {{result[1]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[2]}}  {{result[1]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[4]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[5]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[6]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[7]}}</td>
     </tr>
 {% endfor %}
 </tbody>

@@ -3,7 +3,7 @@ import os
 
 from cx_Freeze import setup, Executable
 
-files = ['env','config.json','database','importantes','models','resources','ui','utils','view']
+files = ['venv','config.json','database','models','resources','ui','utils','view']
 
 exe = Executable(script="main.py", base="Win32GUI")
 

@@ -4,13 +4,25 @@ from view.cuotas import ListarCuotas,RegistrarCuotas
 from view.ingresos_egresos import ListarIngresosEgresos,RegistrarIngresosEgresos
 from view.recibos import ListarRecibos,RegistrarRecibos
 from view.variables_globales import GlobalVar
-from database.connection import *
+from PySide6.QtGui import QGuiApplication
+
+from sqlalchemy import create_engine
+from datetime import datetime
+import pandas as pd
+import json
 import sys
+
+def create_db_engine():
+    with open('config.json', 'r') as config_file:
+        db_config = json.load(config_file)
+    connection_string = f"mysql+pymysql://{db_config['usuario']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['db']}"
+    return create_engine(connection_string)
 
 class MenuContabilidad(QMainWindow, Ui_MainWindow_Menu_Contabilidad):
     global_var = GlobalVar()
-    def __init__(self):
+    def __init__(self, engine):
         super().__init__()
+        self.engine = engine 
         self.setupUi(self)
 
         self.setMaximumSize(1366,750)
@@ -31,25 +43,50 @@ class MenuContabilidad(QMainWindow, Ui_MainWindow_Menu_Contabilidad):
 
     def salir(self):
         from view.menu import Menu
-        self.registros = Menu()
+        self.registros = Menu(self.engine)
         self.registros.show()
         self.close()
 
-    def permisos_listado(self, inicio, fin, *args):
-        return [permisos(self.global_var.id_secretaria, 5, args[0], i) for i in range(inicio, fin + 1)]
+    def verificar_permisos(self, id_secretaria, id_seccion, id_modulo, inicio, fin):
+        niveles = list(range(inicio, fin + 1))
+        query = """
+        SELECT * 
+        FROM permisos
+        WHERE id_secretaria = %s AND id_seccion = %s AND id_modulo = %s AND nivel IN %s;
+        """
+        df_permisos = pd.read_sql(query, self.engine, params=(id_secretaria, id_seccion, id_modulo, tuple(niveles)))
+        return df_permisos
 
     def mostrar(self, permisos_idx, func, msg_exito, msg_alerta, inicio=1, fin=4):
-        permisos_req = self.permisos_listado(inicio, fin, permisos_idx)
+        permisos_req = self.verificar_permisos(self.global_var.id_secretaria, 5 ,permisos_idx, inicio, fin)
 
-        if any(len(permiso) > 0 for permiso in permisos_req):
+        if not permisos_req.empty:
+
             fechaHora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            registrarHistorial(self.global_var.id_secretaria, 5, permisos_idx, "Ingreso", fechaHora, msg_exito)
-            self.func = func(self)
-            self.layout.addWidget(self.func)
-            self.func.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-            self.layout.update()
+            if func:
+                self.func_result = func(self, self.engine)
+                self.layout.addWidget(self.func_result)
+                self.func_result.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                self.func_result.show()
+                
+            if msg_exito:
+                self.registrarHistorial(self.global_var.id_secretaria, 5, permisos_idx, "Ingreso", fechaHora, msg_exito)
+            elif msg_alerta:
+                QMessageBox.information(self, "Alerta", msg_alerta)
         else:
-            QMessageBox.information(self, "Alerta", msg_alerta)
+            QMessageBox.information(self, "Alerta", "Usted no cuenta con los permisos necesarios.")
+
+    def registrarHistorial(self, id_secretaria, id_seccion, id_modulo, interaccion, fechaHora, detalle):
+        data = {
+            'id_secretaria': [str(id_secretaria)],
+            'id_seccion': [str(id_seccion)],
+            'id_modulo': [str(id_modulo)],
+            'interaccion': [interaccion],
+            'fechaHora': [fechaHora], 
+            'detalle': [detalle]
+        }
+        df_historial = pd.DataFrame(data)
+        df_historial.to_sql('historial', con=self.engine, if_exists='append', index=False)
 
     def mostrar_listarCuotas(self):
         self.mostrar(4, ListarCuotas, "Ingreso exitoso a Listado de Cuotas", "Usted no cuenta con los permisos necesarios.")
@@ -68,6 +105,11 @@ class MenuContabilidad(QMainWindow, Ui_MainWindow_Menu_Contabilidad):
 
     def mostrar_registroRecibos(self):
         self.mostrar(11, RegistrarRecibos, "Ingreso exitoso a Registro de Recibos", "Usted no cuenta con los permisos necesarios.", 2, 4)
+
+    def centerOnScreen(self):
+        if not hasattr(self, 'available_geometry'):
+            self.available_geometry = QGuiApplication.primaryScreen().availableGeometry()
+        self.move(self.available_geometry.center() - self.rect().center())
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

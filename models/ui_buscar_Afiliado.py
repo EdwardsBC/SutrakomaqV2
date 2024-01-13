@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'buscar_AfiliadowohCtu.ui'
+## Form generated from reading UI file 'buscar_AfiliadoWsLYWd.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -98,27 +98,32 @@ class Ui_MainWindow(object):
         palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush7)
 #endif
         MainWindow.setPalette(palette)
+        font = QFont()
+        font.setFamilies([u"Verdana"])
+        font.setPointSize(10)
+        font.setBold(True)
+        MainWindow.setFont(font)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
         icon = QIcon()
-        icon.addFile(u":/icons/app/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
         self.actionSalir.setIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.tableWidget = QTableWidget(self.centralwidget)
         if (self.tableWidget.columnCount() < 3):
             self.tableWidget.setColumnCount(3)
-        font = QFont()
-        font.setPointSize(10)
-        font.setBold(True)
+        font1 = QFont()
+        font1.setPointSize(10)
+        font1.setBold(True)
         __qtablewidgetitem = QTableWidgetItem()
-        __qtablewidgetitem.setFont(font);
+        __qtablewidgetitem.setFont(font1);
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
-        __qtablewidgetitem1.setFont(font);
+        __qtablewidgetitem1.setFont(font1);
         self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
-        __qtablewidgetitem2.setFont(font);
+        __qtablewidgetitem2.setFont(font1);
         self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(30, 51, 461, 441))
@@ -129,7 +134,7 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(160, 20, 231, 20))
+        self.lineEdit.setGeometry(QRect(170, 20, 321, 20))
         self.lineEdit.setFont(font)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)

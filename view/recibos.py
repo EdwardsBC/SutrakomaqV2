@@ -1,25 +1,28 @@
 from database.connection import *
-from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QWidget, QSizePolicy, QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QSizePolicy
 from models.ui_registro_recibo import Ui_MainWindow as Ui_MainWindow_RegistroRecibos
 from models.ui_lista_recibos import Ui_MainWindow as Ui_MainWindow_ListaRecibos
 from models.ui_buscar_Dirigente import Ui_MainWindow as Ui_MainWindow_buscarDirigente
 from PySide6.QtCore import QDate, Qt
 from datetime import datetime
 from jinja2 import Template
+from sqlalchemy import text
+import pandas as pd
 import calendar
 import locale
 import pdfkit
 import os
 
 class ListarRecibos(QMainWindow, Ui_MainWindow_ListaRecibos):
-    def __init__(self,menu_contabilidad):
+    def __init__(self,menu_contabilidad, engine):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
-        self.load()
-
         self.menu_contabilidad = menu_contabilidad
+        self.engine = engine
+
+        self.load()
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionExportar.triggered.connect(self.exportarExcel)
@@ -44,20 +47,28 @@ class ListarRecibos(QMainWindow, Ui_MainWindow_ListaRecibos):
     def cargarDatos(self, fecha_inicio, fecha_fin):
         fecha_inicio_str = datetime.strptime(fecha_inicio, "%d-%m-%Y").strftime("%Y-%m-%d")
         fecha_fin_str = datetime.strptime(fecha_fin, "%d-%m-%Y").strftime("%Y-%m-%d")
-        
-        recibos = obtener_ListadoRecibos(fecha_inicio_str, fecha_fin_str)
 
-        if recibos and len(recibos) > 0:
-            self.tableWidget.setColumnCount(len(recibos[0]))
-            self.tableWidget.setRowCount(len(recibos))
-            for row, recibo in enumerate(recibos):
-                for col, value in enumerate(recibo):
-                    item = QTableWidgetItem()
-                    if col == 1:
-                        item.setText(value.strftime("%d-%m-%Y"))
-                    else:
-                        item.setText(str(value))
-                    self.tableWidget.setItem(row, col, item)
+        query = f"""
+            SELECT r.id, r.fecha, r.id_dirigente, d.nombre AS nombre_dirigente, r.valor, r.concepto
+            FROM recibos r
+            INNER JOIN dirigentes d ON r.id_dirigente = d.id
+            WHERE r.fecha > '{fecha_inicio_str}' AND r.fecha < '{fecha_fin_str}'
+            ORDER BY r.id ASC;
+            """
+
+        df_recibos = pd.read_sql(query, self.engine)
+
+        if not df_recibos.empty:
+            num_columns = len(df_recibos.columns)
+            self.tableWidget.setColumnCount(num_columns)
+            self.tableWidget.setRowCount(len(df_recibos))
+
+            for row_idx, row in df_recibos.iterrows():
+                for col_idx, cell_data in enumerate(row):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.tableWidget.setItem(row_idx, col_idx, item)
+
+                    item.setText(str(cell_data))
 
             self.tableWidget.resizeColumnsToContents()
             self.buscar(self.lineEdit.text())
@@ -158,8 +169,7 @@ class ListarRecibos(QMainWindow, Ui_MainWindow_ListaRecibos):
         for col in range(self.tableWidget.columnCount()):
             data.append(self.tableWidget.item(row, col).text())
 
-        self.close()
-        self.registrar = RegistrarRecibos(self.menu_contabilidad, data)
+        self.registrar = RegistrarRecibos(self.menu_contabilidad, self.engine, data)
 
         self.registrar.lineEdit.setText(data[0])
         fecha_formateada = data[1].split()[0] 
@@ -168,37 +178,39 @@ class ListarRecibos(QMainWindow, Ui_MainWindow_ListaRecibos):
         self.registrar.lineEdit_3.setText(data[3])
         self.registrar.doubleSpinBox.setValue(float(data[4]))
         self.registrar.lineEdit_4.setText(data[5])
-        self.close()
+
 
         self.menu_contabilidad.layout.addWidget(self.registrar)
         self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
+        self.close()
+
 class RegistrarRecibos(QMainWindow, Ui_MainWindow_RegistroRecibos):
-    def __init__(self,menu_contabilidad,data=None):
+    def __init__(self,menu_contabilidad, engine=None,data=None):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
-        self.load()
-
         self.menu_contabilidad = menu_contabilidad
+        self.engine = engine
+
+        self.load()
 
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionGrabar.triggered.connect(self.grabar)
         self.actionImprimir.triggered.connect(self.exportarPdf)
         self.actionEliminar.triggered.connect(self.eliminar)
         self.actionSalir.triggered.connect(self.cerrar)
-        self.lineEdit_3.textChanged.connect(self.buscarDirigente)
+        
+        self.pushButton.clicked.connect(self.show_popup)
 
-    def buscarDirigente(self):
-        valor_a_buscar = str(self.lineEdit_3.text())
+    def show_popup(self):
 
-        if len(valor_a_buscar) >= 8:
-            resultado = buscarDirigenteDNI(valor_a_buscar)
+        self.registrar = BuscarDirigente(self.menu_contabilidad, self.engine)
+        self.menu_contabilidad.layout.addWidget(self.registrar)
+        self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
-            if resultado:
-                self.lineEdit_2.setText(str(resultado[0]))
-                self.lineEdit_5.setText(resultado[1])
+        self.close()
 
     def load(self):
         self.dateEdit.setDate(QDate.currentDate())
@@ -216,23 +228,41 @@ class RegistrarRecibos(QMainWindow, Ui_MainWindow_RegistroRecibos):
         respuesta = QMessageBox.question(self, "Grabar registro", "¿Desea grabar un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
 
         if respuesta == QMessageBox.Yes:
-            id_recibo = self.lineEdit.text()
+            id = self.lineEdit.text()
             fecha = self.dateEdit.date().toString("yyyy-MM-dd")
             id_dirigente = self.lineEdit_2.text()
             valor = self.doubleSpinBox.value()
             concepto = self.lineEdit_4.text()
             
             if id_dirigente and concepto:
-                if id_recibo:
-                    editar_Recibo(id_recibo, fecha, id_dirigente, valor, concepto)
-                    QMessageBox.information(self, "Éxito", "Se ha editado el recibo correctamente.")
-                    self.close()
-                    self.menu_contabilidad.mostrar_listarRecibos()
-                else:
-                    guardar_Recibo(fecha, id_dirigente, valor, concepto)
-                    QMessageBox.information(self, "Éxito", "Se ha guardado el recibo correctamente.")
-                    self.close()
-                    self.menu_contabilidad.mostrar_listarRecibos()
+                id = int(id) if id.isdigit() else None
+                recibo = {
+                    'id':id,
+                    'fecha':fecha,
+                    'id_dirigente':id_dirigente,
+                    'valor':valor,
+                    'concepto':concepto,
+                }
+
+                with self.engine.begin() as conn:
+                    if id:
+                        update_stmt = text("""
+                            UPDATE recibos 
+                            SET fecha=:fecha,id_dirigente=:id_dirigente,valor=:valor,concepto=:concepto
+                            WHERE id=:id;
+                        """)
+                        conn.execute(update_stmt, recibo)
+
+                        QMessageBox.information(self, "Éxito", "Se ha editado el recibo correctamente.")
+                        self.close()
+                    else:
+                        insert_stmt = text("""
+                            INSERT INTO recibos (fecha,id_dirigente,valor,concepto)
+                            VALUES (:fecha,:id_dirigente,:valor,:concepto)
+                        """)
+                        conn.execute(insert_stmt, recibo)
+                        QMessageBox.information(self, "Éxito", "Se ha guardado el recibo correctamente.")
+                        self.close()
             else:
                 QMessageBox.warning(self, "Advertencia", "Los campos que contienen un (*) son obligatorios.")
         else:
@@ -288,13 +318,14 @@ class RegistrarRecibos(QMainWindow, Ui_MainWindow_RegistroRecibos):
 
         if id:
             respuesta = QMessageBox.question(self, "Confirmar Eliminación", "¿Estás seguro de eliminar el registro?", QMessageBox.Yes | QMessageBox.No)
-                        
             if respuesta == QMessageBox.Yes:
-                sp = "sp_eliminarRecibos"
-                Eliminar(sp,id)
-                QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
-                self.close()
-                self.menu_contabilidad.mostrar_listarRecibos()
+                with self.engine.begin() as conn:
+                    delete_recibos_query = text("DELETE FROM recibos WHERE id = :id")
+                    conn.execute(delete_recibos_query, {'id': id})
+                    QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
+                    self.close()
+            else:
+                QMessageBox.warning(self, "Advertencia", "Operación cancelada.")
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 
@@ -305,6 +336,82 @@ class RegistrarRecibos(QMainWindow, Ui_MainWindow_RegistroRecibos):
             self.close()
         else:
             pass 
+
+class BuscarDirigente(QMainWindow, Ui_MainWindow_buscarDirigente):
+    def __init__(self,menu_contabilidad, engine=None,data=None):
+        super().__init__()
+        self.setupUi(self)
+        self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
+
+        self.engine = engine
+        self.menu_contabilidad = menu_contabilidad
+
+        self.load()
+
+        self.lineEdit.textChanged.connect(self.buscar)
+        self.tableWidget.itemDoubleClicked.connect(self.enviarSeleccionado)
+        self.actionSalir.triggered.connect(self.cerrar)
+
+    def load(self):
+        self.listar()
+
+    def listar(self):
+        dirigentes = buscar_Dirigente()
+
+        if dirigentes is not None:
+            self.tableWidget.setRowCount(len(dirigentes))
+            self.tableWidget.setColumnCount(len(dirigentes[0]))
+            self.tableWidget.setHorizontalHeaderLabels([])
+
+            for row_idx, row_data in enumerate(dirigentes):
+                for col_idx, cell_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(cell_data))
+                    self.tableWidget.setItem(row_idx, col_idx, item)
+
+
+            self.tableWidget.resizeColumnsToContents()
+        else:
+            QMessageBox.information(self, "Alerta", "No se han encontrado datos que listar.")
+
+    def buscar(self,texto):
+        num_filas = self.tableWidget.rowCount()
+
+        for fila in range(num_filas):
+            nombree = self.tableWidget.item(fila, 1)
+            apellido = self.tableWidget.item(fila, 2)
+
+            if nombree is not None and apellido is not None:
+                dirigente = nombree.text()
+                concepto = apellido.text().lower()
+
+                if texto.lower() in dirigente.lower() or texto.lower() in concepto:
+                    self.tableWidget.setRowHidden(fila, False)
+                else:
+                    self.tableWidget.setRowHidden(fila, True)
+
+    def enviarSeleccionado(self,item):
+        row = item.row()
+        data = []
+        for col in range(self.tableWidget.columnCount()):
+            data.append(self.tableWidget.item(row, col).text())
+
+        self.registrar = RegistrarRecibos(self.menu_contabilidad, self.engine, data)
+        self.registrar.lineEdit_2.setText(data[0])
+        self.registrar.lineEdit_3.setText(data[1]+ " "+ data[2])
+        self.registrar.dateEdit.setFocus()
+        
+        self.menu_contabilidad.layout.addWidget(self.registrar)
+        self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.close()
+
+    def cerrar(self):
+        respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No)
+
+        if respuesta == QMessageBox.Yes:
+            self.close()
+        else:
+            pass
 
 #######################################################
 def convertir_fecha_letras(fecha):

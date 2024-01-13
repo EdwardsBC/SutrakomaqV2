@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_reciboLVvblE.ui'
+## Form generated from reading UI file 'registro_recibozFwJhx.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.1
 ##
@@ -18,15 +18,15 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QDateEdit, QDateTimeEdit,
     QDoubleSpinBox, QGroupBox, QLabel, QLineEdit,
-    QMainWindow, QMenuBar, QSizePolicy, QStatusBar,
-    QToolBar, QWidget)
+    QMainWindow, QMenuBar, QPushButton, QSizePolicy,
+    QStatusBar, QToolBar, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(492, 372)
+        MainWindow.resize(492, 329)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -100,6 +100,7 @@ class Ui_MainWindow(object):
 #endif
         MainWindow.setPalette(palette)
         font = QFont()
+        font.setFamilies([u"Verdana"])
         font.setPointSize(10)
         font.setBold(True)
         MainWindow.setFont(font)
@@ -132,7 +133,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(30, 60, 431, 221))
+        self.groupBox_2.setGeometry(QRect(30, 60, 431, 161))
         palette1 = QPalette()
         palette1.setBrush(QPalette.Active, QPalette.WindowText, brush)
         brush8 = QBrush(QColor(180, 180, 180, 255))
@@ -201,45 +202,45 @@ class Ui_MainWindow(object):
         self.groupBox_2.setAutoFillBackground(True)
         self.label_4 = QLabel(self.groupBox_2)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(20, 157, 81, 16))
+        self.label_4.setGeometry(QRect(20, 123, 91, 16))
         self.label_3 = QLabel(self.groupBox_2)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(20, 122, 49, 16))
+        self.label_3.setGeometry(QRect(20, 88, 49, 16))
         self.label_2 = QLabel(self.groupBox_2)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(20, 24, 81, 16))
+        self.label_2.setGeometry(QRect(20, 24, 91, 16))
         self.label = QLabel(self.groupBox_2)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(20, 88, 49, 16))
+        self.label.setGeometry(QRect(20, 54, 49, 16))
         self.dateEdit = QDateEdit(self.groupBox_2)
         self.dateEdit.setObjectName(u"dateEdit")
-        self.dateEdit.setGeometry(QRect(110, 84, 290, 22))
+        self.dateEdit.setGeometry(QRect(120, 50, 290, 22))
         self.dateEdit.setFrame(True)
-        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 3), QTime(22, 0, 0)))
+        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 4), QTime(8, 0, 0)))
         self.dateEdit.setCurrentSection(QDateTimeEdit.DaySection)
         self.dateEdit.setCalendarPopup(True)
         self.lineEdit_3 = QLineEdit(self.groupBox_2)
         self.lineEdit_3.setObjectName(u"lineEdit_3")
-        self.lineEdit_3.setGeometry(QRect(149, 20, 251, 20))
+        self.lineEdit_3.setGeometry(QRect(159, 20, 231, 20))
         self.doubleSpinBox = QDoubleSpinBox(self.groupBox_2)
         self.doubleSpinBox.setObjectName(u"doubleSpinBox")
-        self.doubleSpinBox.setGeometry(QRect(110, 120, 291, 22))
+        self.doubleSpinBox.setGeometry(QRect(120, 86, 291, 22))
         self.doubleSpinBox.setFrame(True)
         self.doubleSpinBox.setButtonSymbols(QAbstractSpinBox.NoButtons)
         self.doubleSpinBox.setMaximum(9999999.990000000223517)
         self.lineEdit_4 = QLineEdit(self.groupBox_2)
         self.lineEdit_4.setObjectName(u"lineEdit_4")
-        self.lineEdit_4.setGeometry(QRect(110, 160, 290, 20))
+        self.lineEdit_4.setGeometry(QRect(120, 120, 290, 20))
         self.lineEdit_2 = QLineEdit(self.groupBox_2)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
         self.lineEdit_2.setEnabled(False)
-        self.lineEdit_2.setGeometry(QRect(110, 20, 36, 20))
-        self.lineEdit_5 = QLineEdit(self.groupBox_2)
-        self.lineEdit_5.setObjectName(u"lineEdit_5")
-        self.lineEdit_5.setGeometry(QRect(110, 50, 291, 20))
+        self.lineEdit_2.setGeometry(QRect(120, 20, 36, 20))
+        self.pushButton = QPushButton(self.groupBox_2)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setGeometry(QRect(390, 18, 21, 24))
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(40, 20, 71, 16))
+        self.label_5.setGeometry(QRect(40, 20, 91, 16))
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setEnabled(False)
@@ -247,7 +248,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 492, 23))
+        self.menubar.setGeometry(QRect(0, 0, 492, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -281,6 +282,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"VALOR", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"DIRIGENTE*", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"FECHA", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"ID RECIBO", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi

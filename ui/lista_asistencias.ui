@@ -510,6 +510,11 @@
       <string>FECHA</string>
      </property>
     </column>
+    <column>
+     <property name="text">
+      <string>DESCRIPCIÓN</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

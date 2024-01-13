@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_dirigentesCguNnm.ui'
+## Form generated from reading UI file 'registro_dirigentesvXhqBZ.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -292,7 +292,7 @@ class Ui_MainWindow(object):
         self.dateEdit.setObjectName(u"dateEdit")
         self.dateEdit.setGeometry(QRect(203, 25, 231, 22))
         self.dateEdit.setFrame(True)
-        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 2), QTime(21, 0, 0)))
+        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 3), QTime(2, 0, 0)))
         self.dateEdit.setCurrentSection(QDateTimeEdit.DaySection)
         self.dateEdit.setCalendarPopup(True)
         self.dateEdit_2 = QDateEdit(self.groupBox_2)
@@ -511,7 +511,7 @@ class Ui_MainWindow(object):
 
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"ID DEL DIRIGENTE", None))
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Secretaria Asignada", None))
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"SECRETARIA", None))
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"SECRETAR\u00cdA", None))
         self.comboBox_2.setItemText(0, QCoreApplication.translate("MainWindow", u"GENERAL", None))
         self.comboBox_2.setItemText(1, QCoreApplication.translate("MainWindow", u"ADJUNTO", None))
         self.comboBox_2.setItemText(2, QCoreApplication.translate("MainWindow", u"DEFENSA", None))

@@ -4,20 +4,35 @@
 <table style="border-collapse: collapse; width: 100%;" border="1">
 <tbody>
 <tr>
-<td style="width: 12.5%; text-align: center;">ID</td>
-<td style="width: 12.5%; text-align: center;">ARTICULO</td>
-<td style="width: 12.5%; text-align: center;">FECHA</td>
-<td style="width: 12.5%; text-align: center;">CANTIDAD</td>
-<td style="width: 12.5%; text-align: center;">TIPO</td>
+<td style="width: 12.5%; text-align: center;">CODIGO</td>
+<td style="width: 12.5%; text-align: center;">DESCRIPCION</td>
+<td style="width: 12.5%; text-align: center;">UNIDAD DE MEDIDAS</td>
+<td style="width: 12.5%; text-align: center;">MEDIDAS</td>
+<td style="width: 12.5%; text-align: center;">UBICACION</td>
+<td style="width: 12.5%; text-align: center;">CONTEOS</td>
+<td style="width: 12.5%; text-align: center;">COLOR</td>
+<td style="width: 12.5%; text-align: center;">ESTADO</td>
+<td style="width: 12.5%; text-align: center;">MARCA</td>
+<td style="width: 12.5%; text-align: center;">MODELO</td>
+<td style="width: 12.5%; text-align: center;">SERIE</td>
+<td style="width: 12.5%; text-align: center;">OBSERVACIONES</td>
 
 </tr>
 {% for result in results %}
 <tr>
-    <td style="width: 12.5%; text-align: center;">{{result[0]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[1]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[2]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[4]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[5]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[6]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[7]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[8]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[9]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[10]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[11]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[12]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[13]}}</td>
     </tr>
 {% endfor %}
 </tbody>

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>resources/icons/ajuste.png</file>
     <file>resources/icons/eliminar.png</file>
     <file>resources/icons/exportar.png</file>
     <file>resources/icons/grabar.png</file>
