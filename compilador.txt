@@ -1,0 +1,1 @@
+pyinstaller --onefile --windowed --add-data "resources_rc.py;." --add-data "resources/icons;resources/icons" --add-data "config.json;." --add-data "models;models" --add-data "view;view" --add-data "utils;utils" --hidden-import jinja2 --hidden-import pandas --hidden-import pdfkit --icon="sutrakomaqlogo.ico" main.py

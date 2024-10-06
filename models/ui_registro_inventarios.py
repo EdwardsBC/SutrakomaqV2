@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_inventariosrzydXz.ui'
+## Form generated from reading UI file 'registro_inventariosoQAJel.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -17,8 +17,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QGroupBox, QLabel, QLineEdit,
-    QMainWindow, QMenuBar, QSizePolicy, QStatusBar,
-    QToolBar, QWidget)
+    QMainWindow, QSizePolicy, QToolBar, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
@@ -105,27 +104,27 @@ class Ui_MainWindow(object):
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionNuevo.setIcon(icon)
         self.actionGrabar = QAction(MainWindow)
         self.actionGrabar.setObjectName(u"actionGrabar")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/grabar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/resources/icons/grabar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionGrabar.setIcon(icon1)
         self.actionEliminar = QAction(MainWindow)
         self.actionEliminar.setObjectName(u"actionEliminar")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/resources/icons/eliminar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/icons/resources/icons/eliminar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionEliminar.setIcon(icon2)
         self.actionImprimir = QAction(MainWindow)
         self.actionImprimir.setObjectName(u"actionImprimir")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionImprimir.setIcon(icon3)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
         icon4 = QIcon()
-        icon4.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionSalir.setIcon(icon4)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -284,18 +283,11 @@ class Ui_MainWindow(object):
         self.lineEdit.setGeometry(QRect(130, 18, 101, 20))
         self.lineEdit.setFont(font1)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1366, 21))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
         self.toolBar = QToolBar(MainWindow)
         self.toolBar.setObjectName(u"toolBar")
         self.toolBar.setFont(font1)
-        self.toolBar.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
+        self.toolBar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolBar)
 
         self.toolBar.addAction(self.actionNuevo)
         self.toolBar.addAction(self.actionGrabar)

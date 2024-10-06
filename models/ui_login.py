@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'loginOIoWBd.ui'
+## Form generated from reading UI file 'loginulSPgJ.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.3
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,15 +15,16 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QMainWindow,
-    QMenuBar, QPushButton, QSizePolicy, QStatusBar,
+from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
+    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
     QWidget)
+import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(290, 248)
+        MainWindow.resize(290, 238)
         MainWindow.setMaximumSize(QSize(290, 290))
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
@@ -98,39 +99,117 @@ class Ui_MainWindow(object):
 #endif
         MainWindow.setPalette(palette)
         font = QFont()
-        font.setFamilies([u"Verdana"])
+        font.setFamilies([u"Berlin Sans FB Demi"])
         font.setPointSize(10)
+        font.setBold(True)
         MainWindow.setFont(font)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.lineEdit = QLineEdit(self.centralwidget)
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        self.frame.setMinimumSize(QSize(110, 30))
+        self.frame.setMaximumSize(QSize(20, 20))
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.label = QLabel(self.frame)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(0, 0, 111, 31))
+        font1 = QFont()
+        font1.setFamilies([u"Berlin Sans FB Demi"])
+        font1.setPointSize(24)
+        font1.setBold(True)
+        self.label.setFont(font1)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout.addWidget(self.frame, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+
+        self.frame_2 = QFrame(self.centralwidget)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setMinimumSize(QSize(225, 50))
+        self.frame_2.setMaximumSize(QSize(225, 50))
+        self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.lineEdit = QLineEdit(self.frame_2)
         self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(40, 80, 211, 31))
-        self.lineEdit_2 = QLineEdit(self.centralwidget)
+        self.lineEdit.setGeometry(QRect(10, 10, 211, 31))
+        font2 = QFont()
+        font2.setFamilies([u"Berlin Sans FB Demi"])
+        font2.setPointSize(12)
+        font2.setBold(True)
+        self.lineEdit.setFont(font2)
+        self.lineEdit.setStyleSheet(u"QLineEdit {\n"
+"    border: 2px solid #000000;\n"
+"    border-radius: 10px;\n"
+"    padding: 5px;\n"
+"}\n"
+"")
+
+        self.verticalLayout.addWidget(self.frame_2, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.frame_3 = QFrame(self.centralwidget)
+        self.frame_3.setObjectName(u"frame_3")
+        self.frame_3.setMinimumSize(QSize(225, 50))
+        self.frame_3.setMaximumSize(QSize(225, 50))
+        self.frame_3.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
+        self.lineEdit_2 = QLineEdit(self.frame_3)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
-        self.lineEdit_2.setGeometry(QRect(40, 123, 211, 31))
+        self.lineEdit_2.setGeometry(QRect(10, 10, 211, 31))
+        self.lineEdit_2.setFont(font2)
+        self.lineEdit_2.setStyleSheet(u"QLineEdit {\n"
+"    border: 2px solid #000000;\n"
+"    border-radius: 10px;\n"
+"    padding: 5px;\n"
+"}\n"
+"")
         self.lineEdit_2.setDragEnabled(False)
         self.lineEdit_2.setClearButtonEnabled(False)
-        self.pushButton = QPushButton(self.centralwidget)
+        self.pushButton_2 = QPushButton(self.frame_3)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setGeometry(QRect(195, 15, 21, 21))
+        font3 = QFont()
+        font3.setFamilies([u"Berlin Sans FB Demi"])
+        font3.setPointSize(9)
+        font3.setBold(True)
+        self.pushButton_2.setFont(font3)
+        self.pushButton_2.setStyleSheet(u"QPushButton_2{\n"
+"\n"
+"}")
+
+        self.verticalLayout.addWidget(self.frame_3, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.frame_4 = QFrame(self.centralwidget)
+        self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setMinimumSize(QSize(170, 50))
+        self.frame_4.setMaximumSize(QSize(100, 50))
+        self.frame_4.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_4.setFrameShadow(QFrame.Shadow.Raised)
+        self.pushButton = QPushButton(self.frame_4)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(68, 170, 151, 31))
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(40, 20, 211, 41))
-        font1 = QFont()
-        font1.setFamilies([u"Verdana"])
-        font1.setPointSize(24)
-        self.label.setFont(font1)
-        self.label.setAlignment(Qt.AlignCenter)
+        self.pushButton.setGeometry(QRect(10, 10, 151, 31))
+        self.pushButton.setFont(font2)
+        self.pushButton.setStyleSheet(u"QPushButton {\n"
+"    border: 2px solid #000000;\n"
+"    border-radius: 5px;\n"
+"    padding: 5px;\n"
+"    background-color: #ffffff; /* Fondo blanco */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #f0f0f0; /* Fondo gris claro cuando el cursor est\u00e1 sobre el bot\u00f3n */\n"
+"}\n"
+"\n"
+"QPushButton:!hover {\n"
+"    background-color: #ffffff; /* Vuelve al fondo blanco cuando el cursor sale del bot\u00f3n */\n"
+"}\n"
+"")
+
+        self.verticalLayout.addWidget(self.frame_4, 0, Qt.AlignmentFlag.AlignHCenter)
+
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 290, 22))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
 
@@ -139,11 +218,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Login", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"LOGIN", None))
         self.lineEdit.setInputMask("")
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Usuario", None))
         self.lineEdit_2.setInputMask("")
         self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Contrase\u00f1a", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"!", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Ingresar", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"LOGIN", None))
     # retranslateUi
 

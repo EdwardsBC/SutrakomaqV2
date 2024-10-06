@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_cuotasADZAeN.ui'
+## Form generated from reading UI file 'registro_cuotasRFjFdM.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -16,17 +16,17 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QDateEdit, QDateTimeEdit, QDoubleSpinBox,
-    QGroupBox, QHeaderView, QLabel, QLineEdit,
-    QMainWindow, QMenuBar, QSizePolicy, QStatusBar,
-    QTableWidget, QTableWidgetItem, QToolBar, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QDateEdit, QDateTimeEdit,
+    QDoubleSpinBox, QGroupBox, QHeaderView, QLabel,
+    QLineEdit, QMainWindow, QSizePolicy, QTableWidget,
+    QTableWidgetItem, QToolBar, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1366, 750)
+        MainWindow.resize(1132, 750)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -107,50 +107,50 @@ class Ui_MainWindow(object):
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionNuevo.setIcon(icon)
         self.actionGrabar = QAction(MainWindow)
         self.actionGrabar.setObjectName(u"actionGrabar")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/grabar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/resources/icons/grabar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionGrabar.setIcon(icon1)
         self.actionEliminar = QAction(MainWindow)
         self.actionEliminar.setObjectName(u"actionEliminar")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/resources/icons/eliminar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/icons/resources/icons/eliminar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionEliminar.setIcon(icon2)
         self.actionImprimir = QAction(MainWindow)
         self.actionImprimir.setObjectName(u"actionImprimir")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionImprimir.setIcon(icon3)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
         icon4 = QIcon()
-        icon4.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionSalir.setIcon(icon4)
         self.actionAjustes = QAction(MainWindow)
         self.actionAjustes.setObjectName(u"actionAjustes")
         icon5 = QIcon()
-        icon5.addFile(u":/icons/resources/icons/ajuste.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon5.addFile(u":/icons/resources/icons/ajuste.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionAjustes.setIcon(icon5)
-        self.actionAjustes.setMenuRole(QAction.NoRole)
+        self.actionAjustes.setMenuRole(QAction.MenuRole.NoRole)
         self.actionImportar = QAction(MainWindow)
         self.actionImportar.setObjectName(u"actionImportar")
         icon6 = QIcon()
-        icon6.addFile(u":/icons/resources/icons/exportar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon6.addFile(u":/icons/resources/icons/exportar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionImportar.setIcon(icon6)
-        self.actionImportar.setMenuRole(QAction.NoRole)
+        self.actionImportar.setMenuRole(QAction.MenuRole.NoRole)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(30, 21, 111, 16))
+        self.label_5.setGeometry(QRect(15, 21, 111, 16))
         self.label_5.setFont(font)
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setEnabled(False)
-        self.lineEdit.setGeometry(QRect(130, 19, 113, 20))
+        self.lineEdit.setGeometry(QRect(115, 19, 113, 20))
         self.lineEdit.setFont(font)
         self.groupBox_4 = QGroupBox(self.centralwidget)
         self.groupBox_4.setObjectName(u"groupBox_4")
@@ -228,12 +228,12 @@ class Ui_MainWindow(object):
         self.dateEdit.setObjectName(u"dateEdit")
         self.dateEdit.setGeometry(QRect(150, 21, 901, 22))
         self.dateEdit.setFrame(True)
-        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 9), QTime(13, 0, 0)))
-        self.dateEdit.setCurrentSection(QDateTimeEdit.DaySection)
+        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 10), QTime(9, 0, 0)))
+        self.dateEdit.setCurrentSection(QDateTimeEdit.Section.DaySection)
         self.dateEdit.setCalendarPopup(True)
         self.tableWidget = QTableWidget(self.centralwidget)
-        if (self.tableWidget.columnCount() < 8):
-            self.tableWidget.setColumnCount(8)
+        if (self.tableWidget.columnCount() < 5):
+            self.tableWidget.setColumnCount(5)
         __qtablewidgetitem = QTableWidgetItem()
         __qtablewidgetitem.setFont(font);
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
@@ -249,18 +249,11 @@ class Ui_MainWindow(object):
         __qtablewidgetitem4 = QTableWidgetItem()
         __qtablewidgetitem4.setFont(font);
         self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        __qtablewidgetitem5.setFont(font);
-        self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        __qtablewidgetitem6.setFont(font);
-        self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        __qtablewidgetitem7.setFont(font);
-        self.tableWidget.setHorizontalHeaderItem(7, __qtablewidgetitem7)
         self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setEnabled(True)
         self.tableWidget.setGeometry(QRect(10, 150, 1061, 511))
         self.tableWidget.setFont(font)
+        self.tableWidget.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(19, 122, 141, 16))
@@ -272,35 +265,30 @@ class Ui_MainWindow(object):
         self.label_7.setObjectName(u"label_7")
         self.label_7.setGeometry(QRect(915, 125, 51, 16))
         self.label_7.setFont(font)
-        self.label_8 = QLabel(self.centralwidget)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setGeometry(QRect(737, 127, 51, 16))
-        self.label_8.setFont(font)
         self.label_9 = QLabel(self.centralwidget)
         self.label_9.setObjectName(u"label_9")
-        self.label_9.setGeometry(QRect(561, 127, 51, 16))
+        self.label_9.setGeometry(QRect(745, 127, 51, 16))
         self.label_9.setFont(font)
         self.doubleSpinBox = QDoubleSpinBox(self.centralwidget)
         self.doubleSpinBox.setObjectName(u"doubleSpinBox")
+        self.doubleSpinBox.setEnabled(False)
         self.doubleSpinBox.setGeometry(QRect(970, 122, 101, 22))
-        self.doubleSpinBox_2 = QDoubleSpinBox(self.centralwidget)
-        self.doubleSpinBox_2.setObjectName(u"doubleSpinBox_2")
-        self.doubleSpinBox_2.setGeometry(QRect(795, 122, 101, 22))
+        self.doubleSpinBox.setMaximum(999999999999999.000000000000000)
         self.doubleSpinBox_3 = QDoubleSpinBox(self.centralwidget)
         self.doubleSpinBox_3.setObjectName(u"doubleSpinBox_3")
-        self.doubleSpinBox_3.setGeometry(QRect(620, 123, 101, 22))
+        self.doubleSpinBox_3.setGeometry(QRect(804, 123, 101, 22))
+        self.doubleSpinBox_3.setMaximum(99999999999999.000000000000000)
+        self.doubleSpinBox_3.setValue(23.000000000000000)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1366, 22))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
         self.toolBar = QToolBar(MainWindow)
         self.toolBar.setObjectName(u"toolBar")
-        self.toolBar.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
+        self.toolBar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolBar)
+        QWidget.setTabOrder(self.lineEdit, self.dateEdit)
+        QWidget.setTabOrder(self.dateEdit, self.lineEdit_3)
+        QWidget.setTabOrder(self.lineEdit_3, self.doubleSpinBox_3)
+        QWidget.setTabOrder(self.doubleSpinBox_3, self.doubleSpinBox)
+        QWidget.setTabOrder(self.doubleSpinBox, self.tableWidget)
 
         self.toolBar.addAction(self.actionNuevo)
         self.toolBar.addAction(self.actionGrabar)
@@ -328,24 +316,17 @@ class Ui_MainWindow(object):
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"Datos de cuotas", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"FECHA*", None))
         ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"id_Afiliado", None));
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"ID_AFILIADO", None));
         ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Apellido", None));
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"APELLIDO", None));
         ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Nombre", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"NOMBRE", None));
         ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"DNI", None));
         ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"CUC", None));
-        ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Cuota", None));
-        ___qtablewidgetitem6 = self.tableWidget.horizontalHeaderItem(6)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"Multa", None));
-        ___qtablewidgetitem7 = self.tableWidget.horizontalHeaderItem(7)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"Total", None));
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"CUOTA", None));
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"BUSCAR", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"TOTAL", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"MULTA", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"CUOTA", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi

@@ -17,7 +17,6 @@ def create_db_engine():
     connection_string = f"mysql+pymysql://{db_config['usuario']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['db']}"
     return create_engine(connection_string)
 
-#=======================================================================================================#
 class Configuracion(QMainWindow, Ui_MainWindowConfiguracion):
     global_var = GlobalVar()
 

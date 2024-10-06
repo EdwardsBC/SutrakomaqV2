@@ -1,4 +1,3 @@
-# variables_globales.py
 class GlobalVar:
     _instance = None
     secretaria = None

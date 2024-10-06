@@ -521,7 +521,6 @@
    <addaction name="menuLicencias"/>
    <addaction name="menuSalir"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionAfiliados">
    <property name="text">
     <string>Afiliados</string>

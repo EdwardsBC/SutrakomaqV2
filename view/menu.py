@@ -5,17 +5,11 @@ from view.menu_registros import MenuRegistros
 from view.variables_globales import GlobalVar
 from view.configuracion import Configuracion
 from PySide6.QtGui import QGuiApplication
-from sqlalchemy import create_engine
 from datetime import datetime
+from sqlalchemy import text
+import concurrent.futures
 import pandas as pd
-import json
 import sys
-
-def create_db_engine():
-    with open('config.json', 'r') as config_file:
-        db_config = json.load(config_file)
-    connection_string = f"mysql+pymysql://{db_config['usuario']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['db']}"
-    return create_engine(connection_string)
 
 class Menu(QMainWindow, Ui_MainWindow_Menu):
     global_var = GlobalVar()
@@ -26,6 +20,7 @@ class Menu(QMainWindow, Ui_MainWindow_Menu):
         self.setupUi(self)
 
         self.pushButton.clicked.connect(self.mostrar_registros)
+        self.pushButton_2.clicked.connect(self.mostrar_reportes)
         self.pushButton_3.clicked.connect(self.mostrar_contabilidad)
         self.pushButton_4.clicked.connect(self.mostrar_defensa)
         self.pushButton_5.clicked.connect(self.mostrar_configuracion)
@@ -40,47 +35,67 @@ class Menu(QMainWindow, Ui_MainWindow_Menu):
                 self.func_result = func(self.engine)
                 if hasattr(self.func_result, 'showMaximized'):
                     self.func_result.showMaximized()
-                    self.func_result.centerOnScreen()
                     self.close()
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                executor.submit(self.registrarHistorial, self.global_var.id_secretaria, permisos_idx, 1, "Ingreso", fechaHora, msg_exito)
+
             if msg_exito:
-                self.registrarHistorial(self.global_var.id_secretaria, permisos_idx, 1, "Ingreso", fechaHora, msg_exito)
+                return
             elif msg_en_proceso:
                 QMessageBox.information(self, "Alerta", msg_en_proceso)
         else:
             QMessageBox.information(self, "Alerta", "Usted no cuenta con los permisos necesarios.")
 
     def mostrar_configuracion(self):
-        self.mostrar(2, Configuracion, "Ingreso exitoso a Configuracion")
+        self.mostrar(2, Configuracion, "Ingreso exitoso a Configuración")
 
     def mostrar_registros(self):
-        self.mostrar(3, MenuRegistros, "Ingreso exitoso a Registros", "Mensaje de alerta")
+        self.mostrar(3, lambda engine: MenuRegistros(engine), "Ingreso exitoso a Registros", "Mensaje de alerta")
+
+    def mostrar_reportes(self):
+        self.mostrar(4, None, None, "En proceso....")
 
     def mostrar_contabilidad(self):
-        self.mostrar(5, MenuContabilidad, "Ingreso exitoso a Contabilidad")
+        self.mostrar(5, lambda engine: MenuContabilidad(engine), "Ingreso exitoso a Contabilidad")
 
     def mostrar_defensa(self):
         self.mostrar(6, None, None, "En proceso....")
 
     def verificar_permisos(self, id_secretaria, id_seccion, id_modulo, nivel):
-        query = """
-        SELECT * 
-        FROM permisos
-        WHERE id_secretaria = %s AND id_seccion = %s AND id_modulo = %s AND nivel = %s;
-        """
-        df_permisos = pd.read_sql(query, self.engine, params=(id_secretaria, id_seccion, id_modulo, nivel))
-        return df_permisos
-    
+        try:
+            query = text("""
+                CALL sp_verificar_permisos(:id_secretaria, :id_seccion, :id_modulo, :nivel)
+            """)
+            with self.engine.connect() as conn:
+                result = conn.execute(query, {
+                    "id_secretaria": id_secretaria,
+                    "id_seccion": id_seccion,
+                    "id_modulo": id_modulo,
+                    "nivel": nivel
+                })
+                df_permisos = pd.DataFrame(result.fetchall(), columns=result.keys())
+            return df_permisos
+        except Exception as e:
+            print(f"Error al verificar permisos: {e}")
+            return pd.DataFrame()
+
     def registrarHistorial(self, id_secretaria, id_seccion, id_modulo, interaccion, fechaHora, detalle):
-        data = {
-            'id_secretaria': [str(id_secretaria)],
-            'id_seccion': [str(id_seccion)],
-            'id_modulo': [str(id_modulo)],
-            'interaccion': [interaccion],
-            'fechaHora': [fechaHora], 
-            'detalle': [detalle]
-        }
-        df_historial = pd.DataFrame(data)
-        df_historial.to_sql('historial', con=self.engine, if_exists='append', index=False)
+        try:
+            query = text("""
+                CALL sp_insertar_historial(:id_secretaria, :id_seccion, :id_modulo, :interaccion, :fechaHora, :detalle)
+            """)
+            with self.engine.begin() as conn:
+                conn.execute(query, {
+                    "id_secretaria": id_secretaria,
+                    "id_seccion": id_seccion,
+                    "id_modulo": id_modulo,
+                    "interaccion": interaccion,
+                    "fechaHora": fechaHora,
+                    "detalle": detalle
+                })
+        except Exception as e:
+            print(f"Error al registrar en el historial: {e}")
 
     def centerOnScreen(self):
         if not hasattr(self, 'available_geometry'):
@@ -88,9 +103,5 @@ class Menu(QMainWindow, Ui_MainWindow_Menu):
         self.move(self.available_geometry.center() - self.rect().center())
 
 if __name__ == '__main__':
-    engine = create_db_engine()
     app = QApplication(sys.argv)
-    window = Menu(engine)
-    window.show()
-    window.centerOnScreen()
     sys.exit(app.exec_())

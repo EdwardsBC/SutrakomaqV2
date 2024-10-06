@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1366</width>
+    <width>1132</width>
     <height>750</height>
    </rect>
   </property>
@@ -466,7 +466,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>15</x>
       <y>21</y>
       <width>111</width>
       <height>16</height>
@@ -489,7 +489,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>115</x>
       <y>19</y>
       <width>113</width>
       <height>20</height>
@@ -994,16 +994,16 @@
      </property>
      <property name="dateTime">
       <datetime>
-       <hour>13</hour>
+       <hour>9</hour>
        <minute>0</minute>
        <second>0</second>
        <year>2000</year>
        <month>1</month>
-       <day>9</day>
+       <day>10</day>
       </datetime>
      </property>
      <property name="currentSection">
-      <enum>QDateTimeEdit::DaySection</enum>
+      <enum>QDateTimeEdit::Section::DaySection</enum>
      </property>
      <property name="calendarPopup">
       <bool>true</bool>
@@ -1011,6 +1011,9 @@
     </widget>
    </widget>
    <widget class="QTableWidget" name="tableWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -1026,9 +1029,12 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+    </property>
     <column>
      <property name="text">
-      <string>id_Afiliado</string>
+      <string>ID_AFILIADO</string>
      </property>
      <property name="font">
       <font>
@@ -1040,7 +1046,7 @@
     </column>
     <column>
      <property name="text">
-      <string>Apellido</string>
+      <string>APELLIDO</string>
      </property>
      <property name="font">
       <font>
@@ -1052,7 +1058,7 @@
     </column>
     <column>
      <property name="text">
-      <string>Nombre</string>
+      <string>NOMBRE</string>
      </property>
      <property name="font">
       <font>
@@ -1076,43 +1082,7 @@
     </column>
     <column>
      <property name="text">
-      <string>CUC</string>
-     </property>
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Cuota</string>
-     </property>
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Multa</string>
-     </property>
-     <property name="font">
-      <font>
-       <family>Verdana</family>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Total</string>
+      <string>CUOTA</string>
      </property>
      <property name="font">
       <font>
@@ -1173,30 +1143,10 @@
      <string>TOTAL</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>737</x>
-      <y>127</y>
-      <width>51</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Verdana</family>
-      <pointsize>10</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>MULTA</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>561</x>
+      <x>745</x>
       <y>127</y>
       <width>51</width>
       <height>16</height>
@@ -1214,6 +1164,9 @@
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>970</x>
@@ -1222,45 +1175,33 @@
       <height>22</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-    <property name="geometry">
-     <rect>
-      <x>795</x>
-      <y>122</y>
-      <width>101</width>
-      <height>22</height>
-     </rect>
+    <property name="maximum">
+     <double>999999999999999.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>804</x>
       <y>123</y>
       <width>101</width>
       <height>22</height>
      </rect>
     </property>
+    <property name="maximum">
+     <double>99999999999999.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>23.000000000000000</double>
+    </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1366</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
    <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonTextBesideIcon</enum>
+    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -1330,7 +1271,7 @@
     <string>Ajustes</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::NoRole</enum>
+    <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
   <action name="actionImportar">
@@ -1342,10 +1283,18 @@
     <string>Importar</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::NoRole</enum>
+    <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>lineEdit_3</tabstop>
+  <tabstop>doubleSpinBox_3</tabstop>
+  <tabstop>doubleSpinBox</tabstop>
+  <tabstop>tableWidget</tabstop>
+ </tabstops>
  <resources>
   <include location="../resources.qrc"/>
  </resources>

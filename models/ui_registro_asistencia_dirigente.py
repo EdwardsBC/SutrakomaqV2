@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'registro_asistencia_dirigenterqaspE.ui'
+## Form generated from reading UI file 'registro_asistencia_dirigenteKRNdqu.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -17,16 +17,16 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDateEdit, QDateTimeEdit,
-    QGroupBox, QHeaderView, QLabel, QLineEdit,
-    QMainWindow, QMenuBar, QSizePolicy, QStatusBar,
-    QTableWidget, QTableWidgetItem, QToolBar, QWidget)
+    QFrame, QGroupBox, QHeaderView, QLabel,
+    QLineEdit, QMainWindow, QSizePolicy, QTableWidget,
+    QTableWidgetItem, QToolBar, QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1366, 750)
+        MainWindow.resize(1115, 673)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -107,47 +107,64 @@ class Ui_MainWindow(object):
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionNuevo.setIcon(icon)
         self.actionGrabar = QAction(MainWindow)
         self.actionGrabar.setObjectName(u"actionGrabar")
         icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/grabar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/resources/icons/grabar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionGrabar.setIcon(icon1)
         self.actionEliminar = QAction(MainWindow)
         self.actionEliminar.setObjectName(u"actionEliminar")
         icon2 = QIcon()
-        icon2.addFile(u":/icons/resources/icons/eliminar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u":/icons/resources/icons/eliminar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionEliminar.setIcon(icon2)
         self.actionImprimir = QAction(MainWindow)
         self.actionImprimir.setObjectName(u"actionImprimir")
         icon3 = QIcon()
-        icon3.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionImprimir.setIcon(icon3)
         self.actionImportar = QAction(MainWindow)
         self.actionImportar.setObjectName(u"actionImportar")
         icon4 = QIcon()
-        icon4.addFile(u":/icons/resources/icons/exportar.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u":/icons/resources/icons/exportar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionImportar.setIcon(icon4)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
         icon5 = QIcon()
-        icon5.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon5.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionSalir.setIcon(icon5)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.lineEdit = QLineEdit(self.centralwidget)
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        self.frame.setMinimumSize(QSize(850, 30))
+        self.frame.setMaximumSize(QSize(0, 30))
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.label_5 = QLabel(self.frame)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(10, 10, 131, 16))
+        self.label_5.setFont(font)
+        self.lineEdit = QLineEdit(self.frame)
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setEnabled(False)
-        self.lineEdit.setGeometry(QRect(180, 18, 161, 20))
+        self.lineEdit.setGeometry(QRect(150, 8, 161, 20))
         self.lineEdit.setFont(font)
-        self.label_5 = QLabel(self.centralwidget)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(40, 20, 131, 16))
-        self.label_5.setFont(font)
-        self.groupBox_2 = QGroupBox(self.centralwidget)
+
+        self.verticalLayout.addWidget(self.frame)
+
+        self.frame_2 = QFrame(self.centralwidget)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setMinimumSize(QSize(850, 107))
+        self.frame_2.setMaximumSize(QSize(0, 107))
+        self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.groupBox_2 = QGroupBox(self.frame_2)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(30, 50, 991, 91))
+        self.groupBox_2.setGeometry(QRect(10, 10, 811, 91))
         palette1 = QPalette()
         palette1.setBrush(QPalette.Active, QPalette.WindowText, brush)
         brush8 = QBrush(QColor(180, 180, 180, 255))
@@ -222,17 +239,26 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QRect(20, 58, 101, 16))
         self.dateEdit = QDateEdit(self.groupBox_2)
         self.dateEdit.setObjectName(u"dateEdit")
-        self.dateEdit.setGeometry(QRect(150, 56, 821, 22))
+        self.dateEdit.setGeometry(QRect(150, 56, 641, 22))
         self.dateEdit.setFrame(True)
-        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 7), QTime(21, 0, 0)))
-        self.dateEdit.setCurrentSection(QDateTimeEdit.DaySection)
+        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 8), QTime(7, 0, 0)))
+        self.dateEdit.setCurrentSection(QDateTimeEdit.Section.DaySection)
         self.dateEdit.setCalendarPopup(True)
         self.comboBox = QComboBox(self.groupBox_2)
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setGeometry(QRect(150, 20, 821, 22))
-        self.tableWidget = QTableWidget(self.centralwidget)
+        self.comboBox.setGeometry(QRect(150, 20, 641, 22))
+
+        self.verticalLayout.addWidget(self.frame_2)
+
+        self.frame_3 = QFrame(self.centralwidget)
+        self.frame_3.setObjectName(u"frame_3")
+        self.frame_3.setMinimumSize(QSize(850, 370))
+        self.frame_3.setMaximumSize(QSize(850, 0))
+        self.frame_3.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
+        self.tableWidget = QTableWidget(self.frame_3)
         if (self.tableWidget.columnCount() < 7):
             self.tableWidget.setColumnCount(7)
         __qtablewidgetitem = QTableWidgetItem()
@@ -257,21 +283,18 @@ class Ui_MainWindow(object):
         __qtablewidgetitem6.setFont(font);
         self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(30, 160, 991, 341))
+        self.tableWidget.setGeometry(QRect(20, 20, 800, 341))
+        self.tableWidget.setMinimumSize(QSize(800, 0))
         self.tableWidget.setFont(font)
+
+        self.verticalLayout.addWidget(self.frame_3, 0, Qt.AlignmentFlag.AlignTop)
+
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1366, 22))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
         self.toolBar = QToolBar(MainWindow)
         self.toolBar.setObjectName(u"toolBar")
         self.toolBar.setFont(font)
-        self.toolBar.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
+        self.toolBar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolBar)
 
         self.toolBar.addAction(self.actionNuevo)
         self.toolBar.addAction(self.actionGrabar)

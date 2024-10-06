@@ -1,16 +1,16 @@
-from database.connection import *
 from PySide6.QtWidgets import QMainWindow, QTableWidgetItem, QMessageBox, QFileDialog, QComboBox, QProgressBar, QVBoxLayout, QDialog, QSizePolicy
 from models.ui_registro_asistencia_dirigente import Ui_MainWindow as Ui_MainWindow_registroAsistenciasDirigentes
 from models.ui_registro_asistencias import Ui_MainWindow as Ui_MainWindow_RegistroAsistencias
 from models.ui_lista_asistencias import Ui_MainWindow as Ui_MainWindow_ListaAsistencias
 from sqlalchemy import text
 from PySide6.QtCore import Qt, QDate
-from tkinter import Tk, filedialog
 from functools import partial
 from jinja2 import Template
 import pandas as pd
 import datetime
 import pdfkit
+import os
+import json
 
 class ListarAsistencias(QMainWindow, Ui_MainWindow_ListaAsistencias):
     def __init__(self,menu_registros, engine):
@@ -24,7 +24,6 @@ class ListarAsistencias(QMainWindow, Ui_MainWindow_ListaAsistencias):
         self.load()
 
         self.actionNuevo.triggered.connect(self.nuevo)
-        self.actionExportar.triggered.connect(self.exportarExcel)
         self.actionImprimir.triggered.connect(self.exportarPdf)
         self.actionSalir.triggered.connect(self.cerrar)
 
@@ -67,11 +66,7 @@ class ListarAsistencias(QMainWindow, Ui_MainWindow_ListaAsistencias):
         if respuesta == QMessageBox.Yes:
             self.close()
             self.menu_registros.mostrar_registrarAsistencias()
-        else:
-            pass 
 
-    def exportarExcel(self):
-        pass
 
     def exportarPdf(self):
         respuesta = QMessageBox.question(self, "Exportar a PDF", "¿Desea exportar la lista a PDF?", QMessageBox.Yes | QMessageBox.No)
@@ -131,109 +126,102 @@ class ListarAsistencias(QMainWindow, Ui_MainWindow_ListaAsistencias):
         num_filas = self.tableWidget.rowCount()
 
         for fila in range(num_filas):
-            item_nombre = self.tableWidget.item(fila, 2)
-            item_apellido = self.tableWidget.item(fila, 3)
-            item_asamblea = self.tableWidget.item(fila, 4)
+            asamblea = self.tableWidget.item(fila, 1)
+            descripcion = self.tableWidget.item(fila, 3)
 
-            if item_asamblea is not None and item_nombre is not None and item_apellido is not None:
-                asamblea = item_asamblea.text()
-                nombre = item_nombre.text().lower()
-                apellido = item_apellido.text().lower()
+            if asamblea is not None and descripcion is not None:
+                asam = asamblea.text()
+                desc = descripcion.text().lower()
 
-                if texto.lower() in asamblea.lower() or texto.lower() in nombre or texto.lower() in apellido:
+                if texto.lower() in asam.lower() or texto.lower() in desc:
                     self.tableWidget.setRowHidden(fila, False)
                 else:
                     self.tableWidget.setRowHidden(fila, True)
-
+                    
     def enviarSeleccionado(self):
         row = self.tableWidget.currentRow()
         id = self.tableWidget.item(row, 0).text()
 
         descripcion = self.tableWidget.item(row, 3).text()
 
+        justificacion_items = ["", "VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"]
+
         if descripcion == "Asamblea de Afiliados":
-            asistencias = obtener_asistencias_cab(id)
+            query_afiliados = "CALL sp_listar_asistencias_afiliados(%s)"
+            asistencias = pd.read_sql(query_afiliados, self.engine, params=(id,))
+
             self.registrar = RegistrarAsitencias(self.menu_registros, self.engine, asistencias)
 
             self.registrar.lineEdit.setText(self.tableWidget.item(row, 0).text())
             self.registrar.comboBox.setCurrentText(self.tableWidget.item(row, 1).text())
             fecha = QDate.fromString(self.tableWidget.item(row, 2).text(), "dd-MM-yyyy")
             self.registrar.dateEdit.setDate(fecha)
-            
-            for asistencia in asistencias:
-                if asistencia[4] == 'ASISTIO':
+
+            for asistencia in asistencias.itertuples():
+                if asistencia.asistencia == 'ASISTIO':
                     tableWidget = self.registrar.tableWidget
                 else:
                     tableWidget = self.registrar.tableWidget_2
-                
+
                 row_position = tableWidget.rowCount()
                 tableWidget.insertRow(row_position)
-                
-                for i, item in enumerate(asistencia):
-                    tableWidget.setItem(row_position, i, QTableWidgetItem(str(item)))
-                    
-                    if i == 4:
-                        comboAsistencias = QComboBox()
-                        comboAsistencias.addItems(["ASISTIO", "FALTA", "JUSTIFICADO"])
-                        comboAsistencias.setCurrentText(item)
-                        tableWidget.setCellWidget(row_position, i, comboAsistencias)
 
-                    elif i == 6:
-                        comboJustificaciones = QComboBox()
-                        comboJustificaciones.addItems(["", "VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"])
-                        comboJustificaciones.setCurrentText(item)
-                        tableWidget.setCellWidget(row_position, i, comboJustificaciones)
+                tableWidget.setItem(row_position, 0, QTableWidgetItem(str(asistencia.id_afiliado)))
+                tableWidget.setItem(row_position, 1, QTableWidgetItem(asistencia.apellido))
+                tableWidget.setItem(row_position, 2, QTableWidgetItem(asistencia.nombre))
+                tableWidget.setItem(row_position, 3, QTableWidgetItem(asistencia.dni))
 
-            self.registrar.comboBox.currentIndexChanged.connect(self.registrar.actualizar_por_tipo_reunion)
-            afiliado_col = 4
-            items = ["ASISTIO", "FALTA", "JUSTIFICADO"]
-            justificacion_items = ["","VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"]
-
-            for row in range(self.registrar.tableWidget.rowCount()):
                 comboAsistencias = QComboBox()
-                comboAsistencias.addItems(items)
-                comboAsistencias.setCurrentIndex(0)
-                comboAsistencias.currentIndexChanged.connect(partial(self.registrar.actualizar_por_asistencia, self.registrar.tableWidget, row))
-                self.registrar.tableWidget.setCellWidget(row, afiliado_col, comboAsistencias)
+                comboAsistencias.addItems(["ASISTIO", "FALTA", "JUSTIFICADO"])
+                comboAsistencias.setCurrentText(asistencia.asistencia)
+                tableWidget.setCellWidget(row_position, 4, comboAsistencias)
+
+                tableWidget.setItem(row_position, 5, QTableWidgetItem(str(asistencia.multa)))
 
                 comboJustificaciones = QComboBox()
                 comboJustificaciones.addItems(justificacion_items)
-                self.registrar.tableWidget.setCellWidget(row, 6, comboJustificaciones)
-                
+
+                if asistencia.observacion in justificacion_items:
+                    comboJustificaciones.setCurrentText(asistencia.observacion)
+                else:
+                    comboJustificaciones.setCurrentIndex(0)
+
+                tableWidget.setCellWidget(row_position, 6, comboJustificaciones)
+
+            items = ["ASISTIO", "FALTA", "JUSTIFICADO"]
+
+            for row in range(self.registrar.tableWidget.rowCount()):
+                comboAsistencias = self.registrar.tableWidget.cellWidget(row, 4)
+                comboAsistencias.currentIndexChanged.connect(partial(self.registrar.actualizar_por_asistencia, self.registrar.tableWidget, row))
+
+                comboJustificaciones = self.registrar.tableWidget.cellWidget(row, 6)
                 comboAsistencias.currentIndexChanged.connect(partial(self.toggle_justificacion, comboJustificaciones, comboAsistencias))
 
             for row in range(self.registrar.tableWidget_2.rowCount()):
-                comboAsistencias = QComboBox()
-                comboAsistencias.addItems(items)
-                contenido = self.registrar.tableWidget_2.item(row, 4).text()
-                if contenido == "FALTA":
+                comboAsistencias = self.registrar.tableWidget_2.cellWidget(row, 4)
+
+                if comboAsistencias.currentText() == "FALTA":
                     comboAsistencias.setCurrentIndex(1)
-                if contenido == "JUSTIFICADO":
+                elif comboAsistencias.currentText() == "JUSTIFICADO":
                     comboAsistencias.setCurrentIndex(2)
                     comboJustificaciones = QComboBox()
                     comboJustificaciones.addItems(justificacion_items)
-                    justificacion = self.registrar.tableWidget_2.item(row, 6).text()
-                    if justificacion == "VACACIONES":
-                        comboJustificaciones.setCurrentIndex(1)
-                    elif justificacion == "DESCANSO MÉDICO":
-                        comboJustificaciones.setCurrentIndex(2)
-                    elif justificacion == "FALLECIMIENTO":
-                        comboJustificaciones.setCurrentIndex(3)
-                    elif justificacion == "AMANECIDA":
-                        comboJustificaciones.setCurrentIndex(4)
-                    elif justificacion == "GOSE SIN HABER":
-                        comboJustificaciones.setCurrentIndex(5)
-                    elif justificacion == "SUSPENSIÓN PERFECTA":
-                        comboJustificaciones.setCurrentIndex(6)
-                    else : 
-                        comboJustificaciones.setCurrentIndex(7)
+
+                    comboExistente = self.registrar.tableWidget_2.cellWidget(row, 6)
+
+                    if comboExistente:
+                        justificacion = comboExistente.currentText()
+                        if justificacion in justificacion_items:
+                            comboJustificaciones.setCurrentText(justificacion)
+                        else:
+                            comboJustificaciones.setCurrentIndex(0)
 
                     self.registrar.tableWidget_2.setCellWidget(row, 6, comboJustificaciones)
-                    
+
                     comboAsistencias.currentIndexChanged.connect(partial(self.toggle_justificacion, comboJustificaciones, comboAsistencias))
 
                 comboAsistencias.currentIndexChanged.connect(partial(self.registrar.actualizar_por_asistencia, self.registrar.tableWidget_2, row))
-                self.registrar.tableWidget_2.setCellWidget(row, afiliado_col, comboAsistencias)
+                self.registrar.tableWidget_2.setCellWidget(row, 4, comboAsistencias)
 
             self.close()
             self.registrar.tableWidget.resizeColumnsToContents()
@@ -241,33 +229,14 @@ class ListarAsistencias(QMainWindow, Ui_MainWindow_ListaAsistencias):
 
             self.menu_registros.layout.addWidget(self.registrar)
             self.registrar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-            
+
             self.registrar.spinBox.setValue(self.registrar.tableWidget.rowCount())
             self.registrar.spinBox_2.setValue(self.registrar.tableWidget_2.rowCount())
 
         else:
-            query = f"""
-                SELECT 
-                        dir.id AS 'id_dirigente', 
-                        dir.apellido, 
-                        dir.nombre, 
-                        dir.dni, 
-                        det.asistencia,
-                        det.multa,
-                        det.observacion
-                FROM 
-                        asistencias_det_dirig det
-                INNER JOIN 
-                        dirigentes dir ON det.id_dirigente = dir.id
-                INNER JOIN 
-                        asistencias_cab cab ON det.id_asistencia_cab = cab.id
-                WHERE 
-                        cab.id = {id}
-                ORDER BY 
-                        det.id ASC;
-            """
+            query_dirigentes = "CALL sp_listar_asistencias_dirigentes(%s)"
+            asistencias = pd.read_sql(query_dirigentes, self.engine, params=(id,))
 
-            asistencias = pd.read_sql(query, self.engine)
             self.registrar = RegistrarAsistenciasDirigentes(self.menu_registros, self.engine, asistencias)
 
             self.registrar.lineEdit.setText(self.tableWidget.item(row, 0).text())
@@ -282,15 +251,15 @@ class ListarAsistencias(QMainWindow, Ui_MainWindow_ListaAsistencias):
                     if j == 4:
                         comboAsistencias = QComboBox()
                         comboAsistencias.addItems(["ASISTIO", "FALTA", "JUSTIFICADO"])
-                        comboAsistencias.setCurrentText(value if value in ["ASISTIO", "FALTA", "JUSTIFICADO"] else "ASISTIO")
+                        comboAsistencias.setCurrentText(value)
                         self.registrar.tableWidget.setCellWidget(row_position, j, comboAsistencias)
-                        comboAsistencias.currentIndexChanged.connect(
-                            lambda index, row=row_position: self.registrar.actualizar_por_asistencia(row)
-                        )
                     elif j == 6:
                         comboJustificaciones = QComboBox()
-                        comboJustificaciones.addItems(["","VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"])
-                        comboJustificaciones.setCurrentText(value if value in ["","VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"] else "")
+                        comboJustificaciones.addItems(justificacion_items)
+                        if value in justificacion_items:
+                            comboJustificaciones.setCurrentText(value)
+                        else:
+                            comboJustificaciones.setCurrentIndex(0)
                         self.registrar.tableWidget.setCellWidget(row_position, j, comboJustificaciones)
                     else:
                         self.registrar.tableWidget.setItem(row_position, j, QTableWidgetItem(str(value)))
@@ -304,7 +273,7 @@ class ListarAsistencias(QMainWindow, Ui_MainWindow_ListaAsistencias):
     def toggle_justificacion(self, comboJustificaciones, comboAsistencias, currentIndex=None):
         if comboAsistencias.currentText() == "JUSTIFICADO":
             pass
-        else :
+        else:
             comboJustificaciones.setCurrentIndex(0)
 
 class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
@@ -328,53 +297,26 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
         self.lineEdit_3.textChanged.connect(self.filtrar_Asistencias)
         self.lineEdit_4.textChanged.connect(self.filtrar_noAsistencias)
 
-    def load(self):
-        self.dateEdit.setDate(QDate.currentDate())
-        self.tableWidget_2.setColumnHidden(0, True)
-        self.tableWidget.setColumnHidden(0, True)
-        self.spinBox.setValue(self.tableWidget.rowCount())
-        self.spinBox_2.setValue(self.tableWidget_2.rowCount())
-
-    def filtrar_Asistencias(self):
-        filtro = self.lineEdit_3.text().lower()
-        for row in range(self.tableWidget.rowCount()):
-            mostrar = False
-            for col in range(1, 4):
-                item = self.tableWidget.item(row, col)
-                if item and filtro in item.text().lower():
-                    mostrar = True
-                    break
-            self.tableWidget.setRowHidden(row, not mostrar)
-
-    def filtrar_noAsistencias(self):
-        filtro = self.lineEdit_4.text().lower()
-        for row in range(self.tableWidget_2.rowCount()):
-            mostrar = False
-            for col in range(1, 4):
-                item = self.tableWidget_2.item(row, col)
-                if item and filtro in item.text().lower():
-                    mostrar = True
-                    break
-            self.tableWidget_2.setRowHidden(row, not mostrar)
-
     def ImportarExcel(self):
         self.comboBox.currentIndexChanged.connect(self.actualizar_por_tipo_reunion)
         afiliado_col = 4
         items = ["ASISTIO", "FALTA", "JUSTIFICADO"]
-        justificacion_items = ["","VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"]
+        justificacion_items = ["", "VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"]
 
-        root = Tk()
-        root.withdraw()
-        file_path = filedialog.askopenfilename(filetypes=[("Archivos Excel", "*.xlsx *.xls")])
+        file_path, _ = QFileDialog.getOpenFileName(self, "Selecciona un archivo Excel", "", "Archivos Excel (*.xlsx *.xls)")
         if not file_path:
             return
+
         try:
             df = pd.read_excel(file_path, usecols=["Ingresar su DNI"])
         except Exception as e:
+            print(f"Error al leer el archivo Excel: {e}")
             return
+
         dnis = df["Ingresar su DNI"].tolist()
 
-        afiliados = obtener_afiliados()
+        query_afiliados = "CALL sp_obtener_afiliados_asistencias()"
+        afiliados = pd.read_sql(query_afiliados, self.engine).values.tolist()
 
         asistidos = []
         noasistidos = []
@@ -419,7 +361,6 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
 
             comboJustificaciones = QComboBox()
             comboJustificaciones.addItems(justificacion_items)
-            
             self.tableWidget_2.setCellWidget(row, 6, comboJustificaciones)
             
             comboAsistencias.currentIndexChanged.connect(partial(self.toggle_justificacion, comboJustificaciones, comboAsistencias))
@@ -430,6 +371,35 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
 
         self.spinBox.setValue(self.tableWidget.rowCount())
         self.spinBox_2.setValue(self.tableWidget_2.rowCount())
+
+    def load(self):
+        self.dateEdit.setDate(QDate.currentDate())
+        self.tableWidget_2.setColumnHidden(0, True)
+        self.tableWidget.setColumnHidden(0, True)
+        self.spinBox.setValue(self.tableWidget.rowCount())
+        self.spinBox_2.setValue(self.tableWidget_2.rowCount())
+
+    def filtrar_Asistencias(self):
+        filtro = self.lineEdit_3.text().lower()
+        for row in range(self.tableWidget.rowCount()):
+            mostrar = False
+            for col in range(1, 4):
+                item = self.tableWidget.item(row, col)
+                if item and filtro in item.text().lower():
+                    mostrar = True
+                    break
+            self.tableWidget.setRowHidden(row, not mostrar)
+
+    def filtrar_noAsistencias(self):
+        filtro = self.lineEdit_4.text().lower()
+        for row in range(self.tableWidget_2.rowCount()):
+            mostrar = False
+            for col in range(1, 4):
+                item = self.tableWidget_2.item(row, col)
+                if item and filtro in item.text().lower():
+                    mostrar = True
+                    break
+            self.tableWidget_2.setRowHidden(row, not mostrar)
 
     def toggle_justificacion(self, comboJustificaciones, comboAsistencias, currentIndex=None):
         if comboAsistencias.currentText() == "JUSTIFICADO":
@@ -466,10 +436,9 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
             
     def nuevo(self):
         respuesta = QMessageBox.question(self, "Nuevo registro", "¿Desea hacer un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
-
         if respuesta == QMessageBox.Yes:
             self.close()
-            self.menu_registros.mostrar_listarAsistencias()
+            self.menu_registros.mostrar_registrarAsistencias()
         else:
             pass 
 
@@ -478,140 +447,171 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
 
         if respuesta == QMessageBox.Yes:
             id_asistencia = self.lineEdit.text()
-
             asamblea = self.comboBox.currentText()
             fecha = self.dateEdit.date().toString("yyyy-MM-dd")
             descripcion = "Asamblea de Afiliados"
 
+            afiliados_detalle = []
+
+            for tableWidget in [self.tableWidget, self.tableWidget_2]:
+                for row in range(tableWidget.rowCount()):
+                    id_afiliado = tableWidget.item(row, 0).text()
+                    asistencia = tableWidget.cellWidget(row, 4).currentText()
+                    multa = tableWidget.item(row, 5).text()
+                    observacion_widget = tableWidget.cellWidget(row, 6)
+                    observacion = observacion_widget.currentText() if observacion_widget else "-"
+
+                    afiliado_data = {
+                        'id_afiliado': id_afiliado,
+                        'asistencia': asistencia,
+                        'multa': multa,
+                        'observacion': observacion
+                    }
+                    afiliados_detalle.append(afiliado_data)
+
+            afiliados_detalle_json = json.dumps(afiliados_detalle)
+
             with self.engine.begin() as conn:
-                if id_asistencia:
-                    update_asistencia_cab = text("""
-                        UPDATE asistencias_cab
-                        SET asamblea = :asamblea, fecha = :fecha, descripcion = :descripcion
-                        WHERE id = :id_asistencia;
-                    """)
-                    conn.execute(update_asistencia_cab, {'asamblea': asamblea, 'fecha': fecha, 'descripcion': descripcion, 'id_asistencia': id_asistencia})
-                    delete_asistencia_det = text("""
-                        DELETE FROM asistencias_det WHERE id_asistencia_cab = :id_asistencia_cab;
-                    """)
-                    conn.execute(delete_asistencia_det, {'id_asistencia_cab': id_asistencia})
-                
-                else:
-                    insert_asistencia_cab = text("""
-                        INSERT INTO asistencias_cab (asamblea, fecha, descripcion) 
-                        VALUES (:asamblea, :fecha, :descripcion);
-                    """)
-                    result = conn.execute(insert_asistencia_cab, {'asamblea': asamblea, 'fecha': fecha, 'descripcion': descripcion})
-                    id_asistencia = result.lastrowid
-
-                for tableWidget in [self.tableWidget, self.tableWidget_2]:
-                    for row in range(tableWidget.rowCount()):
-                        id_afiliado = tableWidget.item(row, 0).text()
-                        asistencia = tableWidget.cellWidget(row, 4).currentText()
-                        multa = tableWidget.item(row, 5).text()
-                        observacion_widget = tableWidget.cellWidget(row, 6)
-                        observacion = observacion_widget.currentText() if observacion_widget else "-"
-
-                        datos_asistencia = {
-                            'id_asistencia_cab': id_asistencia,
-                            'id_afiliado': id_afiliado,
-                            'asistencia': asistencia,
-                            'multa': multa,
-                            'observacion': observacion
-                        }
-                        insert_asistencia_det = text("""
-                            INSERT INTO asistencias_det (id_asistencia_cab, id_afiliado, asistencia, multa, observacion)
-                            VALUES (:id_asistencia_cab, :id_afiliado, :asistencia, :multa, :observacion);
-                        """)
-
-                        conn.execute(insert_asistencia_det, datos_asistencia)
+                guardar_asistencia_stmt = text("""
+                    CALL sp_guardar_asistencia(:id_asistencia, :asamblea, :fecha, :descripcion, :afiliados_detalle);
+                """)
+                conn.execute(guardar_asistencia_stmt, {
+                    'id_asistencia': id_asistencia if id_asistencia else None,
+                    'asamblea': asamblea,
+                    'fecha': fecha,
+                    'descripcion': descripcion,
+                    'afiliados_detalle': afiliados_detalle_json
+                })
 
             QMessageBox.information(self, "Éxito", "Se ha guardado o actualizado el registro correctamente.")
             self.close()
             self.menu_registros.mostrar_listarAsistencias()
-        else:
-            pass
+
 
     def eliminar(self):
-        id = int(self.lineEdit.text()) 
-
-        if id:
+        id_str = self.lineEdit.text()
+        if id_str.isdigit():
+            id_asistencia = int(id_str)
             respuesta = QMessageBox.question(self, "Confirmar Eliminación", "¿Estás seguro de eliminar el registro?", QMessageBox.Yes | QMessageBox.No)
-                        
+            
             if respuesta == QMessageBox.Yes:
-                sp = "sp_eliminarAsistencias"
-                Eliminar(sp,id)
-                QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
-                self.close()
+                try:
+                    with self.engine.begin() as conn:
+                        eliminar_stmt = text("CALL sp_eliminar_asistencias(:id_asistencia)")
+                        conn.execute(eliminar_stmt, {'id_asistencia': id_asistencia})
+                    QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
+                    self.close()
+                    self.menu_registros.mostrar_listarAsistencias()
 
-                self.menu_registros.mostrar_listarAsistencias()
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"Ocurrió un error al eliminar el registro: {e}")
+            else:
+                QMessageBox.warning(self, "Advertencia", "Operación cancelada.")
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 
     def exportarPdf(self):
         respuesta = QMessageBox.question(self, "Exportar a PDF", "¿Desea exportar la lista a PDF?", QMessageBox.Yes | QMessageBox.No)
         if respuesta == QMessageBox.Yes:
-            results = []
-            results2 = []
+            try:
+                results = []
+                results2 = []
 
-            for row in range(self.tableWidget.rowCount()):
-                row_data = []
-                for column in range(self.tableWidget.columnCount()):
-                    item = self.tableWidget.item(row, column)
-                    if item is not None:
-                        row_data.append(item.text())
+                for row in range(self.tableWidget.rowCount()):
+                    row_data = []
+                    for column in range(self.tableWidget.columnCount()):
+                        if column == 4: 
+                            combo_box = self.tableWidget.cellWidget(row, column)
+                            if combo_box:
+                                row_data.append(combo_box.currentText()) 
+                            else:
+                                row_data.append('')
+                        elif column == 6:
+                            combo_box = self.tableWidget.cellWidget(row, column)
+                            if combo_box:
+                                row_data.append(combo_box.currentText())
+                            else:
+                                row_data.append('')
+                        else:
+                            item = self.tableWidget.item(row, column)
+                            if item is not None:
+                                row_data.append(item.text())
+                            else:
+                                row_data.append('')
+                    results.append(row_data)
+
+                for row in range(self.tableWidget_2.rowCount()):
+                    row_data = []
+                    for column in range(self.tableWidget_2.columnCount()):
+                        if column == 4:
+                            combo_box = self.tableWidget_2.cellWidget(row, column)
+                            if combo_box:
+                                row_data.append(combo_box.currentText())
+                            else:
+                                row_data.append('')
+                        elif column == 6:
+                            combo_box = self.tableWidget_2.cellWidget(row, column)
+                            if combo_box:
+                                row_data.append(combo_box.currentText())
+                            else:
+                                row_data.append('')
+                        else:
+                            item = self.tableWidget_2.item(row, column)
+                            if item is not None:
+                                row_data.append(item.text())
+                            else:
+                                row_data.append('')
+                    results2.append(row_data)
+
+                ruta_actual = os.path.abspath(os.path.dirname(__file__))
+                ruta_template = os.path.join(ruta_actual, "..", "utils", "plantilla_registro_asistencias.html")
+
+                try:
+                    with open(ruta_template, "r") as archivo_html_template:
+                        contenido_template = archivo_html_template.read()
+                except FileNotFoundError:
+                    QMessageBox.critical(self, "Error", "No se pudo encontrar la plantilla HTML.")
+                    return
+
+                template = Template(contenido_template)
+                html_renderizado = template.render(results=results, results2=results2)
+
+                ruta_resultado = os.path.join(ruta_actual, "..", "utils", "registro_asistencias.html")
+                with open(ruta_resultado, "w") as archivo_html_resultado:
+                    archivo_html_resultado.write(html_renderizado)
+
+                dialogo = QFileDialog()
+                dialogo.setAcceptMode(QFileDialog.AcceptSave)
+                dialogo.setNameFilter("Archivos PDF (*.pdf)")
+                dialogo.setDefaultSuffix("pdf")
+
+                fecha_actual = datetime.datetime.now().strftime("%d-%m-%Y")
+                nombre_archivo = f"Asistencia de la asamblea Afiliados del - {fecha_actual}.pdf"
+                dialogo.selectFile(nombre_archivo)
+
+                if dialogo.exec():
+                    rutas_seleccionadas = dialogo.selectedFiles()
+                    if rutas_seleccionadas:
+                        ruta_pdf = rutas_seleccionadas[0]
+                        options = {'enable-local-file-access': None}
+
+                        try:
+                            pdfkit.from_file(ruta_resultado, ruta_pdf, options=options)
+                        except Exception as e:
+                            QMessageBox.critical(self, "Error", f"No se pudo generar el PDF: {str(e)}")
                     else:
-                        row_data.append('')
-                results.append(row_data)
+                        QMessageBox.warning(self, "Advertencia", "No se seleccionó ninguna ruta para guardar el PDF.")
+                else:
+                    QMessageBox.information(self, "Cancelado", "Operación cancelada por el usuario.")
 
-            for row in range(self.tableWidget_2.rowCount()):
-                row_data = []
-                for column in range(self.tableWidget_2.columnCount()):
-                    item = self.tableWidget_2.item(row, column)
-                    if item is not None:
-                        row_data.append(item.text())
-                    else:
-                        row_data.append('')
-                results2.append(row_data)
-
-            ruta_actual = os.path.abspath(os.path.dirname(__file__))
-            ruta_template = os.path.join(ruta_actual, "..", "utils", "plantilla_registro_asistencias.html")
-
-            with open(ruta_template, "r") as archivo_html_template:
-                contenido_template = archivo_html_template.read()
-            template = Template(contenido_template)
-
-            html_renderizado = template.render(results=results,results2=results2)
-
-            ruta_resultado = os.path.join(ruta_actual, "..", "utils", "registro_asistencias.html")
-            with open(ruta_resultado, "w") as archivo_html_resultado:
-                archivo_html_resultado.write(html_renderizado)
-
-            dialogo = QFileDialog()
-            dialogo.setAcceptMode(QFileDialog.AcceptSave)
-            dialogo.setNameFilter("Archivos PDF (*.pdf)")
-            dialogo.setDefaultSuffix("pdf")
-
-            fecha_actual = datetime.datetime.now().strftime("%d-%m-%Y")
-            nombre_archivo = f"Asistencia de la asamblea Afiliados del - {fecha_actual}.pdf"
-            dialogo.selectFile(nombre_archivo)
-
-            if dialogo.exec():
-                rutas_seleccionadas = dialogo.selectedFiles()
-                if rutas_seleccionadas:
-                    ruta_pdf = rutas_seleccionadas[0]
-                    options = {'enable-local-file-access': None}
-                    pdfkit.from_file(ruta_resultado, ruta_pdf, options=options)
-        else:
-            pass 
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Ocurrió un error inesperado: {str(e)}")
 
     def cerrar(self):
         respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar la ventana de registro?", QMessageBox.Yes | QMessageBox.No)
 
         if respuesta == QMessageBox.Yes:
             self.close()
-        else:
-            pass 
 
 class RegistrarAsistenciasDirigentes(QMainWindow, Ui_MainWindow_registroAsistenciasDirigentes):
     def __init__(self,menu_registros, engine,data=None):
@@ -623,6 +623,7 @@ class RegistrarAsistenciasDirigentes(QMainWindow, Ui_MainWindow_registroAsistenc
         self.menu_registros = menu_registros
 
         self.load()
+        self.actionNuevo.triggered.connect(self.nuevo)
         self.actionSalir.triggered.connect(self.cerrar)
         self.actionGrabar.triggered.connect(self.grabar)
         self.actionImportar.triggered.connect(self.importar)
@@ -630,19 +631,31 @@ class RegistrarAsistenciasDirigentes(QMainWindow, Ui_MainWindow_registroAsistenc
 
         self.actionEliminar.triggered.connect(self.eliminar)
 
+    def nuevo(self):
+        respuesta = QMessageBox.question(self, "Nuevo registro", "¿Desea hacer un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
+        if respuesta == QMessageBox.Yes:
+            self.close()
+            self.menu_registros.mostrar_registrarAsamblea()
+
     def eliminar(self):
-        id = int(self.lineEdit.text()) 
-
-        if id:
+        id_str = self.lineEdit.text()
+        if id_str.isdigit():
+            id_asistencia = int(id_str)
             respuesta = QMessageBox.question(self, "Confirmar Eliminación", "¿Estás seguro de eliminar el registro?", QMessageBox.Yes | QMessageBox.No)
-                        
+            
             if respuesta == QMessageBox.Yes:
-                sp = "EliminarAsistencia"
-                Eliminar(sp,id)
-                QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
-                self.close()
+                try:
+                    with self.engine.begin() as conn:
+                        eliminar_stmt = text("CALL sp_eliminar_asistencias(:id_asistencia)")
+                        conn.execute(eliminar_stmt, {'id_asistencia': id_asistencia})
+                    QMessageBox.information(self, "Éxito", "Se ha eliminado el registro correctamente.")
+                    self.close()
+                    self.menu_registros.mostrar_listarAsistencias()
 
-                self.menu_registros.mostrar_listarAsistencias()
+                except Exception as e:
+                    QMessageBox.critical(self, "Error", f"Ocurrió un error al eliminar el registro: {e}")
+            else:
+                QMessageBox.warning(self, "Advertencia", "Operación cancelada.")
         else:
             QMessageBox.warning(self, "Advertencia", "Necesita seleccionar un registro primero.")
 

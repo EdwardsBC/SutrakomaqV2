@@ -2,15 +2,16 @@ from PySide6.QtWidgets import QMainWindow, QMessageBox
 from PySide6.QtCore import Qt
 from models.ui_permisos import Ui_MainWindow as Ui_MainWindowPermisos
 from view.variables_globales import GlobalVar
-from database.connection import *
+from sqlalchemy import create_engine
+from sqlalchemy import text
 import pandas as pd
 import json
-import pandas as pd
-from sqlalchemy import create_engine
+
 
 class Permisos(QMainWindow, Ui_MainWindowPermisos):
     global_var = GlobalVar()
-    def __init__(self,menu_configuracion, engine):
+    
+    def __init__(self, menu_configuracion, engine):
         super().__init__()
         self.setupUi(self)
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
@@ -32,13 +33,25 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
 
         if respuesta == QMessageBox.Yes:
             self.close()
-        else:
-            pass
+
+    def obtener_secretarias(self):
+        """
+        Obtiene la lista de secretarias desde la base de datos.
+        """
+        with self.engine.connect() as conn:
+            try:
+                query = "SELECT secretaria FROM secretarias ORDER BY id ASC"
+                result = conn.execute(text(query))
+                secretarias = result.fetchall()
+                return secretarias
+            except Exception as e:
+                print(f"Error al obtener secretarias: {e}")
+                return []
 
     def load(self):
         self.checkBox.setChecked(True)
         self.checkBox_2.setChecked(True)
-        secretarias = obtener_secretarias()
+        secretarias = self.obtener_secretarias()
         for secretaria in secretarias:
             self.comboBox.addItem(secretaria[0])
         self.permisosSecretaria()
@@ -50,6 +63,20 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
                 comboBox.setEnabled(isEnabled)
                 comboBox.setCurrentIndex(0)
 
+    def obtenerPermisos(self, id):
+        """
+        Obtiene los permisos para la secretaria correspondiente.
+        """
+        with self.engine.connect() as conn:
+            try:
+                query = "SELECT * FROM permisos WHERE id_secretaria = :id_secretaria"
+                result = conn.execute(text(query), {'id_secretaria': id})
+                permisos = result.fetchall()
+                return permisos
+            except Exception as e:
+                print(f"Error al obtener permisos: {e}")
+                return []
+
     def permisosSecretaria(self):
         self.checkBox.setChecked(True)
         for i in range(2, 10):
@@ -57,7 +84,7 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
             comboBox.setCurrentIndex(0)
 
         idSecretario = (self.comboBox.currentIndex() + 1)
-        permisos = obtenerPermisos(idSecretario)
+        permisos = self.obtenerPermisos(idSecretario)
         self.df = pd.DataFrame(permisos, columns=['id', 'id_secretaria', 'id_seccion', 'id_modulo', 'nivel'])  
 
         if permisos is not None:
@@ -82,11 +109,21 @@ class Permisos(QMainWindow, Ui_MainWindowPermisos):
                 elif modulo == 9:
                     self.comboBox_6.setCurrentIndex(nivel)   
 
+    def limpiarPermisosPorSecretaria(self, id_secretaria):
+        """
+        Elimina los permisos de la secretaria en la base de datos excepto la sección 2.
+        """
+        with self.engine.connect() as conn:
+            try:
+                query = "DELETE FROM permisos WHERE id_secretaria = :id_secretaria AND id_seccion != 2"
+                conn.execute(text(query), {'id_secretaria': id_secretaria})
+            except Exception as e:
+                print(f"Error al limpiar permisos: {e}")
 
     def grabar(self):
         idSecretario = (self.comboBox.currentIndex() + 1)
         df = pd.DataFrame(columns=['id_secretaria', 'id_seccion', 'id_modulo', 'nivel'])
-        limpiarPermisosPorSecretaria(idSecretario)
+        self.limpiarPermisosPorSecretaria(idSecretario)
         data = []
 
         if self.checkBox.isChecked():

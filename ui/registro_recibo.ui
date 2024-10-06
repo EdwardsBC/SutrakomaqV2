@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
-    <height>329</height>
+    <width>939</width>
+    <height>812</height>
    </rect>
   </property>
   <property name="palette">
@@ -463,13 +463,93 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>450</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>450</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>450</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <widget class="QLineEdit" name="lineEdit_5">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>10</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>109</x>
+       <y>9</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_4">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>10</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ID RECIBO</string>
+     </property>
+    </widget>
+   </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>10</x>
       <y>60</y>
       <width>431</width>
-      <height>161</height>
+      <height>241</height>
      </rect>
     </property>
     <property name="palette">
@@ -937,7 +1017,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>CONCEPTO*</string>
+      <string>CANTIDAD</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_3">
@@ -945,12 +1025,12 @@
       <rect>
        <x>20</x>
        <y>88</y>
-       <width>49</width>
+       <width>91</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>VALOR</string>
+      <string>CONCEPTO</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -970,20 +1050,20 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>54</y>
+       <y>56</y>
        <width>49</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>FECHA</string>
+      <string>GRUPO</string>
      </property>
     </widget>
     <widget class="QDateEdit" name="dateEdit">
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>50</y>
+       <y>155</y>
        <width>290</width>
        <height>22</height>
       </rect>
@@ -993,16 +1073,16 @@
      </property>
      <property name="dateTime">
       <datetime>
-       <hour>8</hour>
+       <hour>9</hour>
        <minute>0</minute>
        <second>0</second>
        <year>2000</year>
        <month>1</month>
-       <day>4</day>
+       <day>5</day>
       </datetime>
      </property>
      <property name="currentSection">
-      <enum>QDateTimeEdit::DaySection</enum>
+      <enum>QDateTimeEdit::Section::DaySection</enum>
      </property>
      <property name="calendarPopup">
       <bool>true</bool>
@@ -1022,29 +1102,22 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>86</y>
+       <y>120</y>
        <width>291</width>
        <height>22</height>
       </rect>
+     </property>
+     <property name="locale">
+      <locale language="Spanish" country="Peru"/>
      </property>
      <property name="frame">
       <bool>true</bool>
      </property>
      <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
+      <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
      </property>
      <property name="maximum">
       <double>9999999.990000000223517</double>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_4">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>120</y>
-       <width>290</width>
-       <height>20</height>
-      </rect>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_2">
@@ -1073,51 +1146,70 @@
       <string>+</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>20</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ID RECIBO</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>20</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>158</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>FECHA</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>194</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>DETALLE</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>191</y>
+       <width>290</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>52</y>
+       <width>291</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_2">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>86</y>
+       <width>291</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>492</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
    <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonTextBesideIcon</enum>
+    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

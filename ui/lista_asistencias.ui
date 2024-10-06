@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1366</width>
+    <width>1407</width>
     <height>768</height>
    </rect>
   </property>
@@ -463,77 +463,97 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>14</y>
-      <width>281</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>16</y>
-      <width>161</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>BUSCAR ASISTENCIA</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>1341</width>
-      <height>561</height>
-     </rect>
-    </property>
-    <column>
-     <property name="text">
-      <string>ID</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>ASAMBLEA</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>FECHA</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>DESCRIPCIÓN</string>
-     </property>
-    </column>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="minimumSize">
+       <size>
+        <width>650</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>650</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLineEdit" name="lineEdit">
+       <property name="geometry">
+        <rect>
+         <x>168</x>
+         <y>11</y>
+         <width>431</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>ASAMBLEA / DESCRIPCIÓN</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>12</y>
+         <width>161</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>BUSCAR ASISTENCIA</string>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="tableWidget">
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ASAMBLEA</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>FECHA</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>DESCRIPCIÓN</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1366</width>
+     <width>1407</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
    <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonTextBesideIcon</enum>
+    <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -542,7 +562,6 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionNuevo"/>
-   <addaction name="actionExportar"/>
    <addaction name="actionImprimir"/>
    <addaction name="separator"/>
    <addaction name="actionSalir"/>
@@ -554,15 +573,6 @@
    </property>
    <property name="text">
     <string>Nuevo</string>
-   </property>
-  </action>
-  <action name="actionExportar">
-   <property name="icon">
-    <iconset resource="../resources.qrc">
-     <normaloff>:/icons/resources/icons/exportar.png</normaloff>:/icons/resources/icons/exportar.png</iconset>
-   </property>
-   <property name="text">
-    <string>Exportar</string>
    </property>
   </action>
   <action name="actionImprimir">
@@ -584,6 +594,10 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>tableWidget</tabstop>
+ </tabstops>
  <resources>
   <include location="../resources.qrc"/>
  </resources>

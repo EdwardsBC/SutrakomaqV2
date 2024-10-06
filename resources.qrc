@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>resources/icons/132317_billfold_pocketbook_wallet_notecase_pouch_icon.png</file>
     <file>resources/icons/ajuste.png</file>
     <file>resources/icons/eliminar.png</file>
     <file>resources/icons/exportar.png</file>

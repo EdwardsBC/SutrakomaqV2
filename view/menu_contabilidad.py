@@ -5,31 +5,23 @@ from view.ingresos_egresos import ListarIngresosEgresos,RegistrarIngresosEgresos
 from view.recibos import ListarRecibos,RegistrarRecibos
 from view.variables_globales import GlobalVar
 from PySide6.QtGui import QGuiApplication
-
-from sqlalchemy import create_engine
 from datetime import datetime
 import pandas as pd
-import json
 import sys
-
-def create_db_engine():
-    with open('config.json', 'r') as config_file:
-        db_config = json.load(config_file)
-    connection_string = f"mysql+pymysql://{db_config['usuario']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['db']}"
-    return create_engine(connection_string)
 
 class MenuContabilidad(QMainWindow, Ui_MainWindow_Menu_Contabilidad):
     global_var = GlobalVar()
+    
     def __init__(self, engine):
         super().__init__()
         self.engine = engine 
         self.setupUi(self)
 
-        self.setMaximumSize(1366,750)
-        self.central_widget = QWidget()
+        self.central_widget = QWidget(self)
         self.setCentralWidget(self.central_widget)
-        self.layout = QVBoxLayout()
-        self.central_widget.setLayout(self.layout)
+        self.layout = QVBoxLayout(self.central_widget)
+
+        self.showMaximized()
 
         self.actionLista_de_Cuotas.triggered.connect(self.mostrar_listarCuotas)
         self.actionLista_de_Ingresos_y_Egresos.triggered.connect(self.mostrar_listarIngresosEgresos)
@@ -113,7 +105,4 @@ class MenuContabilidad(QMainWindow, Ui_MainWindow_Menu_Contabilidad):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = MenuContabilidad()
-    window.show()
-    window.showMaximized()
-    sys.exit(exec())
+    sys.exit(app.exec_())

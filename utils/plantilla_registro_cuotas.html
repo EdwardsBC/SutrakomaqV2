@@ -1,0 +1,24 @@
+<h1 style="text-align: center;"><img style="float: left;" src="https://i.imgur.com/aMiUUnO.jpg" alt="" width="70" height="80" /><strong><span style="color: #800000;">CUOTA ORDINARIA</span></strong></h1>
+<p>&nbsp;</p>
+<p style="text-align: right;">Cuota N&deg;: {{id}}</p>
+<p style="text-align: right;">Fecha: {{fecha}}</p>
+<p style="text-align: left;">CUOTA ORDINARIA: {{cuota}}</p>
+<p style="text-align: left;">INGRESO TOTAL: {{total}}</p>
+<p><br /><span style="color: #800000;"><strong>CUOTA</strong></span></p>
+<p>&nbsp;</p>
+<table style="border-collapse: collapse; width: 100%;" border="1">
+    <tbody>
+        <tr>
+            <td style="width: 12.5%; text-align: center;">APELLIDOS Y NOMBRES</td>
+            <td style="width: 12.5%; text-align: center;">DNI</td>
+            <td style="width: 12.5%; text-align: center;">CUOTA</td>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td style="width: 25.4298%; text-align: left;">{{ result[2] }} {{ result[1] }}</td>
+            <td style="width: 10.0413%; text-align: center;">{{ result[3] }}</td>
+            <td style="width: 3.83425%; text-align: center;">{{ result[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -3,7 +3,6 @@ from PySide6.QtCore import Qt
 from models.ui_historial import Ui_MainWindow as Ui_MainWindowHistorial
 from view.variables_globales import GlobalVar
 import pandas as pd
-#=======================================================================================================#
 class Historial(QMainWindow, Ui_MainWindowHistorial):
     global_var = GlobalVar()
     def __init__(self,menu_configuracion, engine):

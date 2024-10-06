@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'lista_cuotasLozsrv.ui'
+## Form generated from reading UI file 'lista_cuotasQCGTUL.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.7.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -16,16 +16,17 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QHeaderView, QLabel, QLineEdit,
-    QMainWindow, QMenuBar, QSizePolicy, QStatusBar,
-    QTableWidget, QTableWidgetItem, QToolBar, QWidget)
+from PySide6.QtWidgets import (QApplication, QDateEdit, QDateTimeEdit, QFrame,
+    QHeaderView, QLabel, QMainWindow, QSizePolicy,
+    QTableWidget, QTableWidgetItem, QToolBar, QVBoxLayout,
+    QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(871, 455)
+        MainWindow.resize(902, 570)
         palette = QPalette()
         brush = QBrush(QColor(0, 0, 0, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -105,34 +106,56 @@ class Ui_MainWindow(object):
         self.actionNuevo = QAction(MainWindow)
         self.actionNuevo.setObjectName(u"actionNuevo")
         icon = QIcon()
-        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/icons/nuevo.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.actionNuevo.setIcon(icon)
-        self.actionExportar = QAction(MainWindow)
-        self.actionExportar.setObjectName(u"actionExportar")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/resources/icons/exportar.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.actionExportar.setIcon(icon1)
         self.actionImprimir = QAction(MainWindow)
         self.actionImprimir.setObjectName(u"actionImprimir")
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.actionImprimir.setIcon(icon2)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/resources/icons/imprimir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.actionImprimir.setIcon(icon1)
         self.actionSalir = QAction(MainWindow)
         self.actionSalir.setObjectName(u"actionSalir")
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.actionSalir.setIcon(icon3)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/resources/icons/salir.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.actionSalir.setIcon(icon2)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.label = QLabel(self.centralwidget)
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        self.frame.setMinimumSize(QSize(800, 70))
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.label = QLabel(self.frame)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(30, 12, 131, 16))
-        self.lineEdit = QLineEdit(self.centralwidget)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(170, 10, 351, 20))
+        self.label.setGeometry(QRect(12, 34, 111, 16))
+        self.label_2 = QLabel(self.frame)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(200, 10, 51, 16))
+        self.dateEdit = QDateEdit(self.frame)
+        self.dateEdit.setObjectName(u"dateEdit")
+        self.dateEdit.setGeometry(QRect(140, 30, 171, 22))
+        self.dateEdit.setFrame(True)
+        self.dateEdit.setDateTime(QDateTime(QDate(2000, 1, 11), QTime(0, 0, 0)))
+        self.dateEdit.setCurrentSection(QDateTimeEdit.Section.DaySection)
+        self.dateEdit.setCalendarPopup(True)
+        self.label_3 = QLabel(self.frame)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(410, 10, 51, 16))
+        self.dateEdit_2 = QDateEdit(self.frame)
+        self.dateEdit_2.setObjectName(u"dateEdit_2")
+        self.dateEdit_2.setGeometry(QRect(350, 30, 171, 22))
+        self.dateEdit_2.setFrame(True)
+        self.dateEdit_2.setDateTime(QDateTime(QDate(2000, 1, 11), QTime(5, 0, 0)))
+        self.dateEdit_2.setCurrentSection(QDateTimeEdit.Section.DaySection)
+        self.dateEdit_2.setCalendarPopup(True)
+
+        self.verticalLayout.addWidget(self.frame)
+
         self.tableWidget = QTableWidget(self.centralwidget)
-        if (self.tableWidget.columnCount() < 5):
-            self.tableWidget.setColumnCount(5)
+        if (self.tableWidget.columnCount() < 4):
+            self.tableWidget.setColumnCount(4)
         __qtablewidgetitem = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -141,30 +164,22 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(30, 40, 831, 331))
         font1 = QFont()
         font1.setFamilies([u"Verdana"])
         font1.setPointSize(10)
         font1.setBold(True)
         self.tableWidget.setFont(font1)
+
+        self.verticalLayout.addWidget(self.tableWidget)
+
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 871, 23))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
         self.toolBar = QToolBar(MainWindow)
         self.toolBar.setObjectName(u"toolBar")
-        self.toolBar.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
+        self.toolBar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        MainWindow.addToolBar(Qt.ToolBarArea.TopToolBarArea, self.toolBar)
 
         self.toolBar.addAction(self.actionNuevo)
-        self.toolBar.addAction(self.actionExportar)
         self.toolBar.addAction(self.actionImprimir)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionSalir)
@@ -177,10 +192,11 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.actionNuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
-        self.actionExportar.setText(QCoreApplication.translate("MainWindow", u"Exportar", None))
         self.actionImprimir.setText(QCoreApplication.translate("MainWindow", u"Imprimir", None))
         self.actionSalir.setText(QCoreApplication.translate("MainWindow", u"Salir", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"BUSCAR CUOTA", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"DESDE", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"HASTA", None))
         ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"ID", None));
         ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
@@ -188,9 +204,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"CUOTA", None));
         ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"MULTA", None));
-        ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"TOTAL", None));
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"TOTAL", None));
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi
 

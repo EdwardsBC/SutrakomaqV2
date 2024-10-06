@@ -6,7 +6,6 @@
 <tr>
     <td style="width: 12.5%; text-align: center;">APELLIDOS Y NOMBRES</td>
     <td style="width: 12.5%; text-align: center;">DNI</td>
-    <td style="width: 12.5%; text-align: center;">LUGAR VIVIENDA</td>
     <td style="width: 12.5%; text-align: center;">FECHA NACIMIENTO</td>
     <td style="width: 12.5%; text-align: center;">CELULAR</td>
     <td style="width: 12.5%; text-align: center;">PUESTO DE TRABAJO</td>
@@ -16,13 +15,12 @@
 {% for result in results %}
 <tr>
     <td style="width: 12.5%; text-align: center;">{{result[2]}}  {{result[1]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[4]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[5]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[6]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[10]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[7]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[11]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[14]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[12]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[15]}}</td>
     </tr>
 {% endfor %}
 </tbody>

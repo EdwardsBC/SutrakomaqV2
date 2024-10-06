@@ -5,18 +5,16 @@
 <tbody>
 <tr>
 <td style="width: 12.5%; text-align: center;">ID</td>
-<td style="width: 12.5%; text-align: center;">NOMBRE</td>
-<td style="width: 12.5%; text-align: center;">APELLIDO</td>
-<td style="width: 12.5%; text-align: center;">CUOTA ORDINARIA</td>
-<td style="width: 12.5%; text-align: center;">CUOTA ANUAL</td>
+<td style="width: 12.5%; text-align: center;">FECHA</td>
+<td style="width: 12.5%; text-align: center;">CUOTA</td>
+<td style="width: 12.5%; text-align: center;">TOTAL</td>
 </tr>
 {% for result in results %}
 <tr>
     <td style="width: 12.5%; text-align: center;">{{result[0]}}</td>
+    <td style="width: 12.5%; text-align: center;">{{result[1]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[2]}}</td>
     <td style="width: 12.5%; text-align: center;">{{result[3]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[4]}}</td>
-    <td style="width: 12.5%; text-align: center;">{{result[5]}}</td>
     </tr>
 {% endfor %}
 </tbody>
