@@ -16,115 +16,165 @@ class ListarAfiliados(QMainWindow, Ui_MainWindow_ListaAfiliados):
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
         self.menu_registros = menu_registros
         self.engine = engine
+        self._connect_signals()
+        self.load()
+
+    def _connect_signals(self):
+        """Conecta las señales a sus respectivos métodos."""
         self.actionNuevo.triggered.connect(self.nuevo)
         self.actionImprimir.triggered.connect(self.exportarPdf)
         self.actionSalir.triggered.connect(self.cerrar)
         self.lineEdit.textChanged.connect(self.buscar)
         self.tableWidget.cellDoubleClicked.connect(self.enviarSeleccionado)
-        self.load()
 
     def load(self):
+        """Carga los datos iniciales en la tabla."""
         self.tableWidget.setColumnHidden(0, True)
         self.listar()
 
     def listar(self):
+        """Lista los afiliados en la tabla desde la base de datos."""
         query = text("CALL sp_listar_afiliados()")
         df_afiliados = pd.read_sql(query, self.engine)
+
         estados = {
             "AFILIADO": "AFILIADO",
             "DESAFILIADO": "DESAFILIADO",
             "SUSPENSION PERFECTA": "SUSPENSION PERFECTA",
             "CESADO": "CESADO",
         }
+
         if not df_afiliados.empty:
-            for row_idx, row in df_afiliados.iterrows():
-                row_data = []
-                for col_idx, cell_data in enumerate(row):
-                    if col_idx == len(row) - 1:
-                        row_data.append(estados.get(cell_data, "PROCESO JUICIO"))
-                    elif col_idx in [6, 13, 14]:
-                        fecha_str = cell_data.strftime("%d/%m/%Y")
-                        row_data.append(fecha_str)
-                    else:
-                        row_data.append(str(cell_data))
-                self.tableWidget.insertRow(row_idx)
-                for col_idx, data in enumerate(row_data):
-                    item = QTableWidgetItem(data)
-                    if col_idx in [6, 13, 14]:
-                        item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
-                    self.tableWidget.setItem(row_idx, col_idx, item)
-            self.tableWidget.resizeColumnsToContents()
+            self._populate_table(df_afiliados, estados)
+
+        self.tableWidget.resizeColumnsToContents()
+
+    def _populate_table(self, df_afiliados, estados):
+        """Llena la tabla con los datos de afiliados."""
+        for row_idx, row in df_afiliados.iterrows():
+            row_data = self._process_row(row, estados)
+            self.tableWidget.insertRow(row_idx)
+            
+            for col_idx, data in enumerate(row_data):
+                item = QTableWidgetItem(data)
+                if col_idx in [6, 13, 14]:
+                    item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
+                self.tableWidget.setItem(row_idx, col_idx, item)
+
+    def _process_row(self, row, estados):
+        """Procesa una fila de datos y devuelve una lista de valores formateados."""
+        row_data = []
+        for col_idx, cell_data in enumerate(row):
+            if col_idx == len(row) - 1:
+                row_data.append(estados.get(cell_data, "PROCESO JUICIO"))
+            elif col_idx in [6, 13, 14]:
+                fecha_str = cell_data.strftime("%d/%m/%Y")
+                row_data.append(fecha_str)
+            else:
+                row_data.append(str(cell_data))
+        return row_data
 
     def nuevo(self):
-        respuesta = QMessageBox.question(self, "Nuevo Registro", "¿Desea hacer un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
-        if respuesta == QMessageBox.Yes:
+        if QMessageBox.question(self, "Nuevo Registro", "¿Desea hacer un nuevo registro?", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
             self.close()
             self.menu_registros.mostrar_registrarAfiliados()
 
     def exportarPdf(self):
-        respuesta = QMessageBox.question(self, "Exportar a PDF", "¿Desea exportar la lista a PDF?", QMessageBox.Yes | QMessageBox.No)
-        if respuesta == QMessageBox.Yes:
-            results = []
-            for row in range(self.tableWidget.rowCount()):
-                row_data = []
-                for column in range(self.tableWidget.columnCount()):
-                    item = self.tableWidget.item(row, column)
-                    if item is not None:
-                        row_data.append(item.text())
-                    else:
-                        row_data.append('')
-                results.append(row_data)
+        """Exporta la lista de afiliados a un archivo PDF."""
+        
+        if QMessageBox.question(self,"Exportar a PDF", "¿Desea exportar la lista a PDF?",QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
+            results = self._get_table_data()
+            ruta_template = self._get_template_path()
+            
+            html_renderizado = self._render_html(results, ruta_template)
+            ruta_resultado = self._get_output_path("listado_afiliados.html")
+            self._save_html(ruta_resultado, html_renderizado)
 
-            ruta_actual = os.path.abspath(os.path.dirname(__file__))
-            ruta_template = os.path.join(ruta_actual, "..", "utils", "plantilla_lista_afiliados.html")
+            ruta_pdf = self._select_pdf_save_path()
+            if ruta_pdf:
+                options = {'enable-local-file-access': None}
+                pdfkit.from_file(ruta_resultado, ruta_pdf, options=options)
 
-            with open(ruta_template, "r") as archivo_html_template:
-                contenido_template = archivo_html_template.read()
-            template = Template(contenido_template)
+    def _get_table_data(self):
+        """Recopila los datos de la tabla y los devuelve como una lista de listas."""
+        results = []
+        for row in range(self.tableWidget.rowCount()):
+            row_data = []
+            for column in range(self.tableWidget.columnCount()):
+                item = self.tableWidget.item(row, column)
+                row_data.append(item.text() if item is not None else '')
+            results.append(row_data)
+        return results
 
-            html_renderizado = template.render(results=results)
+    def _get_template_path(self):
+        """Devuelve la ruta del archivo de plantilla HTML."""
+        ruta_actual = os.path.abspath(os.path.dirname(__file__))
+        return os.path.join(ruta_actual, "..", "utils", "plantilla_lista_afiliados.html")
 
-            ruta_resultado = os.path.join(ruta_actual, "..", "utils", "listado_afiliados.html")
-            with open(ruta_resultado, "w") as archivo_html_resultado:
-                archivo_html_resultado.write(html_renderizado)
+    def _render_html(self, results, ruta_template):
+        """Rinde el contenido HTML utilizando la plantilla y los datos proporcionados."""
+        with open(ruta_template, "r") as archivo_html_template:
+            contenido_template = archivo_html_template.read()
+        template = Template(contenido_template)
+        return template.render(results=results)
 
-            dialogo = QFileDialog()
-            dialogo.setAcceptMode(QFileDialog.AcceptSave)
-            dialogo.setNameFilter("Archivos PDF (*.pdf)")
-            dialogo.setDefaultSuffix("pdf")
+    def _get_output_path(self, filename):
+        """Devuelve la ruta de salida para el archivo HTML generado."""
+        ruta_actual = os.path.abspath(os.path.dirname(__file__))
+        return os.path.join(ruta_actual, "..", "utils", filename)
 
-            fecha_actual = datetime.now().strftime("%d-%m-%Y")
-            nombre_archivo = f"Lista de afiliados - {fecha_actual}.pdf"
-            dialogo.selectFile(nombre_archivo)
+    def _save_html(self, ruta_resultado, html_renderizado):
+        """Guarda el contenido HTML renderizado en un archivo."""
+        with open(ruta_resultado, "w") as archivo_html_resultado:
+            archivo_html_resultado.write(html_renderizado)
 
-            if dialogo.exec():
-                rutas_seleccionadas = dialogo.selectedFiles()
-                if rutas_seleccionadas:
-                    ruta_pdf = rutas_seleccionadas[0]
-                    options = {'enable-local-file-access': None}
-                    pdfkit.from_file(ruta_resultado, ruta_pdf, options=options)
+    def _select_pdf_save_path(self):
+        """Abre un diálogo para seleccionar la ruta donde guardar el PDF."""
+        dialogo = QFileDialog()
+        dialogo.setAcceptMode(QFileDialog.AcceptSave)
+        dialogo.setNameFilter("Archivos PDF (*.pdf)")
+        dialogo.setDefaultSuffix("pdf")
+
+        fecha_actual = datetime.now().strftime("%d-%m-%Y")
+        nombre_archivo = f"Lista de afiliados - {fecha_actual}.pdf"
+        dialogo.selectFile(nombre_archivo)
+
+        if dialogo.exec():
+            rutas_seleccionadas = dialogo.selectedFiles()
+            return rutas_seleccionadas[0] if rutas_seleccionadas else None
+        return None
 
     def cerrar(self):
-        respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No)
-        if respuesta == QMessageBox.Yes:
+        if QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar el listado actual?", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
             self.close()
 
     def buscar(self, texto):
+        """Busca en la tabla afiliados y muestra las filas que coinciden con el texto proporcionado."""
+        texto_buscado = texto.lower()
         num_filas = self.tableWidget.rowCount()
+
         for fila in range(num_filas):
-            item_dni = self.tableWidget.item(fila, 4)
-            item_nombre = self.tableWidget.item(fila, 1)
-            item_apellido = self.tableWidget.item(fila, 2)
+            if self._should_show_row(fila, texto_buscado):
+                self.tableWidget.setRowHidden(fila, False)
+            else:
+                self.tableWidget.setRowHidden(fila, True)
 
-            if item_dni is not None and item_nombre is not None and item_apellido is not None:
-                dni = item_dni.text()
-                nombre = item_nombre.text().lower()
-                apellido = item_apellido.text().lower()
+    def _should_show_row(self, fila, texto_buscado):
+        """Determina si la fila debe mostrarse según el texto buscado."""
+        item_dni = self.tableWidget.item(fila, 5)
+        item_nombre = self.tableWidget.item(fila, 1)
+        item_apellido = self.tableWidget.item(fila, 2)
 
-                if texto.lower() in dni.lower() or texto.lower() in nombre or texto.lower() in apellido:
-                    self.tableWidget.setRowHidden(fila, False)
-                else:
-                    self.tableWidget.setRowHidden(fila, True)
+        if item_dni is not None and item_nombre is not None and item_apellido is not None:
+            dni = item_dni.text()
+            nombre = item_nombre.text().lower()
+            apellido = item_apellido.text().lower()
+
+            return (texto_buscado in dni.lower() or 
+                    texto_buscado in nombre or 
+                    texto_buscado in apellido)
+        
+        return False
 
     def enviarSeleccionado(self, row, column):
         num_columnas = self.tableWidget.columnCount()
@@ -325,9 +375,7 @@ class RegistrarAfiliados(QMainWindow, Ui_MainWindow_RegistroAfiliados):
         return True
 
     def nuevo(self):
-        respuesta = QMessageBox.question(self, "Nuevo registro", "¿Desea hacer un nuevo registro?", QMessageBox.Yes | QMessageBox.No)
-
-        if respuesta == QMessageBox.Yes:
+        if QMessageBox.question(self, "Nuevo registro", "¿Desea hacer un nuevo registro?", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
             self.close()
             self.menu_registros.mostrar_registrarAfiliados()
 
@@ -387,6 +435,5 @@ class RegistrarAfiliados(QMainWindow, Ui_MainWindow_RegistroAfiliados):
                         pdfkit.from_file(ruta_resultado, ruta_pdf, options=options)
 
     def cerrar(self):
-        respuesta = QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar la ventana de registro?", QMessageBox.Yes | QMessageBox.No)
-        if respuesta == QMessageBox.Yes:
+        if QMessageBox.question(self, "Cerrar ventana", "¿Desea cerrar la ventana de registro?", QMessageBox.Yes | QMessageBox.No) == QMessageBox.Yes:
             self.close()
