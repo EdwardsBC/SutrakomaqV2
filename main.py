@@ -6,6 +6,7 @@ from PySide6.QtCore import Qt
 from sqlalchemy import create_engine, text
 from datetime import datetime
 from view.menu import Menu
+from view.newPassword import NewPassword
 import concurrent.futures
 import json
 import sys
@@ -37,6 +38,12 @@ class Login(QMainWindow, Ui_MainWindow_Login):
         self.pushButton_2.clicked.connect(self.toggle_password_visibility)
         self.lineEdit.returnPressed.connect(self.login)
         self.lineEdit_2.returnPressed.connect(self.login)
+        self.pushButton_3.clicked.connect(self.newpassword)
+
+    def newpassword(self):
+        self.registros = NewPassword(self.engine)
+        self.registros.show()
+        self.close()
 
     def load(self):
         self.lineEdit_2.setEchoMode(QLineEdit.Password)

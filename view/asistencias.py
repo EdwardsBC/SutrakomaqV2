@@ -298,37 +298,50 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
         self.lineEdit_4.textChanged.connect(self.filtrar_noAsistencias)
 
     def ImportarExcel(self):
+        # Conectar el comboBox a la función de actualización
         self.comboBox.currentIndexChanged.connect(self.actualizar_por_tipo_reunion)
+
+        # Variables y listas para los combos de asistencia y justificación
         afiliado_col = 4
         items = ["ASISTIO", "FALTA", "JUSTIFICADO"]
         justificacion_items = ["", "VACACIONES", "DESCANSO MÉDICO", "FALLECIMIENTO", "AMANECIDA", "GOSE SIN HABER", "SUSPENSIÓN PERFECTA", "OTROS"]
 
+        # Obtener el archivo Excel seleccionado
         file_path, _ = QFileDialog.getOpenFileName(self, "Selecciona un archivo Excel", "", "Archivos Excel (*.xlsx *.xls)")
         if not file_path:
+            print("No se seleccionó ningún archivo.")
             return
 
+        # Leer el archivo Excel
         try:
             df = pd.read_excel(file_path, usecols=["Ingresar su DNI"])
         except Exception as e:
-            print(f"Error al leer el archivo Excel: {e}")
             return
 
+        # Convertir la columna de DNI a lista
         dnis = df["Ingresar su DNI"].tolist()
 
+        # Ejecutar el procedimiento almacenado para obtener los afiliados
         query_afiliados = "CALL sp_obtener_afiliados_asistencias()"
-        afiliados = pd.read_sql(query_afiliados, self.engine).values.tolist()
+        try:
+            afiliados = pd.read_sql(query_afiliados, self.engine).values.tolist()
+        except Exception as e:
+            return
 
+        # Filtrar los afiliados en asistidos y no asistidos
         asistidos = []
         noasistidos = []
 
-        dnis = [str(dni) for dni in dnis]
+        dnis = [str(dni) for dni in dnis]  # Convertir DNIs a string
 
         for afiliado in afiliados:
-            if str(afiliado[3]) in dnis:
+            if str(afiliado[3]) in dnis:  # Verificar si el DNI del afiliado está en la lista
                 asistidos.append(afiliado)
             else:
                 noasistidos.append(afiliado)
 
+
+        # Función para colocar datos en un TableWidget
         def colocar_datos_en_tablewidget(table_widget, data_list):
             table_widget.setRowCount(len(data_list))
             for row, data in enumerate(data_list):
@@ -336,9 +349,11 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
                     item = QTableWidgetItem(str(value))
                     table_widget.setItem(row, col, item)
 
+        # Colocar datos en los TableWidgets
         colocar_datos_en_tablewidget(self.tableWidget, asistidos)
         colocar_datos_en_tablewidget(self.tableWidget_2, noasistidos)
 
+        # Añadir combos de asistencia y justificación en tableWidget
         for row in range(self.tableWidget.rowCount()):
             comboAsistencias = QComboBox()
             comboAsistencias.addItems(items)
@@ -352,6 +367,7 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
             
             comboAsistencias.currentIndexChanged.connect(partial(self.toggle_justificacion, comboJustificaciones, comboAsistencias))
 
+        # Añadir combos de asistencia y justificación en tableWidget_2
         for row in range(self.tableWidget_2.rowCount()):
             comboAsistencias = QComboBox()
             comboAsistencias.addItems(items)
@@ -365,12 +381,16 @@ class RegistrarAsitencias(QMainWindow, Ui_MainWindow_RegistroAsistencias):
             
             comboAsistencias.currentIndexChanged.connect(partial(self.toggle_justificacion, comboJustificaciones, comboAsistencias))
 
+        # Actualizar la visualización y los contadores
         self.actualizar_por_tipo_reunion()
         self.tableWidget.resizeColumnsToContents()
         self.tableWidget_2.resizeColumnsToContents()
 
+        # Mostrar el conteo de filas en los spinboxes
         self.spinBox.setValue(self.tableWidget.rowCount())
         self.spinBox_2.setValue(self.tableWidget_2.rowCount())
+        print(f"Cantidad de filas en tableWidget: {self.tableWidget.rowCount()}")
+        print(f"Cantidad de filas en tableWidget_2: {self.tableWidget_2.rowCount()}")
 
     def load(self):
         self.dateEdit.setDate(QDate.currentDate())

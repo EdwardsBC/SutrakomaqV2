@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'loginulSPgJ.ui'
+## Form generated from reading UI file 'loginbkFbQX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -16,14 +16,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+    QMainWindow, QPushButton, QSizePolicy, QTabWidget,
+    QVBoxLayout, QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
+        MainWindow.setWindowModality(Qt.WindowModality.NonModal)
         MainWindow.resize(290, 238)
         MainWindow.setMaximumSize(QSize(290, 290))
         palette = QPalette()
@@ -103,7 +104,12 @@ class Ui_MainWindow(object):
         font.setPointSize(10)
         font.setBold(True)
         MainWindow.setFont(font)
+        MainWindow.setWindowOpacity(1.000000000000000)
         MainWindow.setStyleSheet(u"")
+        MainWindow.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        MainWindow.setTabShape(QTabWidget.TabShape.Rounded)
+        MainWindow.setDockNestingEnabled(False)
+        MainWindow.setUnifiedTitleAndToolBarOnMac(False)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -181,6 +187,15 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.frame_3, 0, Qt.AlignmentFlag.AlignHCenter)
 
+        self.pushButton_3 = QPushButton(self.centralwidget)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setFont(font3)
+        self.pushButton_3.setStyleSheet(u"QPushButton_2{\n"
+"\n"
+"}")
+
+        self.verticalLayout.addWidget(self.pushButton_3)
+
         self.frame_4 = QFrame(self.centralwidget)
         self.frame_4.setObjectName(u"frame_4")
         self.frame_4.setMinimumSize(QSize(170, 50))
@@ -217,13 +232,14 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Login", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"SUTRAKOMAQ 1.0.0", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"LOGIN", None))
         self.lineEdit.setInputMask("")
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Usuario", None))
         self.lineEdit_2.setInputMask("")
         self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Contrase\u00f1a", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"!", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Recuperar Contrase\u00f1a", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Ingresar", None))
     # retranslateUi
 
