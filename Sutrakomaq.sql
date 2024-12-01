@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Sutrakomaq
+ Source Server         : local
  Source Server Type    : MySQL
- Source Server Version : 80026
- Source Host           : mysql-134847-0.cloudclusters.net:10005
+ Source Server Version : 90000
+ Source Host           : localhost:3306
  Source Schema         : sutrakomaq
 
  Target Server Type    : MySQL
- Target Server Version : 80026
+ Target Server Version : 90000
  File Encoding         : 65001
 
- Date: 06/10/2024 15:32:44
+ Date: 01/12/2024 18:58:07
 */
 
 SET NAMES utf8mb4;
@@ -46,13 +46,14 @@ CREATE TABLE `afiliados`  (
   INDEX `idx_fechaNacimiento`(`fechaNacimiento` ASC) USING BTREE,
   INDEX `idx_fechaIngresoKMMP`(`fechaIngresoKMMP` ASC) USING BTREE,
   INDEX `idx_fechaIngresoSindical`(`fechaIngresoSindical` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1007 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1015 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of afiliados
 -- ----------------------------
-INSERT INTO `afiliados` VALUES (1005, 'NOMBRE DE AFILIADO S', 'APELLIDO DE AFILIADO S', 'LIMA S', 'CALLAO S', '70284423', '2000-01-14', '984126703', 'SCOTIABANK S ', 'NUMERO DE CUENTA S ', 'NUMERO DE CCI BANCARIO S ', 'ALMACENERO S ', 'LIMA - CALLAO S S', '2024-10-03', '2024-10-03', 'AFILIADO');
-INSERT INTO `afiliados` VALUES (1006, 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', '70284414', '1950-01-07', '984126704', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', '2024-10-04', '2024-10-04', 'AFILIADO');
+INSERT INTO `afiliados` VALUES (1012, 'AFILIADO GENERICO 1', 'AFILIADO GENERICO 1', 'AFILIADO GENERICO 1', 'AFILIADO GENERICO 1', '87654321', '1950-01-01', '987654321', '', '', '', '', '', '2024-11-05', '2024-11-05', 'AFILIADO');
+INSERT INTO `afiliados` VALUES (1013, 'AFILIADO GENERICO 2', 'AFILIADO GENERICO 2', 'AFILIADO GENERICO 2', 'AFILIADO GENERICO 2', '88654321', '1950-01-01', '997654321', '', '', '', '', '', '2024-11-05', '2024-11-05', 'AFILIADO');
+INSERT INTO `afiliados` VALUES (1014, 'AFILIADO GENERICO 3 - EDITADO', 'AFILIADO GENERICO 3 - EDITADO', 'AFILIADO GENERICO 3 - EDITADO', 'AFILIADO GENERICO 3 - EDITADO', '88854321', '1950-01-01', '999654321', 'ENTIDAD BANCARIA GENERICA', '999999999999999999999999999999', '99999999999999999999999999999999999999999999', 'PUESTO DE TRABAJO GENERICO', 'GENERICO', '2024-11-05', '2024-11-05', 'DESAFILIADO');
 
 -- ----------------------------
 -- Table structure for asistencias_cab
@@ -65,11 +66,13 @@ CREATE TABLE `asistencias_cab`  (
   `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_asistencia_cab`(`id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 93 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of asistencias_cab
 -- ----------------------------
+INSERT INTO `asistencias_cab` VALUES (98, 'EXTRAORDINARIA', '2024-11-05', 'Asamblea de Afiliados');
+INSERT INTO `asistencias_cab` VALUES (99, 'ORDINARIA', '2024-11-05', 'Asamblea de Dirigentes');
 
 -- ----------------------------
 -- Table structure for asistencias_det
@@ -86,11 +89,13 @@ CREATE TABLE `asistencias_det`  (
   INDEX `id_afiliado`(`id_afiliado` ASC) USING BTREE,
   INDEX `idx_asistencia_det`(`id_asistencia_cab` ASC, `id_afiliado` ASC) USING BTREE,
   CONSTRAINT `id_afiliado` FOREIGN KEY (`id_afiliado`) REFERENCES `afiliados` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 32535 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32550 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of asistencias_det
 -- ----------------------------
+INSERT INTO `asistencias_det` VALUES (32547, 98, 1012, 'ASISTIO', 0.00, '');
+INSERT INTO `asistencias_det` VALUES (32548, 98, 1013, 'JUSTIFICADO', 0.00, 'AMANECIDA');
 
 -- ----------------------------
 -- Table structure for asistencias_det_dirig
@@ -104,12 +109,14 @@ CREATE TABLE `asistencias_det_dirig`  (
   `multa` float(10, 2) NULL DEFAULT NULL,
   `observacion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 124 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 131 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of asistencias_det_dirig
 -- ----------------------------
-INSERT INTO `asistencias_det_dirig` VALUES (123, 92, 21, 'ASISTIO', 0.00, '');
+INSERT INTO `asistencias_det_dirig` VALUES (128, 99, 24, 'FALTA', 70.00, '');
+INSERT INTO `asistencias_det_dirig` VALUES (129, 99, 23, 'ASISTIO', 0.00, '');
+INSERT INTO `asistencias_det_dirig` VALUES (130, 99, 22, 'JUSTIFICADO', 0.00, 'AMANECIDA');
 
 -- ----------------------------
 -- Table structure for caja
@@ -126,16 +133,24 @@ CREATE TABLE `caja`  (
   `id_origen` int NULL DEFAULT NULL,
   `section` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 223 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 248 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of caja
 -- ----------------------------
 INSERT INTO `caja` VALUES (1, 0.00, 0.00, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `caja` VALUES (215, 0.00, 100.00, '2024-10-03 00:00:00', 1, 'General', 'INGRESO', 405, 'LICENCIAS');
-INSERT INTO `caja` VALUES (216, 0.00, -30.00, '2024-10-03 00:00:00', 1, 'General', 'EGRESO', 405, 'LICENCIAS');
-INSERT INTO `caja` VALUES (219, 100.00, 0.00, '2024-10-05 00:00:00', 1, 'General', 'INGRESO', 382, 'INGRESOS Y EGRESOS');
-INSERT INTO `caja` VALUES (222, 70.00, -70.00, '2024-10-05 00:00:00', 1, 'General', 'REABASTECIMIENTO', 385, 'INGRESOS Y EGRESOS');
+INSERT INTO `caja` VALUES (235, 0.00, 1.00, '2024-11-05 00:00:00', 1, 'General', 'INGRESO', 412, 'LICENCIAS');
+INSERT INTO `caja` VALUES (236, 0.00, -5.00, '2024-11-05 00:00:00', 1, 'General', 'EGRESO', 412, 'LICENCIAS');
+INSERT INTO `caja` VALUES (237, 0.00, 10.00, '2024-11-05 00:00:00', 1, 'General', 'INGRESO', 413, 'LICENCIAS');
+INSERT INTO `caja` VALUES (238, 0.00, -50.00, '2024-11-05 00:00:00', 1, 'General', 'EGRESO', 413, 'LICENCIAS');
+INSERT INTO `caja` VALUES (239, 0.00, 100.00, '2024-11-05 00:00:00', 1, 'General', 'INGRESO', 414, 'LICENCIAS');
+INSERT INTO `caja` VALUES (240, 0.00, -500.00, '2024-11-05 00:00:00', 1, 'General', 'EGRESO', 414, 'LICENCIAS');
+INSERT INTO `caja` VALUES (241, 0.00, 56.00, '2024-11-05 00:00:00', 1, 'General', 'INGRESO', 48, 'CUOTAS');
+INSERT INTO `caja` VALUES (242, 0.00, 48.00, '2024-10-05 00:00:00', 1, 'General', 'INGRESO', 49, 'CUOTAS');
+INSERT INTO `caja` VALUES (243, 0.00, 46.00, '2024-09-05 00:00:00', 1, 'General', 'INGRESO', 50, 'CUOTAS');
+INSERT INTO `caja` VALUES (245, 0.00, 1294.00, '2024-11-05 00:00:00', 1, 'General', 'INGRESO', 408, 'INGRESOS Y EGRESOS');
+INSERT INTO `caja` VALUES (246, 200.00, 0.00, '2024-11-05 00:00:00', 1, 'General', 'INGRESO', 409, 'INGRESOS Y EGRESOS');
+INSERT INTO `caja` VALUES (247, 0.00, -200.00, '2024-11-05 00:00:00', 1, 'General', 'EGRESO', 410, 'INGRESOS Y EGRESOS');
 
 -- ----------------------------
 -- Table structure for cuota_cab
@@ -147,11 +162,14 @@ CREATE TABLE `cuota_cab`  (
   `cuota` decimal(10, 2) NULL DEFAULT NULL,
   `total` decimal(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cuota_cab
 -- ----------------------------
+INSERT INTO `cuota_cab` VALUES (48, '2024-11-05', 28.00, 56.00);
+INSERT INTO `cuota_cab` VALUES (49, '2024-10-05', 24.00, 48.00);
+INSERT INTO `cuota_cab` VALUES (50, '2024-09-05', 23.00, 46.00);
 
 -- ----------------------------
 -- Table structure for cuota_det
@@ -163,11 +181,17 @@ CREATE TABLE `cuota_det`  (
   `id_afiliado` int NULL DEFAULT NULL,
   `cuota` decimal(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24598 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24610 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cuota_det
 -- ----------------------------
+INSERT INTO `cuota_det` VALUES (24601, 49, 1012, 24.00);
+INSERT INTO `cuota_det` VALUES (24602, 49, 1013, 24.00);
+INSERT INTO `cuota_det` VALUES (24604, 50, 1012, 23.00);
+INSERT INTO `cuota_det` VALUES (24605, 50, 1013, 23.00);
+INSERT INTO `cuota_det` VALUES (24607, 48, 1012, 28.00);
+INSERT INTO `cuota_det` VALUES (24608, 48, 1013, 28.00);
 
 -- ----------------------------
 -- Table structure for dirigentes
@@ -187,12 +211,14 @@ CREATE TABLE `dirigentes`  (
   INDEX `idx_dirigentes_dni`(`dni` ASC) USING BTREE,
   INDEX `idx_dirigentes_estado`(`estado` ASC) USING BTREE,
   INDEX `idx_dirigentes_id`(`id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of dirigentes
 -- ----------------------------
-INSERT INTO `dirigentes` VALUES (21, 'GENERICO 2', 'GENERICO 2', '40284413', '2024-10-05', '2026-10-05', 730, 1, 2);
+INSERT INTO `dirigentes` VALUES (22, 'GENERICO 1', 'GENERICO 1', '123456778', '2024-11-05', '2026-11-05', 730, 1, 1);
+INSERT INTO `dirigentes` VALUES (23, 'GENERICO 2', 'GENERICO 2', '87654321', '2024-11-05', '2026-11-05', 730, 1, 2);
+INSERT INTO `dirigentes` VALUES (24, 'GENERICO 3 - EDITADO', 'GENERICO 3 - EDITADO', '81726354', '2024-11-05', '2026-11-05', 730, 1, 9);
 
 -- ----------------------------
 -- Table structure for escolaridades
@@ -209,13 +235,14 @@ CREATE TABLE `escolaridades`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_id_afiliado`(`id_afiliado` ASC) USING BTREE,
   INDEX `idx_id_afiliado_escolaridades`(`id_afiliado` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 427 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 434 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of escolaridades
 -- ----------------------------
-INSERT INTO `escolaridades` VALUES (425, 1005, 1, 2, 3, 4, 5);
-INSERT INTO `escolaridades` VALUES (426, 1006, 0, 0, 0, 0, 0);
+INSERT INTO `escolaridades` VALUES (431, 1012, 0, 0, 0, 0, 0);
+INSERT INTO `escolaridades` VALUES (432, 1013, 0, 0, 0, 0, 0);
+INSERT INTO `escolaridades` VALUES (433, 1014, 0, 0, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for historial
@@ -234,1011 +261,11 @@ CREATE TABLE `historial`  (
   INDEX `idx_historial_seccion`(`id_seccion` ASC) USING BTREE,
   INDEX `idx_historial_modulo`(`id_modulo` ASC) USING BTREE,
   INDEX `idx_historial_fecha`(`fechaHora` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5753 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5944 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of historial
 -- ----------------------------
-INSERT INTO `historial` VALUES (3504, 1, 1, 1, 'Ingreso', '2024-09-11 16:24:42', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3505, 1, 3, 1, 'Ingreso', '2024-09-11 16:24:47', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3506, 1, 3, 2, 'Ingreso', '2024-09-11 16:24:50', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3507, 1, 3, 2, 'Ingreso', '2024-09-11 16:25:02', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3508, 1, 1, 1, 'Ingreso', '2024-09-11 16:49:11', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3509, 1, 3, 1, 'Ingreso', '2024-09-11 16:50:48', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3510, 1, 3, 2, 'Ingreso', '2024-09-11 16:50:53', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3511, 1, 3, 2, 'Ingreso', '2024-09-11 16:51:05', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3512, 1, 1, 1, 'Ingreso', '2024-09-11 16:52:06', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3513, 1, 3, 1, 'Ingreso', '2024-09-11 16:52:13', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3514, 1, 3, 2, 'Ingreso', '2024-09-11 16:52:16', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3515, 1, 1, 1, 'Ingreso', '2024-09-11 16:56:52', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3516, 1, 3, 1, 'Ingreso', '2024-09-11 16:56:54', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3517, 1, 3, 2, 'Ingreso', '2024-09-11 16:56:57', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3518, 1, 3, 2, 'Ingreso', '2024-09-11 16:57:07', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3519, 1, 3, 2, 'Ingreso', '2024-09-11 17:03:47', 'Ingreso exitoso a Registro de Afiliados');
-INSERT INTO `historial` VALUES (3520, 1, 1, 1, 'Ingreso', '2024-09-11 17:04:15', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3521, 1, 3, 1, 'Ingreso', '2024-09-11 17:04:17', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3522, 1, 3, 2, 'Ingreso', '2024-09-11 17:04:21', 'Ingreso exitoso a Registro de Afiliados');
-INSERT INTO `historial` VALUES (3523, 1, 3, 2, 'Ingreso', '2024-09-11 17:04:27', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3524, 1, 1, 1, 'Ingreso', '2024-09-11 17:06:45', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3525, 1, 3, 1, 'Ingreso', '2024-09-11 17:06:55', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3526, 1, 3, 2, 'Ingreso', '2024-09-11 17:07:00', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3527, 1, 3, 2, 'Ingreso', '2024-09-11 17:07:15', 'Ingreso exitoso a Registro de Afiliados');
-INSERT INTO `historial` VALUES (3528, 1, 3, 2, 'Ingreso', '2024-09-11 17:09:52', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3529, 1, 3, 2, 'Ingreso', '2024-09-11 17:10:07', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3530, 1, 3, 2, 'Ingreso', '2024-09-11 17:10:50', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3531, 1, 3, 2, 'Ingreso', '2024-09-11 17:11:08', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3532, 1, 3, 2, 'Ingreso', '2024-09-11 17:11:16', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3533, 1, 3, 3, 'Ingreso', '2024-09-11 17:24:59', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3534, 1, 3, 3, 'Ingreso', '2024-09-11 17:25:26', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3535, 1, 3, 3, 'Ingreso', '2024-09-11 17:26:57', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3536, 1, 3, 3, 'Ingreso', '2024-09-11 17:27:07', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3537, 1, 3, 3, 'Ingreso', '2024-09-11 17:27:13', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3538, 1, 3, 3, 'Ingreso', '2024-09-11 17:30:12', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3539, 1, 3, 3, 'Ingreso', '2024-09-11 17:30:51', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3540, 1, 3, 3, 'Ingreso', '2024-09-11 17:30:59', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3541, 1, 3, 3, 'Ingreso', '2024-09-11 17:32:33', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3542, 1, 1, 1, 'Ingreso', '2024-09-11 17:33:11', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3543, 1, 3, 1, 'Ingreso', '2024-09-11 17:33:48', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3544, 1, 3, 3, 'Ingreso', '2024-09-11 17:33:53', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3545, 1, 3, 3, 'Ingreso', '2024-09-11 17:33:56', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3546, 1, 3, 3, 'Ingreso', '2024-09-11 17:34:00', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3547, 1, 3, 3, 'Ingreso', '2024-09-11 17:34:20', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3548, 1, 3, 3, 'Ingreso', '2024-09-11 17:34:35', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3549, 1, 3, 3, 'Ingreso', '2024-09-11 17:35:00', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3550, 1, 3, 3, 'Ingreso', '2024-09-11 17:35:21', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3551, 1, 3, 3, 'Ingreso', '2024-09-11 17:35:47', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3552, 1, 3, 3, 'Ingreso', '2024-09-11 17:36:33', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3553, 1, 3, 3, 'Ingreso', '2024-09-11 17:38:17', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
-INSERT INTO `historial` VALUES (3554, 1, 3, 3, 'Ingreso', '2024-09-11 17:39:47', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3555, 1, 3, 3, 'Ingreso', '2024-09-11 17:39:51', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
-INSERT INTO `historial` VALUES (3556, 1, 1, 1, 'Ingreso', '2024-09-11 17:41:36', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3557, 1, 3, 1, 'Ingreso', '2024-09-11 17:41:38', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3558, 1, 3, 3, 'Ingreso', '2024-09-11 17:41:40', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
-INSERT INTO `historial` VALUES (3559, 1, 3, 3, 'Ingreso', '2024-09-11 17:41:45', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
-INSERT INTO `historial` VALUES (3560, 1, 1, 1, 'Ingreso', '2024-09-11 17:43:20', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3561, 1, 3, 1, 'Ingreso', '2024-09-11 17:43:22', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3562, 1, 3, 3, 'Ingreso', '2024-09-11 17:43:25', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
-INSERT INTO `historial` VALUES (3563, 1, 3, 3, 'Ingreso', '2024-09-11 17:43:32', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3564, 1, 3, 3, 'Ingreso', '2024-09-11 17:43:40', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3565, 1, 3, 3, 'Ingreso', '2024-09-11 17:44:15', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3566, 1, 3, 3, 'Ingreso', '2024-09-11 17:44:30', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3567, 1, 3, 3, 'Ingreso', '2024-09-11 17:44:40', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3568, 1, 3, 3, 'Ingreso', '2024-09-11 17:44:44', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
-INSERT INTO `historial` VALUES (3569, 1, 1, 1, 'Ingreso', '2024-09-11 22:09:19', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3570, 1, 3, 1, 'Ingreso', '2024-09-11 22:09:22', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3571, 1, 3, 5, 'Ingreso', '2024-09-11 22:09:26', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3572, 1, 3, 5, 'Ingreso', '2024-09-11 22:10:11', 'Ingreso exitoso a Registro de Dirigentes');
-INSERT INTO `historial` VALUES (3573, 1, 3, 5, 'Ingreso', '2024-09-11 22:10:22', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3574, 1, 3, 5, 'Ingreso', '2024-09-11 22:10:28', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3575, 1, 3, 3, 'Ingreso', '2024-09-11 22:11:11', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3576, 1, 3, 5, 'Ingreso', '2024-09-11 22:11:17', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3577, 1, 3, 5, 'Ingreso', '2024-09-11 22:12:18', 'Ingreso exitoso a Registro de Dirigentes');
-INSERT INTO `historial` VALUES (3578, 1, 3, 5, 'Ingreso', '2024-09-11 22:12:21', 'Ingreso exitoso a Registro de Dirigentes');
-INSERT INTO `historial` VALUES (3579, 1, 3, 5, 'Ingreso', '2024-09-11 22:12:55', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3580, 1, 3, 5, 'Ingreso', '2024-09-11 22:13:28', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3581, 1, 3, 5, 'Ingreso', '2024-09-11 22:13:39', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3582, 1, 3, 5, 'Ingreso', '2024-09-11 22:13:47', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3583, 1, 3, 5, 'Ingreso', '2024-09-11 22:13:57', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3584, 1, 3, 5, 'Ingreso', '2024-09-11 22:14:35', 'Ingreso exitoso a Registro de Dirigentes');
-INSERT INTO `historial` VALUES (3585, 1, 3, 5, 'Ingreso', '2024-09-11 22:14:51', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3586, 1, 3, 8, 'Ingreso', '2024-09-11 22:15:15', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3587, 1, 3, 8, 'Ingreso', '2024-09-11 22:16:23', 'Ingreso exitoso a Registro de Inventario');
-INSERT INTO `historial` VALUES (3588, 1, 3, 8, 'Ingreso', '2024-09-11 22:16:31', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3589, 1, 3, 8, 'Ingreso', '2024-09-11 22:17:38', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3590, 1, 3, 8, 'Ingreso', '2024-09-11 22:18:15', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3591, 1, 3, 8, 'Ingreso', '2024-09-11 22:18:59', 'Ingreso exitoso a Registro de Inventario');
-INSERT INTO `historial` VALUES (3592, 1, 3, 8, 'Ingreso', '2024-09-11 22:19:06', 'Ingreso exitoso a Registro de Inventario');
-INSERT INTO `historial` VALUES (3593, 1, 3, 8, 'Ingreso', '2024-09-11 22:19:27', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3594, 1, 3, 8, 'Ingreso', '2024-09-11 22:19:46', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3595, 1, 3, 8, 'Ingreso', '2024-09-11 22:19:59', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3596, 1, 3, 8, 'Ingreso', '2024-09-11 22:20:05', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3597, 1, 3, 9, 'Ingreso', '2024-09-11 22:20:51', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3598, 1, 3, 9, 'Ingreso', '2024-09-11 22:21:17', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3599, 1, 1, 1, 'Ingreso', '2024-09-11 22:24:20', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3600, 1, 3, 1, 'Ingreso', '2024-09-11 22:24:23', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3601, 1, 3, 9, 'Ingreso', '2024-09-11 22:24:26', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3602, 1, 1, 1, 'Ingreso', '2024-09-11 22:26:35', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3603, 1, 3, 1, 'Ingreso', '2024-09-11 22:26:37', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3604, 1, 3, 9, 'Ingreso', '2024-09-11 22:26:41', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3605, 1, 1, 1, 'Ingreso', '2024-09-11 22:27:20', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3606, 1, 3, 1, 'Ingreso', '2024-09-11 22:27:23', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3607, 1, 3, 9, 'Ingreso', '2024-09-11 22:27:26', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3608, 1, 1, 1, 'Ingreso', '2024-09-11 22:29:04', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3609, 1, 3, 1, 'Ingreso', '2024-09-11 22:29:05', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3610, 1, 3, 9, 'Ingreso', '2024-09-11 22:29:11', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3611, 1, 3, 9, 'Ingreso', '2024-09-11 22:29:18', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3612, 1, 3, 9, 'Ingreso', '2024-09-11 22:29:23', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3613, 1, 3, 9, 'Ingreso', '2024-09-11 22:30:31', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3614, 1, 3, 9, 'Ingreso', '2024-09-11 22:31:35', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3615, 1, 3, 9, 'Ingreso', '2024-09-11 22:32:07', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3616, 1, 3, 9, 'Ingreso', '2024-09-11 22:32:14', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3617, 1, 3, 9, 'Ingreso', '2024-09-11 22:32:18', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3618, 1, 1, 1, 'Ingreso', '2024-09-11 22:37:44', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3619, 1, 3, 1, 'Ingreso', '2024-09-11 22:37:46', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3620, 1, 3, 9, 'Ingreso', '2024-09-11 22:37:49', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3621, 1, 3, 9, 'Ingreso', '2024-09-11 22:37:52', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3622, 1, 1, 1, 'Ingreso', '2024-09-11 22:39:35', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3623, 1, 3, 1, 'Ingreso', '2024-09-11 22:39:37', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3624, 1, 1, 1, 'Ingreso', '2024-09-11 22:40:38', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3625, 1, 3, 1, 'Ingreso', '2024-09-11 22:40:40', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3626, 1, 3, 9, 'Ingreso', '2024-09-11 22:40:43', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3627, 1, 3, 9, 'Ingreso', '2024-09-11 22:40:47', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3628, 1, 3, 9, 'Ingreso', '2024-09-11 22:41:07', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3629, 1, 3, 9, 'Ingreso', '2024-09-11 22:41:31', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3630, 1, 3, 9, 'Ingreso', '2024-09-11 22:42:11', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3631, 1, 3, 9, 'Ingreso', '2024-09-11 22:42:39', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3632, 1, 1, 1, 'Ingreso', '2024-09-11 22:44:15', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3633, 1, 3, 1, 'Ingreso', '2024-09-11 22:44:17', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3634, 1, 3, 9, 'Ingreso', '2024-09-11 22:44:20', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3635, 1, 1, 1, 'Ingreso', '2024-09-11 22:45:02', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3636, 1, 3, 1, 'Ingreso', '2024-09-11 22:45:04', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3637, 1, 3, 9, 'Ingreso', '2024-09-11 22:45:07', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3638, 1, 1, 1, 'Ingreso', '2024-09-11 22:45:34', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3639, 1, 3, 1, 'Ingreso', '2024-09-11 22:45:37', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3640, 1, 3, 9, 'Ingreso', '2024-09-11 22:45:40', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3641, 1, 1, 1, 'Ingreso', '2024-09-14 12:41:30', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3642, 1, 3, 1, 'Ingreso', '2024-09-14 12:41:32', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3643, 1, 3, 8, 'Ingreso', '2024-09-14 12:41:35', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3644, 1, 1, 1, 'Ingreso', '2024-09-14 12:42:21', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3645, 1, 3, 1, 'Ingreso', '2024-09-14 12:42:24', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3646, 1, 3, 8, 'Ingreso', '2024-09-14 12:42:29', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3647, 1, 1, 1, 'Ingreso', '2024-09-14 12:43:03', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3648, 1, 3, 1, 'Ingreso', '2024-09-14 12:43:06', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3649, 1, 3, 8, 'Ingreso', '2024-09-14 12:43:09', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3650, 1, 1, 1, 'Ingreso', '2024-09-14 12:44:18', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3651, 1, 3, 1, 'Ingreso', '2024-09-14 12:44:20', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3652, 1, 3, 8, 'Ingreso', '2024-09-14 12:44:23', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3653, 1, 1, 1, 'Ingreso', '2024-09-14 12:47:01', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3654, 1, 1, 1, 'Ingreso', '2024-09-14 12:48:16', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3655, 1, 3, 1, 'Ingreso', '2024-09-14 12:48:28', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3656, 1, 3, 2, 'Ingreso', '2024-09-14 12:48:31', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (3657, 1, 3, 8, 'Ingreso', '2024-09-14 12:48:37', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3658, 1, 3, 8, 'Ingreso', '2024-09-14 12:49:14', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (3659, 1, 1, 1, 'Ingreso', '2024-09-14 12:51:57', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3660, 1, 3, 1, 'Ingreso', '2024-09-14 12:52:10', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3661, 1, 3, 3, 'Ingreso', '2024-09-14 12:52:14', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3662, 1, 1, 1, 'Ingreso', '2024-09-14 12:54:32', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3663, 1, 3, 1, 'Ingreso', '2024-09-14 12:54:33', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3664, 1, 3, 3, 'Ingreso', '2024-09-14 12:54:36', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3665, 1, 3, 3, 'Ingreso', '2024-09-14 12:55:17', 'Ingreso exitoso a Registro de Asistencias');
-INSERT INTO `historial` VALUES (3666, 1, 3, 3, 'Ingreso', '2024-09-14 12:55:21', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
-INSERT INTO `historial` VALUES (3667, 1, 3, 3, 'Ingreso', '2024-09-14 12:55:32', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3668, 1, 1, 1, 'Ingreso', '2024-09-14 12:57:39', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3669, 1, 3, 1, 'Ingreso', '2024-09-14 12:57:41', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3670, 1, 3, 9, 'Ingreso', '2024-09-14 12:57:44', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3671, 1, 3, 5, 'Ingreso', '2024-09-14 12:57:52', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (3672, 1, 1, 1, 'Ingreso', '2024-09-14 13:01:19', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3673, 1, 3, 1, 'Ingreso', '2024-09-14 13:01:24', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3674, 1, 3, 9, 'Ingreso', '2024-09-14 13:02:18', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3675, 1, 1, 1, 'Ingreso', '2024-09-14 13:05:14', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3676, 1, 3, 1, 'Ingreso', '2024-09-14 13:05:18', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3677, 1, 3, 9, 'Ingreso', '2024-09-14 13:05:26', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3678, 1, 1, 1, 'Ingreso', '2024-09-14 13:07:01', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3679, 1, 3, 1, 'Ingreso', '2024-09-14 13:07:03', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3680, 1, 3, 9, 'Ingreso', '2024-09-14 13:07:07', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3681, 1, 1, 1, 'Ingreso', '2024-09-14 13:10:15', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3682, 1, 3, 1, 'Ingreso', '2024-09-14 13:10:17', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3683, 1, 3, 9, 'Ingreso', '2024-09-14 13:10:20', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3684, 1, 1, 1, 'Ingreso', '2024-09-14 13:11:42', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3685, 1, 3, 1, 'Ingreso', '2024-09-14 13:11:44', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3686, 1, 3, 9, 'Ingreso', '2024-09-14 13:11:47', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3687, 1, 1, 1, 'Ingreso', '2024-09-14 13:13:34', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3688, 1, 3, 1, 'Ingreso', '2024-09-14 13:13:36', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3689, 1, 3, 9, 'Ingreso', '2024-09-14 13:13:39', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3690, 1, 3, 9, 'Ingreso', '2024-09-14 13:13:59', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3691, 1, 3, 9, 'Ingreso', '2024-09-14 13:15:14', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3692, 1, 3, 3, 'Ingreso', '2024-09-14 13:15:36', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (3693, 1, 1, 1, 'Ingreso', '2024-09-14 13:17:03', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3694, 1, 3, 1, 'Ingreso', '2024-09-14 13:17:05', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3695, 1, 3, 9, 'Ingreso', '2024-09-14 13:17:09', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3696, 1, 1, 1, 'Ingreso', '2024-09-14 13:19:06', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3697, 1, 3, 1, 'Ingreso', '2024-09-14 13:19:08', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3698, 1, 3, 9, 'Ingreso', '2024-09-14 13:19:11', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3699, 1, 1, 1, 'Ingreso', '2024-09-14 13:20:08', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3700, 1, 3, 1, 'Ingreso', '2024-09-14 13:20:10', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3701, 1, 3, 9, 'Ingreso', '2024-09-14 13:20:13', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3702, 1, 3, 9, 'Ingreso', '2024-09-14 13:20:25', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3703, 1, 3, 9, 'Ingreso', '2024-09-14 13:20:50', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3704, 1, 3, 9, 'Ingreso', '2024-09-14 13:21:05', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3705, 1, 3, 9, 'Ingreso', '2024-09-14 13:21:29', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3706, 1, 1, 1, 'Ingreso', '2024-09-14 13:22:39', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3707, 1, 5, 1, 'Ingreso', '2024-09-14 13:22:41', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3708, 1, 5, 4, 'Ingreso', '2024-09-14 13:22:45', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (3709, 1, 5, 11, 'Ingreso', '2024-09-14 13:23:11', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3710, 1, 3, 1, 'Ingreso', '2024-09-14 13:23:18', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3711, 1, 3, 9, 'Ingreso', '2024-09-14 13:23:21', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3712, 1, 3, 9, 'Ingreso', '2024-09-14 13:23:26', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3713, 1, 1, 1, 'Ingreso', '2024-09-15 09:54:25', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3714, 1, 3, 1, 'Ingreso', '2024-09-15 09:54:28', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3715, 1, 5, 1, 'Ingreso', '2024-09-15 09:54:31', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3716, 1, 5, 11, 'Ingreso', '2024-09-15 09:54:33', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3717, 1, 5, 11, 'Ingreso', '2024-09-15 09:54:38', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3718, 1, 1, 1, 'Ingreso', '2024-09-15 16:44:23', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3719, 1, 3, 1, 'Ingreso', '2024-09-15 16:44:24', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3720, 1, 5, 1, 'Ingreso', '2024-09-15 16:44:28', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3721, 1, 5, 11, 'Ingreso', '2024-09-15 16:44:30', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3722, 1, 5, 11, 'Ingreso', '2024-09-15 16:44:38', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3723, 1, 3, 1, 'Ingreso', '2024-09-15 16:44:44', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3724, 1, 3, 9, 'Ingreso', '2024-09-15 16:44:48', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3725, 1, 5, 1, 'Ingreso', '2024-09-15 16:45:18', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3726, 1, 5, 11, 'Ingreso', '2024-09-15 16:45:20', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3727, 1, 5, 11, 'Ingreso', '2024-09-15 16:46:00', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3728, 1, 1, 1, 'Ingreso', '2024-09-15 16:46:20', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3729, 1, 3, 1, 'Ingreso', '2024-09-15 16:46:22', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3730, 1, 3, 9, 'Ingreso', '2024-09-15 16:46:26', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3731, 1, 3, 9, 'Ingreso', '2024-09-15 16:46:34', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3732, 1, 3, 9, 'Ingreso', '2024-09-15 16:46:44', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3733, 1, 5, 1, 'Ingreso', '2024-09-15 16:47:05', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3734, 1, 5, 11, 'Ingreso', '2024-09-15 16:47:08', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3735, 1, 1, 1, 'Ingreso', '2024-09-15 16:51:08', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3736, 1, 5, 1, 'Ingreso', '2024-09-15 16:51:12', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3737, 1, 3, 1, 'Ingreso', '2024-09-15 16:51:17', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3738, 1, 3, 9, 'Ingreso', '2024-09-15 16:51:20', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3739, 1, 5, 1, 'Ingreso', '2024-09-15 16:51:28', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3740, 1, 5, 11, 'Ingreso', '2024-09-15 16:51:30', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3741, 1, 3, 1, 'Ingreso', '2024-09-15 16:51:47', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3742, 1, 3, 9, 'Ingreso', '2024-09-15 16:51:58', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3743, 1, 5, 1, 'Ingreso', '2024-09-15 16:52:22', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3744, 1, 5, 11, 'Ingreso', '2024-09-15 16:52:24', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3745, 1, 3, 1, 'Ingreso', '2024-09-15 16:52:33', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3746, 1, 3, 9, 'Ingreso', '2024-09-15 16:52:36', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3747, 1, 5, 1, 'Ingreso', '2024-09-15 16:52:59', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3748, 1, 5, 11, 'Ingreso', '2024-09-15 16:53:01', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3749, 1, 5, 11, 'Ingreso', '2024-09-15 16:54:28', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3750, 1, 3, 1, 'Ingreso', '2024-09-15 16:54:36', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3751, 1, 3, 9, 'Ingreso', '2024-09-15 16:54:39', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3752, 1, 1, 1, 'Ingreso', '2024-09-15 16:55:19', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3753, 1, 3, 1, 'Ingreso', '2024-09-15 16:55:39', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3754, 1, 3, 9, 'Ingreso', '2024-09-15 16:55:43', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3755, 1, 3, 9, 'Ingreso', '2024-09-15 16:55:47', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3756, 1, 3, 9, 'Ingreso', '2024-09-15 16:56:11', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3757, 1, 5, 1, 'Ingreso', '2024-09-15 16:56:15', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3758, 1, 5, 11, 'Ingreso', '2024-09-15 16:56:17', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3759, 1, 5, 11, 'Ingreso', '2024-09-15 16:56:24', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3760, 1, 3, 1, 'Ingreso', '2024-09-15 16:57:45', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3761, 1, 3, 9, 'Ingreso', '2024-09-15 16:57:49', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3762, 1, 5, 1, 'Ingreso', '2024-09-15 16:58:04', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3763, 1, 5, 11, 'Ingreso', '2024-09-15 16:58:06', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3764, 1, 5, 11, 'Ingreso', '2024-09-15 16:58:19', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3765, 1, 3, 1, 'Ingreso', '2024-09-15 16:58:27', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3766, 1, 3, 9, 'Ingreso', '2024-09-15 16:58:30', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3767, 1, 1, 1, 'Ingreso', '2024-09-15 17:01:50', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3768, 1, 3, 1, 'Ingreso', '2024-09-15 17:01:54', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3769, 1, 3, 9, 'Ingreso', '2024-09-15 17:01:57', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3770, 1, 1, 1, 'Ingreso', '2024-09-15 17:06:02', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3771, 1, 3, 1, 'Ingreso', '2024-09-15 17:06:19', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3772, 1, 3, 9, 'Ingreso', '2024-09-15 17:06:22', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3773, 1, 5, 1, 'Ingreso', '2024-09-15 17:06:26', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3774, 1, 5, 11, 'Ingreso', '2024-09-15 17:06:28', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3775, 1, 3, 1, 'Ingreso', '2024-09-15 17:06:34', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3776, 1, 3, 9, 'Ingreso', '2024-09-15 17:06:38', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3777, 1, 5, 1, 'Ingreso', '2024-09-15 17:07:05', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3778, 1, 5, 11, 'Ingreso', '2024-09-15 17:07:07', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3779, 1, 3, 1, 'Ingreso', '2024-09-15 17:07:15', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3780, 1, 3, 9, 'Ingreso', '2024-09-15 17:07:18', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3781, 1, 5, 1, 'Ingreso', '2024-09-15 17:07:53', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3782, 1, 5, 11, 'Ingreso', '2024-09-15 17:07:55', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3783, 1, 1, 1, 'Ingreso', '2024-09-15 17:13:27', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3784, 1, 3, 1, 'Ingreso', '2024-09-15 17:13:30', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3785, 1, 3, 9, 'Ingreso', '2024-09-15 17:13:33', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3786, 1, 1, 1, 'Ingreso', '2024-09-15 17:23:56', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3787, 1, 3, 1, 'Ingreso', '2024-09-15 17:23:58', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3788, 1, 3, 9, 'Ingreso', '2024-09-15 17:24:02', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3789, 1, 5, 1, 'Ingreso', '2024-09-15 17:24:12', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3790, 1, 5, 11, 'Ingreso', '2024-09-15 17:24:14', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3791, 1, 5, 11, 'Ingreso', '2024-09-15 17:24:25', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3792, 1, 3, 1, 'Ingreso', '2024-09-15 17:24:32', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3793, 1, 3, 9, 'Ingreso', '2024-09-15 17:24:36', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3794, 1, 1, 1, 'Ingreso', '2024-09-15 17:28:00', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3795, 1, 3, 1, 'Ingreso', '2024-09-15 17:28:05', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3796, 1, 3, 9, 'Ingreso', '2024-09-15 17:28:07', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3797, 1, 3, 9, 'Ingreso', '2024-09-15 17:28:12', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3798, 1, 3, 9, 'Ingreso', '2024-09-15 17:28:28', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3799, 1, 5, 1, 'Ingreso', '2024-09-15 17:28:34', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3800, 1, 5, 11, 'Ingreso', '2024-09-15 17:28:38', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3801, 1, 3, 1, 'Ingreso', '2024-09-15 17:28:43', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3802, 1, 3, 9, 'Ingreso', '2024-09-15 17:28:47', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3803, 1, 3, 9, 'Ingreso', '2024-09-15 17:29:07', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3804, 1, 5, 1, 'Ingreso', '2024-09-15 17:29:12', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3805, 1, 5, 11, 'Ingreso', '2024-09-15 17:29:14', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3806, 1, 3, 1, 'Ingreso', '2024-09-15 17:29:25', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3807, 1, 3, 9, 'Ingreso', '2024-09-15 17:29:28', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3808, 1, 5, 1, 'Ingreso', '2024-09-15 17:29:46', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3809, 1, 5, 11, 'Ingreso', '2024-09-15 17:29:48', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3810, 1, 1, 1, 'Ingreso', '2024-09-15 17:35:27', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3811, 1, 5, 1, 'Ingreso', '2024-09-15 17:35:33', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3812, 1, 5, 11, 'Ingreso', '2024-09-15 17:35:35', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3813, 1, 1, 1, 'Ingreso', '2024-09-15 17:36:37', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3814, 1, 5, 1, 'Ingreso', '2024-09-15 17:36:39', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3815, 1, 5, 11, 'Ingreso', '2024-09-15 17:36:41', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3816, 1, 5, 11, 'Ingreso', '2024-09-15 17:36:48', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3817, 1, 5, 11, 'Ingreso', '2024-09-15 17:36:59', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3818, 1, 5, 11, 'Ingreso', '2024-09-15 17:37:03', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3819, 1, 1, 1, 'Ingreso', '2024-09-15 17:38:05', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3820, 1, 5, 1, 'Ingreso', '2024-09-15 17:38:07', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3821, 1, 5, 11, 'Ingreso', '2024-09-15 17:38:09', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3822, 1, 5, 11, 'Ingreso', '2024-09-15 17:38:33', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3823, 1, 5, 11, 'Ingreso', '2024-09-15 17:38:46', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3824, 1, 5, 11, 'Ingreso', '2024-09-15 17:38:58', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3825, 1, 5, 11, 'Ingreso', '2024-09-15 17:39:04', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3826, 1, 1, 1, 'Ingreso', '2024-09-17 09:22:47', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3827, 1, 5, 1, 'Ingreso', '2024-09-17 09:26:12', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3828, 1, 5, 11, 'Ingreso', '2024-09-17 09:26:14', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3829, 1, 5, 11, 'Ingreso', '2024-09-17 09:26:41', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3830, 1, 1, 1, 'Ingreso', '2024-09-17 09:31:29', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3831, 1, 5, 1, 'Ingreso', '2024-09-17 09:31:41', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3832, 1, 1, 1, 'Ingreso', '2024-09-17 09:32:05', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3833, 1, 5, 1, 'Ingreso', '2024-09-17 09:32:07', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3834, 1, 5, 11, 'Ingreso', '2024-09-17 09:32:10', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3835, 1, 1, 1, 'Ingreso', '2024-09-17 09:32:34', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3836, 1, 5, 1, 'Ingreso', '2024-09-17 09:32:49', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3837, 1, 5, 11, 'Ingreso', '2024-09-17 09:32:52', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3838, 1, 1, 1, 'Ingreso', '2024-09-17 09:37:46', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3839, 1, 3, 1, 'Ingreso', '2024-09-17 09:37:48', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3840, 1, 5, 1, 'Ingreso', '2024-09-17 09:37:52', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3841, 1, 5, 11, 'Ingreso', '2024-09-17 09:37:54', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3842, 1, 1, 1, 'Ingreso', '2024-09-17 09:38:50', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3843, 1, 5, 1, 'Ingreso', '2024-09-17 09:38:52', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3844, 1, 5, 11, 'Ingreso', '2024-09-17 09:38:54', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3845, 1, 5, 11, 'Ingreso', '2024-09-17 09:39:04', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3846, 1, 1, 1, 'Ingreso', '2024-09-17 09:40:47', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3847, 1, 5, 1, 'Ingreso', '2024-09-17 09:40:49', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3848, 1, 5, 11, 'Ingreso', '2024-09-17 09:40:52', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3849, 1, 1, 1, 'Ingreso', '2024-09-17 09:51:00', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3850, 1, 5, 1, 'Ingreso', '2024-09-17 09:51:02', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3851, 1, 5, 11, 'Ingreso', '2024-09-17 09:51:05', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3852, 1, 1, 1, 'Ingreso', '2024-09-17 09:51:57', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3853, 1, 5, 1, 'Ingreso', '2024-09-17 09:51:59', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3854, 1, 5, 11, 'Ingreso', '2024-09-17 09:52:02', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3855, 1, 1, 1, 'Ingreso', '2024-09-17 09:52:53', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3856, 1, 5, 1, 'Ingreso', '2024-09-17 09:53:20', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3857, 1, 5, 11, 'Ingreso', '2024-09-17 09:53:23', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3858, 1, 5, 11, 'Ingreso', '2024-09-17 09:53:52', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3859, 1, 5, 11, 'Ingreso', '2024-09-17 09:53:55', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3860, 1, 5, 11, 'Ingreso', '2024-09-17 09:54:14', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3861, 1, 1, 1, 'Ingreso', '2024-09-17 09:55:22', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3862, 1, 5, 1, 'Ingreso', '2024-09-17 09:55:24', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3863, 1, 5, 11, 'Ingreso', '2024-09-17 09:55:27', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3864, 1, 1, 1, 'Ingreso', '2024-09-17 09:57:26', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3865, 1, 5, 1, 'Ingreso', '2024-09-17 09:57:28', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3866, 1, 5, 11, 'Ingreso', '2024-09-17 09:57:31', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3867, 1, 3, 1, 'Ingreso', '2024-09-17 09:57:38', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3868, 1, 3, 9, 'Ingreso', '2024-09-17 09:57:42', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3869, 1, 5, 1, 'Ingreso', '2024-09-17 09:58:05', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3870, 1, 5, 11, 'Ingreso', '2024-09-17 09:58:08', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3871, 1, 5, 11, 'Ingreso', '2024-09-17 09:58:24', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3872, 1, 1, 1, 'Ingreso', '2024-09-17 09:59:56', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3873, 1, 5, 1, 'Ingreso', '2024-09-17 09:59:57', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3874, 1, 1, 1, 'Ingreso', '2024-09-17 10:00:23', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3875, 1, 5, 1, 'Ingreso', '2024-09-17 10:00:28', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3876, 1, 5, 11, 'Ingreso', '2024-09-17 10:00:33', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3877, 1, 1, 1, 'Ingreso', '2024-09-17 10:01:36', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3878, 1, 5, 1, 'Ingreso', '2024-09-17 10:01:41', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3879, 1, 5, 11, 'Ingreso', '2024-09-17 10:01:43', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3880, 1, 5, 11, 'Ingreso', '2024-09-17 10:01:56', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3881, 1, 1, 1, 'Ingreso', '2024-09-17 10:03:06', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3882, 1, 5, 1, 'Ingreso', '2024-09-17 10:03:10', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3883, 1, 5, 11, 'Ingreso', '2024-09-17 10:03:12', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3884, 1, 5, 11, 'Ingreso', '2024-09-17 10:03:25', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3885, 1, 5, 11, 'Ingreso', '2024-09-17 10:04:12', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3886, 1, 1, 1, 'Ingreso', '2024-09-17 10:06:28', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3887, 1, 5, 1, 'Ingreso', '2024-09-17 10:06:30', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3888, 1, 5, 11, 'Ingreso', '2024-09-17 10:06:34', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3889, 1, 5, 11, 'Ingreso', '2024-09-17 10:06:41', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3890, 1, 3, 1, 'Ingreso', '2024-09-17 10:06:53', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3891, 1, 3, 9, 'Ingreso', '2024-09-17 10:06:57', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3892, 1, 5, 1, 'Ingreso', '2024-09-17 10:07:19', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3893, 1, 5, 11, 'Ingreso', '2024-09-17 10:07:21', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3894, 1, 5, 11, 'Ingreso', '2024-09-17 10:07:47', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3895, 1, 3, 1, 'Ingreso', '2024-09-17 10:07:51', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3896, 1, 3, 9, 'Ingreso', '2024-09-17 10:07:54', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3897, 1, 5, 1, 'Ingreso', '2024-09-17 10:08:18', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3898, 1, 5, 11, 'Ingreso', '2024-09-17 10:08:21', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3899, 1, 1, 1, 'Ingreso', '2024-09-17 10:11:16', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3900, 1, 5, 1, 'Ingreso', '2024-09-17 10:11:18', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3901, 1, 5, 11, 'Ingreso', '2024-09-17 10:11:20', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3902, 1, 1, 1, 'Ingreso', '2024-09-17 11:10:37', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3903, 1, 5, 1, 'Ingreso', '2024-09-17 11:10:42', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3904, 1, 5, 11, 'Ingreso', '2024-09-17 11:10:44', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3905, 1, 1, 1, 'Ingreso', '2024-09-17 11:12:13', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3906, 1, 5, 1, 'Ingreso', '2024-09-17 11:12:15', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3907, 1, 5, 11, 'Ingreso', '2024-09-17 11:12:17', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3908, 1, 5, 11, 'Ingreso', '2024-09-17 11:12:23', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3909, 1, 5, 11, 'Ingreso', '2024-09-17 11:12:26', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3910, 1, 1, 1, 'Ingreso', '2024-09-17 11:14:49', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3911, 1, 5, 1, 'Ingreso', '2024-09-17 11:14:50', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3912, 1, 5, 11, 'Ingreso', '2024-09-17 11:14:52', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3913, 1, 1, 1, 'Ingreso', '2024-09-17 11:15:30', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3914, 1, 5, 1, 'Ingreso', '2024-09-17 11:15:32', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3915, 1, 5, 11, 'Ingreso', '2024-09-17 11:15:34', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3916, 1, 1, 1, 'Ingreso', '2024-09-17 11:19:24', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3917, 1, 5, 1, 'Ingreso', '2024-09-17 11:19:26', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3918, 1, 5, 11, 'Ingreso', '2024-09-17 11:19:28', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3919, 1, 1, 1, 'Ingreso', '2024-09-17 11:21:12', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3920, 1, 5, 1, 'Ingreso', '2024-09-17 11:21:14', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3921, 1, 5, 11, 'Ingreso', '2024-09-17 11:21:16', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3922, 1, 5, 11, 'Ingreso', '2024-09-17 11:21:23', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3923, 1, 1, 1, 'Ingreso', '2024-09-17 11:21:43', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3924, 1, 5, 1, 'Ingreso', '2024-09-17 11:21:46', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3925, 1, 5, 11, 'Ingreso', '2024-09-17 11:21:49', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3926, 1, 1, 1, 'Ingreso', '2024-09-17 11:22:56', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3927, 1, 5, 1, 'Ingreso', '2024-09-17 11:22:57', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3928, 1, 5, 11, 'Ingreso', '2024-09-17 11:23:00', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3929, 1, 1, 1, 'Ingreso', '2024-09-17 11:23:39', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3930, 1, 5, 1, 'Ingreso', '2024-09-17 11:23:41', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3931, 1, 5, 11, 'Ingreso', '2024-09-17 11:23:43', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3932, 1, 5, 11, 'Ingreso', '2024-09-17 11:23:53', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3933, 1, 1, 1, 'Ingreso', '2024-09-17 11:25:22', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3934, 1, 5, 1, 'Ingreso', '2024-09-17 11:25:24', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3935, 1, 5, 11, 'Ingreso', '2024-09-17 11:25:26', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3936, 1, 5, 11, 'Ingreso', '2024-09-17 11:25:33', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3937, 1, 1, 1, 'Ingreso', '2024-09-17 11:26:17', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3938, 1, 5, 1, 'Ingreso', '2024-09-17 11:26:19', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3939, 1, 5, 11, 'Ingreso', '2024-09-17 11:26:22', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3940, 1, 1, 1, 'Ingreso', '2024-09-17 11:27:28', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3941, 1, 5, 1, 'Ingreso', '2024-09-17 11:27:30', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3942, 1, 5, 11, 'Ingreso', '2024-09-17 11:27:33', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3943, 1, 3, 1, 'Ingreso', '2024-09-17 11:27:48', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3944, 1, 3, 9, 'Ingreso', '2024-09-17 11:27:51', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3945, 1, 3, 9, 'Ingreso', '2024-09-17 11:27:58', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3946, 1, 5, 1, 'Ingreso', '2024-09-17 11:28:07', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3947, 1, 5, 11, 'Ingreso', '2024-09-17 11:28:08', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3948, 1, 1, 1, 'Ingreso', '2024-09-17 11:30:26', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3949, 1, 5, 1, 'Ingreso', '2024-09-17 11:30:32', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3950, 1, 5, 11, 'Ingreso', '2024-09-17 11:30:34', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3951, 1, 1, 1, 'Ingreso', '2024-09-17 11:31:29', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3952, 1, 5, 1, 'Ingreso', '2024-09-17 11:31:32', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3953, 1, 5, 11, 'Ingreso', '2024-09-17 11:31:34', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3954, 1, 5, 11, 'Ingreso', '2024-09-17 11:31:38', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3955, 1, 1, 1, 'Ingreso', '2024-09-17 11:31:52', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3956, 1, 3, 1, 'Ingreso', '2024-09-17 11:31:54', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3957, 1, 3, 9, 'Ingreso', '2024-09-17 11:31:57', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3958, 1, 3, 9, 'Ingreso', '2024-09-17 11:32:02', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3959, 1, 3, 9, 'Ingreso', '2024-09-17 11:32:19', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3960, 1, 5, 1, 'Ingreso', '2024-09-17 11:32:23', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3961, 1, 5, 11, 'Ingreso', '2024-09-17 11:32:25', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3962, 1, 3, 1, 'Ingreso', '2024-09-17 11:32:36', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3963, 1, 3, 9, 'Ingreso', '2024-09-17 11:32:40', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3964, 1, 5, 1, 'Ingreso', '2024-09-17 11:32:51', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3965, 1, 5, 11, 'Ingreso', '2024-09-17 11:32:53', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3966, 1, 3, 1, 'Ingreso', '2024-09-17 11:32:59', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3967, 1, 3, 9, 'Ingreso', '2024-09-17 11:33:02', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3968, 1, 3, 9, 'Ingreso', '2024-09-17 11:33:07', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3969, 1, 5, 1, 'Ingreso', '2024-09-17 11:33:23', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3970, 1, 5, 11, 'Ingreso', '2024-09-17 11:34:39', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3971, 1, 5, 11, 'Ingreso', '2024-09-17 11:35:05', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3972, 1, 5, 11, 'Ingreso', '2024-09-17 11:35:09', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3973, 1, 3, 1, 'Ingreso', '2024-09-17 11:35:12', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3974, 1, 3, 9, 'Ingreso', '2024-09-17 11:35:15', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3975, 1, 5, 1, 'Ingreso', '2024-09-17 11:35:27', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3976, 1, 5, 11, 'Ingreso', '2024-09-17 11:35:29', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3977, 1, 1, 1, 'Ingreso', '2024-09-17 11:37:36', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3978, 1, 5, 1, 'Ingreso', '2024-09-17 11:37:40', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3979, 1, 5, 11, 'Ingreso', '2024-09-17 11:37:42', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3980, 1, 5, 11, 'Ingreso', '2024-09-17 11:37:45', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (3981, 1, 5, 11, 'Ingreso', '2024-09-17 11:38:07', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3982, 1, 3, 1, 'Ingreso', '2024-09-17 11:38:16', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (3983, 1, 3, 9, 'Ingreso', '2024-09-17 11:38:19', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3984, 1, 3, 9, 'Ingreso', '2024-09-17 11:38:24', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (3985, 1, 3, 9, 'Ingreso', '2024-09-17 11:38:44', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (3986, 1, 5, 1, 'Ingreso', '2024-09-17 11:38:48', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3987, 1, 5, 11, 'Ingreso', '2024-09-17 11:38:50', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (3988, 1, 1, 1, 'Ingreso', '2024-09-17 11:43:59', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3989, 1, 5, 1, 'Ingreso', '2024-09-17 11:44:00', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3990, 1, 1, 1, 'Ingreso', '2024-09-17 11:45:53', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3991, 1, 5, 1, 'Ingreso', '2024-09-17 11:45:55', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3992, 1, 5, 7, 'Ingreso', '2024-09-17 11:45:57', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (3993, 1, 1, 1, 'Ingreso', '2024-09-17 11:46:25', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3994, 1, 5, 1, 'Ingreso', '2024-09-17 11:46:27', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3995, 1, 5, 7, 'Ingreso', '2024-09-17 11:46:29', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (3996, 1, 1, 1, 'Ingreso', '2024-09-17 11:47:33', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (3997, 1, 5, 1, 'Ingreso', '2024-09-17 11:47:35', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (3998, 1, 5, 7, 'Ingreso', '2024-09-17 11:47:37', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (3999, 1, 1, 1, 'Ingreso', '2024-09-17 11:48:15', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4000, 1, 5, 1, 'Ingreso', '2024-09-17 11:48:17', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4001, 1, 5, 11, 'Ingreso', '2024-09-17 11:48:19', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4002, 1, 5, 7, 'Ingreso', '2024-09-17 11:48:26', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4003, 1, 1, 1, 'Ingreso', '2024-09-17 11:51:04', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4004, 1, 5, 1, 'Ingreso', '2024-09-17 11:51:06', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4005, 1, 5, 7, 'Ingreso', '2024-09-17 11:51:08', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4006, 1, 5, 11, 'Ingreso', '2024-09-17 11:51:31', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4007, 1, 5, 7, 'Ingreso', '2024-09-17 11:51:37', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4008, 1, 1, 1, 'Ingreso', '2024-09-17 11:52:23', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4009, 1, 5, 1, 'Ingreso', '2024-09-17 11:52:24', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4010, 1, 5, 7, 'Ingreso', '2024-09-17 11:52:26', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4011, 1, 1, 1, 'Ingreso', '2024-09-17 11:53:16', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4012, 1, 5, 1, 'Ingreso', '2024-09-17 11:53:39', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4013, 1, 5, 11, 'Ingreso', '2024-09-17 11:53:42', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4014, 1, 5, 7, 'Ingreso', '2024-09-17 11:53:48', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4015, 1, 1, 1, 'Ingreso', '2024-09-17 11:56:09', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4016, 1, 5, 1, 'Ingreso', '2024-09-17 11:56:11', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4017, 1, 5, 7, 'Ingreso', '2024-09-17 11:56:13', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4018, 1, 1, 1, 'Ingreso', '2024-09-17 11:56:54', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4019, 1, 5, 1, 'Ingreso', '2024-09-17 11:56:55', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4020, 1, 5, 7, 'Ingreso', '2024-09-17 11:56:57', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4021, 1, 1, 1, 'Ingreso', '2024-09-17 12:03:21', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4022, 1, 5, 1, 'Ingreso', '2024-09-17 12:03:23', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4023, 1, 5, 7, 'Ingreso', '2024-09-17 12:03:25', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4024, 1, 5, 11, 'Ingreso', '2024-09-17 12:04:38', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4025, 1, 5, 7, 'Ingreso', '2024-09-17 12:04:42', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4026, 1, 1, 1, 'Ingreso', '2024-09-17 12:34:33', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4027, 1, 5, 1, 'Ingreso', '2024-09-17 12:34:35', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4028, 1, 5, 7, 'Ingreso', '2024-09-17 12:34:37', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4029, 1, 5, 7, 'Ingreso', '2024-09-17 12:34:49', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4030, 1, 5, 11, 'Ingreso', '2024-09-17 12:34:54', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4031, 1, 5, 7, 'Ingreso', '2024-09-17 12:34:58', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4032, 1, 5, 7, 'Ingreso', '2024-09-17 12:35:19', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4033, 1, 5, 11, 'Ingreso', '2024-09-17 12:35:33', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4034, 1, 5, 7, 'Ingreso', '2024-09-17 12:35:37', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4035, 1, 1, 1, 'Ingreso', '2024-09-17 12:38:25', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4036, 1, 5, 1, 'Ingreso', '2024-09-17 12:38:27', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4037, 1, 5, 7, 'Ingreso', '2024-09-17 12:38:29', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4038, 1, 5, 7, 'Ingreso', '2024-09-17 12:38:33', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4039, 1, 5, 7, 'Ingreso', '2024-09-17 12:38:43', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4040, 1, 1, 1, 'Ingreso', '2024-09-17 12:39:01', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4041, 1, 3, 1, 'Ingreso', '2024-09-17 12:39:02', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4042, 1, 5, 1, 'Ingreso', '2024-09-17 12:39:05', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4043, 1, 5, 7, 'Ingreso', '2024-09-17 12:39:07', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4044, 1, 1, 1, 'Ingreso', '2024-09-17 12:39:28', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4045, 1, 5, 1, 'Ingreso', '2024-09-17 12:39:30', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4046, 1, 5, 7, 'Ingreso', '2024-09-17 12:39:33', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4047, 1, 5, 7, 'Ingreso', '2024-09-17 12:39:56', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4048, 1, 5, 7, 'Ingreso', '2024-09-17 12:40:27', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4049, 1, 5, 7, 'Ingreso', '2024-09-17 12:40:55', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4050, 1, 1, 1, 'Ingreso', '2024-09-17 12:41:22', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4051, 1, 5, 1, 'Ingreso', '2024-09-17 12:41:24', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4052, 1, 5, 7, 'Ingreso', '2024-09-17 12:41:26', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4053, 1, 5, 7, 'Ingreso', '2024-09-17 12:41:34', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4054, 1, 5, 7, 'Ingreso', '2024-09-17 12:41:53', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4055, 1, 5, 7, 'Ingreso', '2024-09-17 12:42:04', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4056, 1, 1, 1, 'Ingreso', '2024-09-17 12:43:16', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4057, 1, 5, 1, 'Ingreso', '2024-09-17 12:43:18', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4058, 1, 5, 7, 'Ingreso', '2024-09-17 12:43:27', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4059, 1, 5, 7, 'Ingreso', '2024-09-17 12:43:51', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4060, 1, 5, 7, 'Ingreso', '2024-09-17 12:44:06', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4061, 1, 5, 7, 'Ingreso', '2024-09-17 12:44:16', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4062, 1, 5, 7, 'Ingreso', '2024-09-17 12:44:23', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4063, 1, 5, 7, 'Ingreso', '2024-09-17 12:44:34', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4064, 1, 5, 7, 'Ingreso', '2024-09-17 12:44:38', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4065, 1, 5, 7, 'Ingreso', '2024-09-17 12:44:51', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4066, 1, 5, 7, 'Ingreso', '2024-09-17 12:44:55', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4067, 1, 5, 7, 'Ingreso', '2024-09-17 12:45:03', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4068, 1, 5, 7, 'Ingreso', '2024-09-17 12:45:14', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4069, 1, 5, 7, 'Ingreso', '2024-09-17 12:45:18', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4070, 1, 5, 7, 'Ingreso', '2024-09-17 12:45:32', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4071, 1, 5, 7, 'Ingreso', '2024-09-17 12:45:44', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4072, 1, 5, 7, 'Ingreso', '2024-09-17 12:46:02', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4073, 1, 5, 7, 'Ingreso', '2024-09-17 12:46:16', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4074, 1, 5, 7, 'Ingreso', '2024-09-17 12:46:26', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4075, 1, 1, 1, 'Ingreso', '2024-09-17 12:48:37', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4076, 1, 5, 1, 'Ingreso', '2024-09-17 12:48:39', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4077, 1, 5, 7, 'Ingreso', '2024-09-17 12:48:41', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4078, 1, 1, 1, 'Ingreso', '2024-09-17 12:50:44', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4079, 1, 5, 1, 'Ingreso', '2024-09-17 12:50:47', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4080, 1, 5, 7, 'Ingreso', '2024-09-17 12:50:49', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4081, 1, 1, 1, 'Ingreso', '2024-09-17 14:33:05', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4082, 1, 3, 1, 'Ingreso', '2024-09-17 14:33:11', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4083, 1, 3, 2, 'Ingreso', '2024-09-17 14:33:14', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (4084, 1, 1, 1, 'Ingreso', '2024-09-17 16:49:51', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4085, 1, 5, 1, 'Ingreso', '2024-09-17 16:49:54', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4086, 1, 1, 1, 'Ingreso', '2024-09-17 16:51:45', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4087, 1, 5, 1, 'Ingreso', '2024-09-17 16:51:47', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4088, 1, 5, 4, 'Ingreso', '2024-09-17 16:51:51', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4089, 1, 5, 7, 'Ingreso', '2024-09-17 16:51:57', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4090, 1, 1, 1, 'Ingreso', '2024-09-17 16:56:00', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4091, 1, 5, 1, 'Ingreso', '2024-09-17 16:56:02', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4092, 1, 5, 7, 'Ingreso', '2024-09-17 16:56:04', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4093, 1, 1, 1, 'Ingreso', '2024-09-17 16:57:28', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4094, 1, 5, 1, 'Ingreso', '2024-09-17 16:57:29', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4095, 1, 5, 7, 'Ingreso', '2024-09-17 16:57:32', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4096, 1, 5, 7, 'Ingreso', '2024-09-17 16:57:48', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4097, 1, 1, 1, 'Ingreso', '2024-09-17 16:58:17', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4098, 1, 5, 1, 'Ingreso', '2024-09-17 16:58:19', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4099, 1, 5, 7, 'Ingreso', '2024-09-17 16:58:21', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4100, 1, 1, 1, 'Ingreso', '2024-09-17 16:59:08', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4101, 1, 5, 1, 'Ingreso', '2024-09-17 16:59:10', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4102, 1, 5, 7, 'Ingreso', '2024-09-17 16:59:12', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4103, 1, 5, 7, 'Ingreso', '2024-09-17 16:59:26', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4104, 1, 5, 7, 'Ingreso', '2024-09-17 16:59:39', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4105, 1, 5, 7, 'Ingreso', '2024-09-17 16:59:52', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4106, 1, 5, 7, 'Ingreso', '2024-09-17 17:00:03', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4107, 1, 5, 7, 'Ingreso', '2024-09-17 17:00:17', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4108, 1, 5, 7, 'Ingreso', '2024-09-17 17:00:31', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4109, 1, 5, 7, 'Ingreso', '2024-09-17 17:01:04', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4110, 1, 5, 7, 'Ingreso', '2024-09-17 17:01:14', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4111, 1, 5, 11, 'Ingreso', '2024-09-17 17:02:04', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4112, 1, 5, 11, 'Ingreso', '2024-09-17 17:02:13', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4113, 1, 1, 1, 'Ingreso', '2024-09-18 10:09:48', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4114, 1, 3, 1, 'Ingreso', '2024-09-18 10:09:56', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4115, 1, 5, 1, 'Ingreso', '2024-09-18 10:09:59', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4116, 1, 5, 7, 'Ingreso', '2024-09-18 10:10:02', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4117, 1, 5, 7, 'Ingreso', '2024-09-18 10:10:32', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4118, 1, 3, 1, 'Ingreso', '2024-09-18 10:11:22', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4119, 1, 3, 2, 'Ingreso', '2024-09-18 10:11:25', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (4120, 1, 1, 1, 'Ingreso', '2024-09-18 10:11:53', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4121, 1, 5, 1, 'Ingreso', '2024-09-18 10:11:58', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4122, 1, 5, 11, 'Ingreso', '2024-09-18 10:15:50', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4123, 1, 1, 1, 'Ingreso', '2024-09-18 23:22:25', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4124, 1, 5, 1, 'Ingreso', '2024-09-18 23:22:29', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4125, 1, 5, 7, 'Ingreso', '2024-09-18 23:22:33', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4126, 1, 5, 7, 'Ingreso', '2024-09-18 23:23:11', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4127, 1, 5, 7, 'Ingreso', '2024-09-18 23:30:38', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4128, 1, 5, 7, 'Ingreso', '2024-09-18 23:30:59', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4129, 1, 1, 1, 'Ingreso', '2024-09-18 23:34:36', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4130, 1, 5, 1, 'Ingreso', '2024-09-18 23:34:38', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4131, 1, 5, 7, 'Ingreso', '2024-09-18 23:34:40', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4132, 1, 5, 7, 'Ingreso', '2024-09-18 23:34:55', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4133, 1, 5, 7, 'Ingreso', '2024-09-18 23:34:59', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4134, 1, 5, 7, 'Ingreso', '2024-09-18 23:35:08', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4135, 1, 5, 7, 'Ingreso', '2024-09-18 23:35:21', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4136, 1, 5, 7, 'Ingreso', '2024-09-18 23:35:56', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4137, 1, 1, 1, 'Ingreso', '2024-09-18 23:41:02', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4138, 1, 5, 1, 'Ingreso', '2024-09-18 23:41:05', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4139, 1, 5, 7, 'Ingreso', '2024-09-18 23:41:07', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4140, 1, 5, 7, 'Ingreso', '2024-09-18 23:41:16', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4141, 1, 5, 7, 'Ingreso', '2024-09-18 23:41:26', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4142, 1, 5, 7, 'Ingreso', '2024-09-18 23:41:36', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4143, 1, 1, 1, 'Ingreso', '2024-09-18 23:44:27', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4144, 1, 5, 1, 'Ingreso', '2024-09-18 23:44:29', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4145, 1, 5, 7, 'Ingreso', '2024-09-18 23:44:31', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4146, 1, 5, 7, 'Ingreso', '2024-09-18 23:44:36', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4147, 1, 5, 7, 'Ingreso', '2024-09-18 23:44:46', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4148, 1, 5, 7, 'Ingreso', '2024-09-18 23:44:51', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4149, 1, 5, 7, 'Ingreso', '2024-09-18 23:45:05', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4150, 1, 5, 7, 'Ingreso', '2024-09-18 23:45:08', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4151, 1, 5, 7, 'Ingreso', '2024-09-18 23:45:21', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4152, 1, 1, 1, 'Ingreso', '2024-09-18 23:49:38', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4153, 1, 5, 1, 'Ingreso', '2024-09-18 23:49:45', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4154, 1, 5, 7, 'Ingreso', '2024-09-18 23:49:47', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4155, 1, 5, 7, 'Ingreso', '2024-09-18 23:49:56', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4156, 1, 5, 7, 'Ingreso', '2024-09-18 23:50:10', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4157, 1, 5, 7, 'Ingreso', '2024-09-18 23:50:22', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4158, 1, 1, 1, 'Ingreso', '2024-09-18 23:53:50', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4159, 1, 5, 1, 'Ingreso', '2024-09-18 23:53:55', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4160, 1, 5, 7, 'Ingreso', '2024-09-18 23:54:05', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4161, 1, 5, 7, 'Ingreso', '2024-09-18 23:54:13', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4162, 1, 5, 7, 'Ingreso', '2024-09-18 23:54:20', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4163, 1, 5, 7, 'Ingreso', '2024-09-18 23:54:35', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4164, 1, 1, 1, 'Ingreso', '2024-09-18 23:57:53', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4165, 1, 5, 1, 'Ingreso', '2024-09-18 23:58:02', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4166, 1, 5, 7, 'Ingreso', '2024-09-18 23:58:28', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4167, 1, 5, 7, 'Ingreso', '2024-09-18 23:58:37', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4168, 1, 5, 7, 'Ingreso', '2024-09-18 23:58:47', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4169, 1, 5, 7, 'Ingreso', '2024-09-18 23:58:55', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4170, 1, 5, 7, 'Ingreso', '2024-09-18 23:59:10', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4171, 1, 5, 7, 'Ingreso', '2024-09-18 23:59:22', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4172, 1, 5, 7, 'Ingreso', '2024-09-18 23:59:37', 'Ingreso exitoso a Registro de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4173, 1, 5, 7, 'Ingreso', '2024-09-19 00:00:38', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4174, 1, 1, 1, 'Ingreso', '2024-09-19 19:36:05', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4175, 1, 3, 1, 'Ingreso', '2024-09-19 19:36:15', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4176, 1, 3, 9, 'Ingreso', '2024-09-19 19:36:18', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4177, 1, 5, 1, 'Ingreso', '2024-09-19 19:36:43', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4178, 1, 5, 11, 'Ingreso', '2024-09-19 19:36:45', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4179, 1, 5, 7, 'Ingreso', '2024-09-19 19:36:59', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4180, 1, 5, 11, 'Ingreso', '2024-09-19 19:37:12', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (4181, 1, 1, 1, 'Ingreso', '2024-09-19 19:56:06', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4182, 1, 3, 1, 'Ingreso', '2024-09-19 19:56:09', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4183, 1, 3, 9, 'Ingreso', '2024-09-19 19:56:13', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4184, 1, 5, 1, 'Ingreso', '2024-09-19 19:56:26', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4185, 1, 5, 11, 'Ingreso', '2024-09-19 19:56:28', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4186, 1, 5, 7, 'Ingreso', '2024-09-19 19:56:36', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4187, 1, 1, 1, 'Ingreso', '2024-09-19 20:10:44', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4188, 1, 3, 1, 'Ingreso', '2024-09-19 20:10:46', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4189, 1, 3, 9, 'Ingreso', '2024-09-19 20:10:51', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4190, 1, 5, 1, 'Ingreso', '2024-09-19 20:11:11', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4191, 1, 5, 7, 'Ingreso', '2024-09-19 20:11:14', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4192, 1, 1, 1, 'Ingreso', '2024-09-20 23:22:41', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4193, 1, 5, 1, 'Ingreso', '2024-09-20 23:22:43', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4194, 1, 3, 1, 'Ingreso', '2024-09-20 23:23:31', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4195, 1, 3, 9, 'Ingreso', '2024-09-20 23:23:34', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4196, 1, 5, 1, 'Ingreso', '2024-09-20 23:23:57', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4197, 1, 5, 7, 'Ingreso', '2024-09-20 23:23:58', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4198, 1, 5, 11, 'Ingreso', '2024-09-20 23:24:13', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4199, 1, 3, 1, 'Ingreso', '2024-09-20 23:24:30', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4200, 1, 3, 9, 'Ingreso', '2024-09-20 23:24:34', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4201, 1, 3, 9, 'Ingreso', '2024-09-20 23:24:47', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4202, 1, 5, 1, 'Ingreso', '2024-09-20 23:24:51', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4203, 1, 5, 7, 'Ingreso', '2024-09-20 23:24:54', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4204, 1, 5, 11, 'Ingreso', '2024-09-20 23:25:03', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4205, 1, 1, 1, 'Ingreso', '2024-09-20 23:36:59', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4206, 1, 3, 1, 'Ingreso', '2024-09-20 23:37:01', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4207, 1, 3, 9, 'Ingreso', '2024-09-20 23:37:03', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4208, 1, 3, 9, 'Ingreso', '2024-09-20 23:37:21', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4209, 1, 5, 1, 'Ingreso', '2024-09-20 23:37:31', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4210, 1, 5, 7, 'Ingreso', '2024-09-20 23:37:33', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4211, 1, 5, 7, 'Ingreso', '2024-09-20 23:37:46', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4212, 1, 5, 11, 'Ingreso', '2024-09-20 23:38:09', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4213, 1, 5, 7, 'Ingreso', '2024-09-20 23:38:15', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4214, 1, 3, 1, 'Ingreso', '2024-09-20 23:39:21', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4215, 1, 3, 9, 'Ingreso', '2024-09-20 23:39:25', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4216, 1, 3, 9, 'Ingreso', '2024-09-20 23:39:34', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4217, 1, 3, 9, 'Ingreso', '2024-09-20 23:39:37', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4218, 1, 3, 9, 'Ingreso', '2024-09-20 23:39:43', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4219, 1, 3, 9, 'Ingreso', '2024-09-20 23:39:55', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4220, 1, 3, 9, 'Ingreso', '2024-09-20 23:40:05', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4221, 1, 5, 1, 'Ingreso', '2024-09-20 23:40:21', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4222, 1, 5, 7, 'Ingreso', '2024-09-20 23:40:24', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4223, 1, 5, 11, 'Ingreso', '2024-09-20 23:41:09', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4224, 1, 5, 7, 'Ingreso', '2024-09-20 23:41:19', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4225, 1, 3, 1, 'Ingreso', '2024-09-20 23:41:34', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4226, 1, 3, 9, 'Ingreso', '2024-09-20 23:41:51', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4227, 1, 1, 1, 'Ingreso', '2024-09-20 23:42:09', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4228, 1, 3, 1, 'Ingreso', '2024-09-20 23:42:13', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4229, 1, 3, 9, 'Ingreso', '2024-09-20 23:42:20', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4230, 1, 3, 9, 'Ingreso', '2024-09-20 23:42:24', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4231, 1, 3, 9, 'Ingreso', '2024-09-20 23:42:46', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4232, 1, 5, 1, 'Ingreso', '2024-09-20 23:42:52', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4233, 1, 5, 7, 'Ingreso', '2024-09-20 23:42:55', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4234, 1, 5, 7, 'Ingreso', '2024-09-20 23:43:04', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4235, 1, 5, 11, 'Ingreso', '2024-09-20 23:43:17', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4236, 1, 5, 11, 'Ingreso', '2024-09-20 23:43:27', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4237, 1, 5, 7, 'Ingreso', '2024-09-20 23:43:33', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4238, 1, 3, 1, 'Ingreso', '2024-09-20 23:43:37', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4239, 1, 3, 9, 'Ingreso', '2024-09-20 23:43:40', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4240, 1, 3, 9, 'Ingreso', '2024-09-20 23:44:03', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4241, 1, 5, 1, 'Ingreso', '2024-09-20 23:44:07', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4242, 1, 5, 7, 'Ingreso', '2024-09-20 23:44:10', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4243, 1, 5, 11, 'Ingreso', '2024-09-20 23:44:24', 'Ingreso exitoso a Registro de Recibos');
-INSERT INTO `historial` VALUES (4244, 1, 5, 11, 'Ingreso', '2024-09-20 23:44:28', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4245, 1, 3, 1, 'Ingreso', '2024-09-20 23:45:13', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4246, 1, 3, 9, 'Ingreso', '2024-09-20 23:45:16', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4247, 1, 1, 1, 'Ingreso', '2024-09-20 23:50:26', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4248, 1, 3, 1, 'Ingreso', '2024-09-20 23:50:28', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4249, 1, 3, 9, 'Ingreso', '2024-09-20 23:50:31', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4250, 1, 3, 9, 'Ingreso', '2024-09-20 23:50:36', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4251, 1, 5, 1, 'Ingreso', '2024-09-20 23:50:53', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4252, 1, 5, 11, 'Ingreso', '2024-09-20 23:50:55', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4253, 1, 5, 7, 'Ingreso', '2024-09-20 23:51:03', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4254, 1, 5, 7, 'Ingreso', '2024-09-20 23:51:12', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4255, 1, 3, 1, 'Ingreso', '2024-09-20 23:51:31', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4256, 1, 3, 8, 'Ingreso', '2024-09-20 23:51:34', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (4257, 1, 3, 9, 'Ingreso', '2024-09-20 23:51:37', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4258, 1, 1, 1, 'Ingreso', '2024-09-20 23:54:24', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4259, 1, 5, 1, 'Ingreso', '2024-09-20 23:54:26', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4260, 1, 1, 1, 'Ingreso', '2024-09-20 23:54:42', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4261, 1, 3, 1, 'Ingreso', '2024-09-20 23:54:44', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4262, 1, 3, 9, 'Ingreso', '2024-09-20 23:54:47', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4263, 1, 3, 9, 'Ingreso', '2024-09-20 23:54:55', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4264, 1, 3, 9, 'Ingreso', '2024-09-20 23:54:59', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4265, 1, 5, 1, 'Ingreso', '2024-09-20 23:55:14', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4266, 1, 5, 7, 'Ingreso', '2024-09-20 23:55:16', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4267, 1, 5, 11, 'Ingreso', '2024-09-20 23:55:33', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4268, 1, 3, 1, 'Ingreso', '2024-09-20 23:55:46', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4269, 1, 3, 9, 'Ingreso', '2024-09-20 23:55:49', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4270, 1, 5, 1, 'Ingreso', '2024-09-20 23:56:04', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4271, 1, 5, 7, 'Ingreso', '2024-09-20 23:56:07', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4272, 1, 5, 11, 'Ingreso', '2024-09-20 23:56:13', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4273, 1, 3, 1, 'Ingreso', '2024-09-20 23:56:26', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4274, 1, 3, 9, 'Ingreso', '2024-09-20 23:56:30', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4275, 1, 5, 1, 'Ingreso', '2024-09-20 23:56:46', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4276, 1, 5, 7, 'Ingreso', '2024-09-20 23:56:48', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4277, 1, 5, 11, 'Ingreso', '2024-09-20 23:57:12', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4278, 1, 1, 1, 'Ingreso', '2024-09-21 12:41:35', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4279, 1, 3, 1, 'Ingreso', '2024-09-21 12:41:39', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4280, 1, 3, 9, 'Ingreso', '2024-09-21 12:41:49', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4281, 1, 3, 9, 'Ingreso', '2024-09-21 12:41:56', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4282, 1, 5, 1, 'Ingreso', '2024-09-21 12:42:26', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4283, 1, 5, 7, 'Ingreso', '2024-09-21 12:42:28', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4284, 1, 5, 11, 'Ingreso', '2024-09-21 12:42:44', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4285, 1, 3, 1, 'Ingreso', '2024-09-21 12:43:06', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4286, 1, 3, 2, 'Ingreso', '2024-09-21 12:43:10', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (4287, 1, 1, 1, 'Ingreso', '2024-09-21 12:44:37', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4288, 1, 3, 1, 'Ingreso', '2024-09-21 12:44:53', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4289, 1, 3, 2, 'Ingreso', '2024-09-21 12:45:08', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (4290, 1, 5, 1, 'Ingreso', '2024-09-21 12:46:19', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4291, 1, 5, 11, 'Ingreso', '2024-09-21 12:46:26', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4292, 1, 5, 7, 'Ingreso', '2024-09-21 12:46:56', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4293, 1, 5, 4, 'Ingreso', '2024-09-21 12:47:44', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4294, 1, 1, 1, 'Ingreso', '2024-09-21 13:02:51', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4295, 1, 3, 1, 'Ingreso', '2024-09-21 13:02:54', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4296, 1, 3, 2, 'Ingreso', '2024-09-21 13:02:59', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (4297, 1, 3, 2, 'Ingreso', '2024-09-21 13:03:17', 'Ingreso exitoso a Registro de Afiliados');
-INSERT INTO `historial` VALUES (4298, 1, 1, 1, 'Ingreso', '2024-09-21 13:14:54', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4299, 1, 3, 1, 'Ingreso', '2024-09-21 13:16:10', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4300, 1, 3, 5, 'Ingreso', '2024-09-21 13:16:27', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (4301, 1, 3, 5, 'Ingreso', '2024-09-21 13:16:35', 'Ingreso exitoso a Registro de Dirigentes');
-INSERT INTO `historial` VALUES (4302, 1, 3, 2, 'Ingreso', '2024-09-21 13:18:35', 'Ingreso exitoso a Listado de Afiliados');
-INSERT INTO `historial` VALUES (4303, 1, 3, 1, 'Ingreso', '2024-09-21 13:23:28', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4304, 1, 3, 5, 'Ingreso', '2024-09-21 13:23:33', 'Ingreso exitoso a Listado de Dirigentes');
-INSERT INTO `historial` VALUES (4305, 1, 2, 1, 'Ingreso', '2024-09-21 13:25:05', 'Ingreso exitoso a Configuración');
-INSERT INTO `historial` VALUES (4306, 1, 2, 1, 'Ingreso', '2024-09-21 13:28:20', 'Ingreso exitoso a Configuración');
-INSERT INTO `historial` VALUES (4307, 1, 3, 1, 'Ingreso', '2024-09-21 13:28:58', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4308, 1, 3, 1, 'Ingreso', '2024-09-21 13:30:09', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4309, 1, 3, 1, 'Ingreso', '2024-09-21 13:32:20', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4310, 1, 3, 3, 'Ingreso', '2024-09-21 13:32:25', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (4311, 1, 3, 3, 'Ingreso', '2024-09-21 13:32:38', 'Ingreso exitoso a Listado de Asistencias');
-INSERT INTO `historial` VALUES (4312, 1, 1, 1, 'Ingreso', '2024-09-22 21:54:04', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4313, 1, 3, 1, 'Ingreso', '2024-09-22 21:54:06', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4314, 1, 5, 1, 'Ingreso', '2024-09-22 21:54:10', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4315, 1, 5, 4, 'Ingreso', '2024-09-22 21:54:12', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4316, 1, 1, 1, 'Ingreso', '2024-09-22 21:57:28', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4317, 1, 5, 1, 'Ingreso', '2024-09-22 21:57:30', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4318, 1, 1, 1, 'Ingreso', '2024-09-22 21:58:11', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4319, 1, 5, 1, 'Ingreso', '2024-09-22 21:58:13', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4320, 1, 5, 4, 'Ingreso', '2024-09-22 21:58:16', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4321, 1, 1, 1, 'Ingreso', '2024-09-22 21:58:43', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4322, 1, 5, 1, 'Ingreso', '2024-09-22 21:58:49', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4323, 1, 5, 4, 'Ingreso', '2024-09-22 21:58:52', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4324, 1, 1, 1, 'Ingreso', '2024-09-22 21:59:46', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4325, 1, 5, 1, 'Ingreso', '2024-09-22 21:59:48', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4326, 1, 1, 1, 'Ingreso', '2024-09-22 22:00:12', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4327, 1, 5, 1, 'Ingreso', '2024-09-22 22:00:24', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4328, 1, 5, 4, 'Ingreso', '2024-09-22 22:00:27', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4329, 1, 1, 1, 'Ingreso', '2024-09-23 08:27:13', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4330, 1, 5, 1, 'Ingreso', '2024-09-23 08:27:22', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4331, 1, 5, 4, 'Ingreso', '2024-09-23 08:27:26', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4332, 1, 5, 4, 'Ingreso', '2024-09-23 08:28:13', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4333, 1, 1, 1, 'Ingreso', '2024-09-23 08:30:13', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4334, 1, 5, 1, 'Ingreso', '2024-09-23 08:30:15', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4335, 1, 5, 4, 'Ingreso', '2024-09-23 08:30:25', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4336, 1, 1, 1, 'Ingreso', '2024-09-23 08:32:12', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4337, 1, 5, 1, 'Ingreso', '2024-09-23 08:32:46', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4338, 1, 5, 4, 'Ingreso', '2024-09-23 08:32:49', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4339, 1, 5, 4, 'Ingreso', '2024-09-23 08:33:37', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4340, 1, 5, 4, 'Ingreso', '2024-09-23 08:33:45', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4341, 1, 1, 1, 'Ingreso', '2024-09-23 08:35:04', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4342, 1, 5, 1, 'Ingreso', '2024-09-23 08:35:07', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4343, 1, 5, 4, 'Ingreso', '2024-09-23 08:35:09', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4344, 1, 1, 1, 'Ingreso', '2024-09-23 08:35:35', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4345, 1, 5, 1, 'Ingreso', '2024-09-23 08:35:40', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4346, 1, 5, 4, 'Ingreso', '2024-09-23 08:35:43', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4347, 1, 5, 4, 'Ingreso', '2024-09-23 08:35:47', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4348, 1, 1, 1, 'Ingreso', '2024-09-23 08:37:15', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4349, 1, 5, 1, 'Ingreso', '2024-09-23 08:37:18', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4350, 1, 5, 4, 'Ingreso', '2024-09-23 08:37:20', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4351, 1, 5, 4, 'Ingreso', '2024-09-23 08:37:25', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4352, 1, 1, 1, 'Ingreso', '2024-09-23 08:39:17', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4353, 1, 5, 1, 'Ingreso', '2024-09-23 08:39:30', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4354, 1, 5, 4, 'Ingreso', '2024-09-23 08:39:33', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4355, 1, 1, 1, 'Ingreso', '2024-09-23 08:40:32', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4356, 1, 5, 1, 'Ingreso', '2024-09-23 08:48:03', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4357, 1, 5, 4, 'Ingreso', '2024-09-23 08:48:08', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4358, 1, 5, 4, 'Ingreso', '2024-09-23 08:48:23', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4359, 1, 5, 4, 'Ingreso', '2024-09-23 08:49:00', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4360, 1, 5, 4, 'Ingreso', '2024-09-23 08:49:05', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4361, 1, 5, 4, 'Ingreso', '2024-09-23 08:49:35', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4362, 1, 1, 1, 'Ingreso', '2024-09-23 15:57:09', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4363, 1, 5, 1, 'Ingreso', '2024-09-23 15:57:57', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4364, 1, 5, 4, 'Ingreso', '2024-09-23 15:59:52', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4365, 1, 1, 1, 'Ingreso', '2024-09-23 16:02:36', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4366, 1, 5, 1, 'Ingreso', '2024-09-23 16:02:42', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4367, 1, 5, 4, 'Ingreso', '2024-09-23 16:02:44', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4368, 1, 5, 4, 'Ingreso', '2024-09-23 16:03:01', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4369, 1, 1, 1, 'Ingreso', '2024-09-24 12:56:29', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4370, 1, 5, 1, 'Ingreso', '2024-09-24 12:56:35', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4371, 1, 5, 4, 'Ingreso', '2024-09-24 12:56:43', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4372, 1, 1, 1, 'Ingreso', '2024-09-24 12:57:28', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4373, 1, 5, 1, 'Ingreso', '2024-09-24 12:57:32', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4374, 1, 5, 4, 'Ingreso', '2024-09-24 12:57:34', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4375, 1, 1, 1, 'Ingreso', '2024-09-24 13:02:58', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4376, 1, 5, 1, 'Ingreso', '2024-09-24 13:03:03', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4377, 1, 3, 1, 'Ingreso', '2024-09-24 13:04:07', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4378, 1, 3, 9, 'Ingreso', '2024-09-24 13:04:10', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4379, 1, 3, 9, 'Ingreso', '2024-09-24 13:04:14', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4380, 1, 5, 1, 'Ingreso', '2024-09-24 13:04:39', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4381, 1, 5, 7, 'Ingreso', '2024-09-24 13:04:55', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4382, 1, 5, 11, 'Ingreso', '2024-09-24 13:05:09', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4383, 1, 3, 1, 'Ingreso', '2024-09-24 13:05:22', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4384, 1, 3, 9, 'Ingreso', '2024-09-24 13:05:28', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4385, 1, 3, 9, 'Ingreso', '2024-09-24 13:05:38', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4386, 1, 1, 1, 'Ingreso', '2024-09-24 13:14:31', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4387, 1, 3, 1, 'Ingreso', '2024-09-24 13:14:34', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4388, 1, 5, 1, 'Ingreso', '2024-09-24 13:14:41', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4389, 1, 5, 7, 'Ingreso', '2024-09-24 13:14:45', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4390, 1, 3, 1, 'Ingreso', '2024-09-24 13:15:18', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4391, 1, 3, 9, 'Ingreso', '2024-09-24 13:15:22', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4392, 1, 3, 9, 'Ingreso', '2024-09-24 13:15:48', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4393, 1, 5, 1, 'Ingreso', '2024-09-24 13:15:54', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4394, 1, 5, 7, 'Ingreso', '2024-09-24 13:16:03', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4395, 1, 1, 1, 'Ingreso', '2024-09-24 13:16:23', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4396, 1, 5, 1, 'Ingreso', '2024-09-24 13:16:25', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4397, 1, 5, 7, 'Ingreso', '2024-09-24 13:16:28', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4398, 1, 1, 1, 'Ingreso', '2024-09-24 14:09:32', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4399, 1, 3, 1, 'Ingreso', '2024-09-24 14:09:35', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4400, 1, 3, 9, 'Ingreso', '2024-09-24 14:09:42', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4401, 1, 5, 1, 'Ingreso', '2024-09-24 14:10:01', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4402, 1, 3, 1, 'Ingreso', '2024-09-24 14:10:43', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4403, 1, 3, 9, 'Ingreso', '2024-09-24 14:10:51', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4404, 1, 1, 1, 'Ingreso', '2024-09-24 14:35:30', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4405, 1, 3, 1, 'Ingreso', '2024-09-24 14:35:32', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4406, 1, 3, 9, 'Ingreso', '2024-09-24 14:35:35', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4407, 1, 3, 9, 'Ingreso', '2024-09-24 14:35:44', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4408, 1, 3, 9, 'Ingreso', '2024-09-24 14:36:05', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4409, 1, 5, 1, 'Ingreso', '2024-09-24 14:36:10', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4410, 1, 5, 7, 'Ingreso', '2024-09-24 14:36:13', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4411, 1, 5, 11, 'Ingreso', '2024-09-24 14:36:37', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4412, 1, 5, 4, 'Ingreso', '2024-09-24 14:36:48', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4413, 1, 1, 1, 'Ingreso', '2024-09-24 18:22:12', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4414, 1, 3, 1, 'Ingreso', '2024-09-24 18:22:15', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4415, 1, 3, 9, 'Ingreso', '2024-09-24 18:22:18', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4416, 1, 3, 9, 'Ingreso', '2024-09-24 18:22:23', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4417, 1, 3, 9, 'Ingreso', '2024-09-24 18:22:41', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4418, 1, 5, 1, 'Ingreso', '2024-09-24 18:22:46', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4419, 1, 5, 7, 'Ingreso', '2024-09-24 18:22:49', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4420, 1, 5, 11, 'Ingreso', '2024-09-24 18:23:13', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4421, 1, 5, 7, 'Ingreso', '2024-09-24 18:23:22', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4422, 1, 1, 1, 'Ingreso', '2024-09-24 18:31:32', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4423, 1, 3, 1, 'Ingreso', '2024-09-24 18:32:12', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4424, 1, 3, 9, 'Ingreso', '2024-09-24 18:32:17', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4425, 1, 3, 9, 'Ingreso', '2024-09-24 18:32:23', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4426, 1, 3, 9, 'Ingreso', '2024-09-24 18:32:41', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4427, 1, 5, 1, 'Ingreso', '2024-09-24 18:32:45', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4428, 1, 5, 7, 'Ingreso', '2024-09-24 18:32:52', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4429, 1, 5, 11, 'Ingreso', '2024-09-24 18:33:57', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4430, 1, 1, 1, 'Ingreso', '2024-09-24 18:35:32', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4431, 1, 3, 1, 'Ingreso', '2024-09-24 18:35:33', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4432, 1, 5, 1, 'Ingreso', '2024-09-24 18:35:38', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4433, 1, 5, 7, 'Ingreso', '2024-09-24 18:35:41', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4434, 1, 3, 1, 'Ingreso', '2024-09-24 18:35:50', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4435, 1, 3, 9, 'Ingreso', '2024-09-24 18:35:57', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4436, 1, 3, 9, 'Ingreso', '2024-09-24 18:36:01', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4437, 1, 5, 1, 'Ingreso', '2024-09-24 18:36:49', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4438, 1, 5, 7, 'Ingreso', '2024-09-24 18:36:51', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4439, 1, 5, 11, 'Ingreso', '2024-09-24 18:37:03', 'Ingreso exitoso a Listado de Recibos');
-INSERT INTO `historial` VALUES (4440, 1, 5, 4, 'Ingreso', '2024-09-24 18:37:12', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4441, 1, 5, 4, 'Ingreso', '2024-09-24 18:37:17', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4442, 1, 1, 1, 'Ingreso', '2024-09-24 18:44:54', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4443, 1, 5, 1, 'Ingreso', '2024-09-24 18:45:01', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4444, 1, 5, 7, 'Ingreso', '2024-09-24 18:45:04', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4445, 1, 5, 4, 'Ingreso', '2024-09-24 18:45:10', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4446, 1, 5, 4, 'Ingreso', '2024-09-24 18:45:15', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4447, 1, 1, 1, 'Ingreso', '2024-09-24 18:46:16', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4448, 1, 5, 1, 'Ingreso', '2024-09-24 18:46:26', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4449, 1, 5, 4, 'Ingreso', '2024-09-24 18:46:29', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4450, 1, 5, 7, 'Ingreso', '2024-09-24 18:46:43', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4451, 1, 5, 4, 'Ingreso', '2024-09-24 18:46:49', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4452, 1, 5, 4, 'Ingreso', '2024-09-24 18:46:54', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4453, 1, 5, 7, 'Ingreso', '2024-09-24 18:47:03', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4454, 1, 1, 1, 'Ingreso', '2024-09-24 18:54:23', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4455, 1, 3, 1, 'Ingreso', '2024-09-24 18:54:31', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4456, 1, 3, 9, 'Ingreso', '2024-09-24 18:54:34', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4457, 1, 5, 1, 'Ingreso', '2024-09-24 18:55:11', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4458, 1, 5, 7, 'Ingreso', '2024-09-24 18:55:16', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4459, 1, 5, 4, 'Ingreso', '2024-09-24 18:55:25', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4460, 1, 5, 4, 'Ingreso', '2024-09-24 18:55:29', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4461, 1, 1, 1, 'Ingreso', '2024-09-24 19:20:13', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4462, 1, 5, 1, 'Ingreso', '2024-09-24 19:20:17', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4463, 1, 3, 1, 'Ingreso', '2024-09-24 19:20:23', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4464, 1, 1, 1, 'Ingreso', '2024-09-24 19:22:41', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4465, 1, 3, 1, 'Ingreso', '2024-09-24 19:22:45', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4466, 1, 3, 9, 'Ingreso', '2024-09-24 19:22:49', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4467, 1, 5, 1, 'Ingreso', '2024-09-24 19:23:07', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4468, 1, 5, 7, 'Ingreso', '2024-09-24 19:23:09', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4469, 1, 5, 4, 'Ingreso', '2024-09-24 19:23:16', 'Ingreso exitoso a Listado de Cuotas');
-INSERT INTO `historial` VALUES (4470, 1, 5, 4, 'Ingreso', '2024-09-24 19:23:22', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4471, 1, 5, 7, 'Ingreso', '2024-09-24 19:23:41', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4472, 1, 5, 4, 'Ingreso', '2024-09-24 19:23:59', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4473, 1, 5, 7, 'Ingreso', '2024-09-24 19:27:24', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4474, 1, 1, 1, 'Ingreso', '2024-09-24 21:31:37', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4475, 1, 3, 1, 'Ingreso', '2024-09-24 21:31:49', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4476, 1, 3, 9, 'Ingreso', '2024-09-24 21:33:15', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4477, 1, 5, 1, 'Ingreso', '2024-09-24 21:34:16', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4478, 1, 5, 7, 'Ingreso', '2024-09-24 21:34:21', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4479, 1, 5, 4, 'Ingreso', '2024-09-24 21:35:13', 'Ingreso exitoso a Registro de Cuotas');
-INSERT INTO `historial` VALUES (4480, 1, 5, 7, 'Ingreso', '2024-09-24 21:35:26', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4481, 1, 3, 1, 'Ingreso', '2024-09-24 21:35:37', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4482, 1, 3, 9, 'Ingreso', '2024-09-24 21:35:42', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4483, 1, 5, 1, 'Ingreso', '2024-09-24 21:35:51', 'Ingreso exitoso a Contabilidad');
-INSERT INTO `historial` VALUES (4484, 1, 5, 7, 'Ingreso', '2024-09-24 21:35:53', 'Ingreso exitoso a Listado de Ingresos y Egresos');
-INSERT INTO `historial` VALUES (4485, 1, 1, 1, 'Ingreso', '2024-09-24 21:50:25', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4486, 1, 3, 1, 'Ingreso', '2024-09-24 21:50:49', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4487, 1, 1, 1, 'Ingreso', '2024-09-24 22:35:04', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4488, 1, 3, 1, 'Ingreso', '2024-09-24 22:35:13', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4489, 1, 3, 8, 'Ingreso', '2024-09-24 22:35:16', 'Ingreso exitoso a Listado de Inventario');
-INSERT INTO `historial` VALUES (4490, 1, 3, 9, 'Ingreso', '2024-09-24 22:35:21', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4491, 1, 3, 9, 'Ingreso', '2024-09-24 22:35:26', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4492, 1, 3, 9, 'Ingreso', '2024-09-24 22:35:35', 'Ingreso exitoso a Registro de Licencias');
-INSERT INTO `historial` VALUES (4493, 1, 3, 9, 'Ingreso', '2024-09-24 22:36:02', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4494, 1, 1, 1, 'Ingreso', '2024-09-24 22:51:29', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4495, 1, 3, 1, 'Ingreso', '2024-09-24 22:51:35', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4496, 1, 1, 1, 'Ingreso', '2024-09-24 22:58:51', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4497, 1, 3, 1, 'Ingreso', '2024-09-24 22:58:58', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4498, 1, 1, 1, 'Ingreso', '2024-09-24 23:00:11', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4499, 1, 3, 1, 'Ingreso', '2024-09-24 23:00:13', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4500, 1, 1, 1, 'Ingreso', '2024-09-24 23:02:09', 'Ingreso exitoso al sistema');
-INSERT INTO `historial` VALUES (4501, 1, 3, 1, 'Ingreso', '2024-09-24 23:02:17', 'Ingreso exitoso a Registros');
-INSERT INTO `historial` VALUES (4502, 1, 3, 9, 'Ingreso', '2024-09-24 23:02:20', 'Ingreso exitoso a Listado de Licencias');
-INSERT INTO `historial` VALUES (4503, 1, 1, 1, 'Ingreso', '2024-09-24 23:20:18', 'Ingreso exitoso al sistema');
 INSERT INTO `historial` VALUES (4504, 1, 3, 1, 'Ingreso', '2024-09-24 23:20:26', 'Ingreso exitoso a Registros');
 INSERT INTO `historial` VALUES (4505, 1, 3, 9, 'Ingreso', '2024-09-24 23:20:29', 'Ingreso exitoso a Listado de Licencias');
 INSERT INTO `historial` VALUES (4506, 1, 3, 9, 'Ingreso', '2024-09-24 23:20:41', 'Ingreso exitoso a Listado de Licencias');
@@ -2488,6 +1515,197 @@ INSERT INTO `historial` VALUES (5749, 1, 5, 7, 'Ingreso', '2024-10-05 11:00:49',
 INSERT INTO `historial` VALUES (5750, 1, 5, 11, 'Ingreso', '2024-10-05 11:00:56', 'Ingreso exitoso a Listado de Recibos');
 INSERT INTO `historial` VALUES (5751, 1, 5, 11, 'Ingreso', '2024-10-05 11:01:28', 'Ingreso exitoso a Listado de Recibos');
 INSERT INTO `historial` VALUES (5752, 1, 1, 1, 'Ingreso', '2024-10-05 11:11:20', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5753, 1, 1, 1, 'Ingreso', '2024-10-08 12:24:52', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5754, 1, 3, 1, 'Ingreso', '2024-10-08 12:24:54', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5755, 1, 3, 2, 'Ingreso', '2024-10-08 12:24:57', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5756, 1, 3, 2, 'Ingreso', '2024-10-08 12:25:01', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5757, 1, 3, 2, 'Ingreso', '2024-10-08 12:25:53', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5758, 1, 1, 1, 'Ingreso', '2024-10-08 16:22:43', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5759, 1, 5, 1, 'Ingreso', '2024-10-08 16:22:45', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES (5760, 1, 5, 4, 'Ingreso', '2024-10-08 16:22:48', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES (5761, 1, 3, 1, 'Ingreso', '2024-10-08 16:22:53', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5762, 1, 3, 2, 'Ingreso', '2024-10-08 16:22:56', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5763, 1, 3, 2, 'Ingreso', '2024-10-08 16:23:07', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5764, 1, 3, 2, 'Ingreso', '2024-10-08 16:23:11', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5765, 1, 3, 2, 'Ingreso', '2024-10-08 16:23:26', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5766, 1, 3, 2, 'Ingreso', '2024-10-08 16:23:46', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5767, 1, 1, 1, 'Ingreso', '2024-10-08 16:25:26', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5768, 1, 3, 1, 'Ingreso', '2024-10-08 16:25:29', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5769, 1, 3, 2, 'Ingreso', '2024-10-08 16:25:32', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5770, 1, 1, 1, 'Ingreso', '2024-10-17 16:21:11', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5771, 1, 1, 1, 'Ingreso', '2024-10-28 21:19:49', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5772, 1, 3, 1, 'Ingreso', '2024-10-28 21:22:37', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5773, 1, 1, 1, 'Ingreso', '2024-10-28 21:23:28', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5774, 1, 3, 1, 'Ingreso', '2024-10-28 21:23:30', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5775, 1, 3, 2, 'Ingreso', '2024-10-28 21:25:27', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5776, 1, 3, 2, 'Ingreso', '2024-10-28 21:25:49', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5777, 1, 3, 2, 'Ingreso', '2024-10-28 21:26:31', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5778, 1, 3, 2, 'Ingreso', '2024-10-28 21:32:53', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5779, 1, 3, 2, 'Ingreso', '2024-10-28 21:38:34', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5780, 1, 3, 2, 'Ingreso', '2024-10-28 21:40:01', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5781, 1, 3, 2, 'Ingreso', '2024-10-28 21:40:59', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5782, 1, 3, 2, 'Ingreso', '2024-10-28 21:41:21', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5783, 1, 3, 2, 'Ingreso', '2024-10-28 21:45:08', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5784, 1, 3, 2, 'Ingreso', '2024-10-28 21:57:22', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5785, 1, 1, 1, 'Ingreso', '2024-10-28 22:53:42', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5786, 1, 3, 1, 'Ingreso', '2024-10-28 22:53:44', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5787, 1, 3, 2, 'Ingreso', '2024-10-28 22:53:47', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5788, 1, 3, 2, 'Ingreso', '2024-10-28 22:59:41', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5789, 1, 3, 2, 'Ingreso', '2024-10-28 23:01:13', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5790, 1, 3, 2, 'Ingreso', '2024-10-28 23:04:05', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5791, 1, 3, 3, 'Ingreso', '2024-10-28 23:04:12', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5792, 1, 3, 5, 'Ingreso', '2024-10-28 23:07:07', 'Ingreso exitoso a Registro de Dirigentes');
+INSERT INTO `historial` VALUES (5793, 1, 3, 8, 'Ingreso', '2024-10-28 23:07:19', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5794, 1, 1, 1, 'Ingreso', '2024-11-04 08:34:46', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5795, 1, 3, 1, 'Ingreso', '2024-11-04 08:34:49', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5796, 1, 3, 3, 'Ingreso', '2024-11-04 08:34:53', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5797, 1, 3, 3, 'Ingreso', '2024-11-04 08:40:11', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5798, 1, 3, 3, 'Ingreso', '2024-11-04 08:40:16', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5799, 1, 1, 1, 'Ingreso', '2024-11-04 08:43:03', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5800, 1, 3, 1, 'Ingreso', '2024-11-04 08:44:32', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5801, 1, 3, 3, 'Ingreso', '2024-11-04 08:44:43', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5802, 1, 1, 1, 'Ingreso', '2024-11-04 08:52:33', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5803, 1, 3, 1, 'Ingreso', '2024-11-04 08:52:37', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5804, 1, 3, 3, 'Ingreso', '2024-11-04 08:52:41', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5805, 1, 3, 2, 'Ingreso', '2024-11-04 09:02:57', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5806, 1, 3, 2, 'Ingreso', '2024-11-04 09:03:35', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5807, 1, 3, 1, 'Ingreso', '2024-11-04 09:03:41', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5808, 1, 3, 3, 'Ingreso', '2024-11-04 09:03:44', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5809, 1, 1, 1, 'Ingreso', '2024-11-04 09:07:54', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5810, 1, 3, 1, 'Ingreso', '2024-11-04 09:08:01', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5811, 1, 3, 3, 'Ingreso', '2024-11-04 09:08:05', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5812, 1, 3, 3, 'Ingreso', '2024-11-04 09:16:54', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5813, 1, 3, 3, 'Ingreso', '2024-11-04 09:17:05', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES (5814, 1, 3, 3, 'Ingreso', '2024-11-04 09:17:50', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5815, 1, 1, 1, 'Ingreso', '2024-11-05 14:23:37', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5816, 1, 3, 1, 'Ingreso', '2024-11-05 14:23:41', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5817, 1, 3, 3, 'Ingreso', '2024-11-05 14:23:44', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5818, 1, 3, 3, 'Ingreso', '2024-11-05 14:23:58', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5819, 1, 3, 3, 'Ingreso', '2024-11-05 14:24:15', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5820, 1, 3, 3, 'Ingreso', '2024-11-05 14:24:19', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5821, 1, 3, 3, 'Ingreso', '2024-11-05 14:24:31', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5822, 1, 3, 3, 'Ingreso', '2024-11-05 14:24:42', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5823, 1, 3, 5, 'Ingreso', '2024-11-05 14:26:59', 'Ingreso exitoso a Listado de Dirigentes');
+INSERT INTO `historial` VALUES (5824, 1, 3, 5, 'Ingreso', '2024-11-05 14:28:20', 'Ingreso exitoso a Registro de Dirigentes');
+INSERT INTO `historial` VALUES (5825, 1, 3, 5, 'Ingreso', '2024-11-05 14:29:40', 'Ingreso exitoso a Listado de Dirigentes');
+INSERT INTO `historial` VALUES (5826, 1, 3, 8, 'Ingreso', '2024-11-05 14:30:51', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5827, 1, 3, 8, 'Ingreso', '2024-11-05 14:30:57', 'Ingreso exitoso a Registro de Inventario');
+INSERT INTO `historial` VALUES (5828, 1, 3, 8, 'Ingreso', '2024-11-05 14:32:53', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5829, 1, 3, 9, 'Ingreso', '2024-11-05 14:33:25', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5830, 1, 3, 9, 'Ingreso', '2024-11-05 14:33:56', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5831, 1, 3, 9, 'Ingreso', '2024-11-05 14:34:43', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5832, 1, 1, 1, 'Ingreso', '2024-11-05 14:54:41', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5833, 1, 3, 1, 'Ingreso', '2024-11-05 14:55:29', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5834, 1, 3, 2, 'Ingreso', '2024-11-05 15:15:09', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5835, 1, 3, 2, 'Ingreso', '2024-11-05 15:15:17', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5836, 1, 3, 1, 'Ingreso', '2024-11-05 15:17:24', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5837, 1, 3, 2, 'Ingreso', '2024-11-05 15:29:08', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5838, 1, 3, 2, 'Ingreso', '2024-11-05 18:14:22', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5839, 1, 3, 2, 'Ingreso', '2024-11-05 18:14:44', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5840, 1, 3, 2, 'Ingreso', '2024-11-05 18:15:42', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5841, 1, 3, 2, 'Ingreso', '2024-11-05 18:15:48', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5842, 1, 3, 2, 'Ingreso', '2024-11-05 18:16:20', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5843, 1, 3, 2, 'Ingreso', '2024-11-05 18:16:25', 'Ingreso exitoso a Registro de Afiliados');
+INSERT INTO `historial` VALUES (5844, 1, 3, 2, 'Ingreso', '2024-11-05 18:16:50', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5845, 1, 3, 3, 'Ingreso', '2024-11-05 18:17:44', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5846, 1, 3, 3, 'Ingreso', '2024-11-05 18:18:04', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5847, 1, 3, 3, 'Ingreso', '2024-11-05 18:18:09', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES (5848, 1, 3, 3, 'Ingreso', '2024-11-05 18:18:19', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5849, 1, 3, 3, 'Ingreso', '2024-11-05 18:18:37', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5850, 1, 3, 3, 'Ingreso', '2024-11-05 18:18:44', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5851, 1, 3, 2, 'Ingreso', '2024-11-05 18:18:53', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5852, 1, 3, 2, 'Ingreso', '2024-11-05 18:20:50', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5853, 1, 3, 3, 'Ingreso', '2024-11-05 18:21:50', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5854, 1, 3, 3, 'Ingreso', '2024-11-05 18:22:18', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES (5855, 1, 3, 3, 'Ingreso', '2024-11-05 18:23:08', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5856, 1, 3, 3, 'Ingreso', '2024-11-05 18:23:16', 'Ingreso exitoso a Registro de Asistencias');
+INSERT INTO `historial` VALUES (5857, 1, 3, 3, 'Ingreso', '2024-11-05 18:23:31', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5858, 1, 3, 3, 'Ingreso', '2024-11-05 18:23:39', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES (5859, 1, 3, 5, 'Ingreso', '2024-11-05 18:24:00', 'Ingreso exitoso a Registro de Dirigentes');
+INSERT INTO `historial` VALUES (5860, 1, 3, 5, 'Ingreso', '2024-11-05 18:24:46', 'Ingreso exitoso a Listado de Dirigentes');
+INSERT INTO `historial` VALUES (5861, 1, 3, 5, 'Ingreso', '2024-11-05 18:24:51', 'Ingreso exitoso a Registro de Dirigentes');
+INSERT INTO `historial` VALUES (5862, 1, 3, 5, 'Ingreso', '2024-11-05 18:25:08', 'Ingreso exitoso a Listado de Dirigentes');
+INSERT INTO `historial` VALUES (5863, 1, 3, 5, 'Ingreso', '2024-11-05 18:25:13', 'Ingreso exitoso a Registro de Dirigentes');
+INSERT INTO `historial` VALUES (5864, 1, 3, 5, 'Ingreso', '2024-11-05 18:25:31', 'Ingreso exitoso a Listado de Dirigentes');
+INSERT INTO `historial` VALUES (5865, 1, 3, 5, 'Ingreso', '2024-11-05 18:27:11', 'Ingreso exitoso a Listado de Dirigentes');
+INSERT INTO `historial` VALUES (5866, 1, 3, 3, 'Ingreso', '2024-11-05 18:27:36', 'Ingreso exitoso a Registro de Asistencias de dirigentes');
+INSERT INTO `historial` VALUES (5867, 1, 3, 3, 'Ingreso', '2024-11-05 18:27:46', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5868, 1, 3, 3, 'Ingreso', '2024-11-05 18:29:12', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5869, 1, 3, 3, 'Ingreso', '2024-11-05 18:29:46', 'Ingreso exitoso a Listado de Asistencias');
+INSERT INTO `historial` VALUES (5870, 1, 3, 8, 'Ingreso', '2024-11-05 18:30:45', 'Ingreso exitoso a Registro de Inventario');
+INSERT INTO `historial` VALUES (5871, 1, 3, 8, 'Ingreso', '2024-11-05 18:35:18', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5872, 1, 3, 8, 'Ingreso', '2024-11-05 18:35:23', 'Ingreso exitoso a Registro de Inventario');
+INSERT INTO `historial` VALUES (5873, 1, 3, 8, 'Ingreso', '2024-11-05 18:35:39', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5874, 1, 3, 8, 'Ingreso', '2024-11-05 18:35:48', 'Ingreso exitoso a Registro de Inventario');
+INSERT INTO `historial` VALUES (5875, 1, 3, 8, 'Ingreso', '2024-11-05 18:36:04', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5876, 1, 3, 8, 'Ingreso', '2024-11-05 18:40:54', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5877, 1, 1, 1, 'Ingreso', '2024-11-05 19:17:30', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5878, 1, 3, 1, 'Ingreso', '2024-11-05 19:17:37', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5879, 1, 3, 8, 'Ingreso', '2024-11-05 19:17:41', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5880, 1, 3, 8, 'Ingreso', '2024-11-05 19:17:56', 'Ingreso exitoso a Listado de Inventario');
+INSERT INTO `historial` VALUES (5881, 1, 3, 9, 'Ingreso', '2024-11-05 19:46:10', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5882, 1, 3, 9, 'Ingreso', '2024-11-05 19:47:56', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5883, 1, 3, 9, 'Ingreso', '2024-11-05 19:52:44', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5884, 1, 3, 9, 'Ingreso', '2024-11-05 19:53:06', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5885, 1, 3, 9, 'Ingreso', '2024-11-05 19:53:34', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5886, 1, 3, 2, 'Ingreso', '2024-11-05 20:35:12', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5887, 1, 3, 9, 'Ingreso', '2024-11-05 20:35:19', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5888, 1, 3, 9, 'Ingreso', '2024-11-05 20:35:52', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5889, 1, 3, 9, 'Ingreso', '2024-11-05 20:35:55', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5890, 1, 3, 9, 'Ingreso', '2024-11-05 20:40:15', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5891, 1, 3, 9, 'Ingreso', '2024-11-05 20:40:46', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5892, 1, 3, 9, 'Ingreso', '2024-11-05 20:41:14', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5893, 1, 3, 9, 'Ingreso', '2024-11-05 20:41:30', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5894, 1, 3, 9, 'Ingreso', '2024-11-05 20:42:18', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5895, 1, 1, 1, 'Ingreso', '2024-11-05 21:00:42', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5896, 1, 3, 1, 'Ingreso', '2024-11-05 21:01:19', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5897, 1, 3, 9, 'Ingreso', '2024-11-05 21:01:22', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5898, 1, 3, 9, 'Ingreso', '2024-11-05 21:01:42', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5899, 1, 3, 9, 'Ingreso', '2024-11-05 21:02:01', 'Ingreso exitoso a Registro de Licencias');
+INSERT INTO `historial` VALUES (5900, 1, 3, 9, 'Ingreso', '2024-11-05 21:02:18', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5901, 1, 3, 9, 'Ingreso', '2024-11-05 21:03:09', 'Ingreso exitoso a Listado de Licencias');
+INSERT INTO `historial` VALUES (5902, 1, 5, 1, 'Ingreso', '2024-11-05 21:06:04', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES (5903, 1, 5, 1, 'Ingreso', '2024-11-05 21:06:24', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES (5904, 1, 5, 4, 'Ingreso', '2024-11-05 21:06:55', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES (5905, 1, 5, 7, 'Ingreso', '2024-11-05 21:07:04', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5906, 1, 5, 4, 'Ingreso', '2024-11-05 21:09:30', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES (5907, 1, 5, 4, 'Ingreso', '2024-11-05 21:12:05', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES (5908, 1, 5, 4, 'Ingreso', '2024-11-05 21:12:09', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES (5909, 1, 5, 7, 'Ingreso', '2024-11-05 21:12:33', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5910, 1, 5, 4, 'Ingreso', '2024-11-05 21:12:39', 'Ingreso exitoso a Registro de Cuotas');
+INSERT INTO `historial` VALUES (5911, 1, 5, 4, 'Ingreso', '2024-11-05 21:12:53', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES (5912, 1, 5, 4, 'Ingreso', '2024-11-05 21:14:42', 'Ingreso exitoso a Listado de Cuotas');
+INSERT INTO `historial` VALUES (5913, 1, 5, 7, 'Ingreso', '2024-11-05 21:16:39', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5914, 1, 5, 7, 'Ingreso', '2024-11-05 21:20:49', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5915, 1, 5, 7, 'Ingreso', '2024-11-05 21:23:19', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5916, 1, 5, 7, 'Ingreso', '2024-11-05 21:23:55', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5917, 1, 5, 7, 'Ingreso', '2024-11-05 23:20:34', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5918, 1, 5, 7, 'Ingreso', '2024-11-05 23:21:20', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5919, 1, 5, 7, 'Ingreso', '2024-11-05 23:35:09', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5920, 1, 5, 7, 'Ingreso', '2024-11-05 23:35:21', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5921, 1, 5, 7, 'Ingreso', '2024-11-05 23:35:59', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5922, 1, 5, 7, 'Ingreso', '2024-11-05 23:36:15', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5923, 1, 5, 7, 'Ingreso', '2024-11-05 23:36:40', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5924, 1, 5, 7, 'Ingreso', '2024-11-05 23:37:27', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5925, 1, 5, 7, 'Ingreso', '2024-11-05 23:37:35', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5926, 1, 5, 7, 'Ingreso', '2024-11-05 23:37:52', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5927, 1, 5, 7, 'Ingreso', '2024-11-05 23:38:27', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5928, 1, 5, 7, 'Ingreso', '2024-11-05 23:39:16', 'Ingreso exitoso a Registro de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5929, 1, 5, 7, 'Ingreso', '2024-11-05 23:39:59', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5930, 1, 5, 7, 'Ingreso', '2024-11-05 23:40:58', 'Ingreso exitoso a Listado de Ingresos y Egresos');
+INSERT INTO `historial` VALUES (5931, 1, 1, 1, 'Ingreso', '2024-12-01 16:07:01', 'Ingreso exitoso al sistema');
+INSERT INTO `historial` VALUES (5932, 1, 3, 1, 'Ingreso', '2024-12-01 16:07:02', 'Ingreso exitoso a Registros');
+INSERT INTO `historial` VALUES (5933, 1, 3, 2, 'Ingreso', '2024-12-01 16:07:04', 'Ingreso exitoso a Listado de Afiliados');
+INSERT INTO `historial` VALUES (5934, 1, 5, 1, 'Ingreso', '2024-12-01 16:07:08', 'Ingreso exitoso a Contabilidad');
+INSERT INTO `historial` VALUES (5935, 1, 5, 11, 'Ingreso', '2024-12-01 16:07:12', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES (5936, 1, 5, 11, 'Ingreso', '2024-12-01 16:09:05', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES (5937, 1, 5, 11, 'Ingreso', '2024-12-01 16:09:20', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES (5938, 1, 5, 11, 'Ingreso', '2024-12-01 16:09:57', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES (5939, 1, 5, 11, 'Ingreso', '2024-12-01 16:10:57', 'Ingreso exitoso a Registro de Recibos');
+INSERT INTO `historial` VALUES (5940, 1, 5, 11, 'Ingreso', '2024-12-01 16:11:50', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES (5941, 1, 5, 11, 'Ingreso', '2024-12-01 16:11:58', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES (5942, 1, 5, 11, 'Ingreso', '2024-12-01 16:12:04', 'Ingreso exitoso a Listado de Recibos');
+INSERT INTO `historial` VALUES (5943, 1, 5, 11, 'Ingreso', '2024-12-01 16:13:00', 'Ingreso exitoso a Listado de Recibos');
 
 -- ----------------------------
 -- Table structure for ingresos_egresos
@@ -2504,15 +1722,23 @@ CREATE TABLE `ingresos_egresos`  (
   INDEX `idx_fecha_ingresos_egresos`(`fecha` ASC) USING BTREE,
   INDEX `idx_tipo_ingresos_egresos`(`tipo` ASC) USING BTREE,
   INDEX `idx_origen_ingresos_egresos`(`origen` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 386 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 411 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ingresos_egresos
 -- ----------------------------
-INSERT INTO `ingresos_egresos` VALUES (378, '2024-10-03', 'LICENCIA SINDICAL', 'EGRESO', -30, 'CAJA PIURA');
-INSERT INTO `ingresos_egresos` VALUES (379, '2024-10-03', 'LICENCIA SINDICAL', 'INGRESO', 100, 'CAJA PIURA');
-INSERT INTO `ingresos_egresos` VALUES (382, '2024-10-05', 'EJEMPLO', '0', 100, 'CAJA CHICA');
-INSERT INTO `ingresos_egresos` VALUES (385, '2024-10-05', 'REABASTECER', '0', 70, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (398, '2024-11-05', 'LICENCIA SINDICAL', 'EGRESO', -5, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (399, '2024-11-05', 'LICENCIA SINDICAL', 'INGRESO', 1, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (400, '2024-11-05', 'LICENCIA SINDICAL', 'EGRESO', -50, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (401, '2024-11-05', 'LICENCIA SINDICAL', 'INGRESO', 10, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (402, '2024-11-05', 'LICENCIA SINDICAL', 'EGRESO', -500, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (403, '2024-11-05', 'LICENCIA SINDICAL', 'INGRESO', 100, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (404, '2024-11-05', 'CUOTA ORDINARIA', 'INGRESO', 56, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (405, '2024-10-05', 'CUOTA ORDINARIA', 'INGRESO', 48, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (406, '2024-09-05', 'CUOTA ORDINARIA', 'INGRESO', 46, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (408, '2024-11-05', 'Ejemplo', '0', 1294, 'CAJA PIURA');
+INSERT INTO `ingresos_egresos` VALUES (409, '2024-11-05', 'Ejemplo ingreso - Editado', '0', 200, 'CAJA CHICA');
+INSERT INTO `ingresos_egresos` VALUES (410, '2024-11-05', 'Ejemplo de egreso - Editado', '1', -200, 'CAJA PIURA');
 
 -- ----------------------------
 -- Table structure for inventarios
@@ -2537,11 +1763,14 @@ CREATE TABLE `inventarios`  (
   INDEX `idx_descripcion`(`descripcion` ASC) USING BTREE,
   INDEX `idx_ubicacion`(`ubicacion` ASC) USING BTREE,
   INDEX `idx_serie`(`serie` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of inventarios
 -- ----------------------------
+INSERT INTO `inventarios` VALUES (105, 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1', 'GENERICO 1');
+INSERT INTO `inventarios` VALUES (106, 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2', 'GENERICO 2');
+INSERT INTO `inventarios` VALUES (107, 'GENERICO 3 - EDITADO', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3', 'GENERICO 3');
 
 -- ----------------------------
 -- Table structure for licencias
@@ -2565,12 +1794,14 @@ CREATE TABLE `licencias`  (
   INDEX `idx_id_dirigente`(`id_dirigente` ASC) USING BTREE,
   INDEX `idx_fecha`(`fecha` ASC) USING BTREE,
   CONSTRAINT `licencias_ibfk_1` FOREIGN KEY (`id_dirigente`) REFERENCES `dirigentes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 406 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 415 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of licencias
 -- ----------------------------
-INSERT INTO `licencias` VALUES (405, '2024-10-03', 21, '1', 'EJEMPLOS', '2', '2', '1', 100.00, 20.00, 10.00);
+INSERT INTO `licencias` VALUES (412, '2024-11-05', 22, '0', 'Ejemplo 1', '0', '0', '0', 1.00, 3.00, 2.00);
+INSERT INTO `licencias` VALUES (413, '2024-11-05', 23, '0', 'Ejemplo 2', '0', '0', '0', 10.00, 30.00, 20.00);
+INSERT INTO `licencias` VALUES (414, '2024-11-05', 24, '1', 'Ejemplo 3 - Editado', '1', '2', '1', 100.00, 300.00, 200.00);
 
 -- ----------------------------
 -- Table structure for modulos
@@ -2580,7 +1811,7 @@ CREATE TABLE `modulos`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `modulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of modulos
@@ -2609,7 +1840,7 @@ CREATE TABLE `permisos`  (
   `nivel` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_permisos_full`(`id_secretaria` ASC, `id_seccion` ASC, `id_modulo` ASC, `nivel` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 679 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 679 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of permisos
@@ -2653,12 +1884,15 @@ CREATE TABLE `recibos`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `id_dirigente`(`id_dirigente` ASC) USING BTREE,
   CONSTRAINT `id_dirigente` FOREIGN KEY (`id_dirigente`) REFERENCES `dirigentes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 532 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 542 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of recibos
 -- ----------------------------
-INSERT INTO `recibos` VALUES (530, 'ADM', 'LS', 21, 'ADMINISTRATIVO', 'LICENCIA SINDICAL', -70, '2024-10-03', 'LICENCIA - EJEMPLOS');
+INSERT INTO `recibos` VALUES (538, 'ADM', 'LS', 22, 'ADMINISTRATIVO', 'LICENCIA SINDICAL', 4, '2024-11-05', 'LICENCIA - Ejemplo 1');
+INSERT INTO `recibos` VALUES (539, 'ADM', 'LS', 23, 'ADMINISTRATIVO', 'LICENCIA SINDICAL', 40, '2024-11-05', 'LICENCIA - Ejemplo 2');
+INSERT INTO `recibos` VALUES (540, 'ADM', 'LS', 24, 'ADMINISTRATIVO', 'LICENCIA SINDICAL', 400, '2024-11-05', 'LICENCIA - Ejemplo 3 - Editado');
+INSERT INTO `recibos` VALUES (541, '', '', 23, 'ACTIVO FIJO', 'INVENTARIO', 500, '2024-12-01', 'EJEMPLO EDICION');
 
 -- ----------------------------
 -- Table structure for secciones
@@ -2668,7 +1902,7 @@ CREATE TABLE `secciones`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `seccion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of secciones
@@ -2690,7 +1924,7 @@ CREATE TABLE `secretarias`  (
   `id_usuario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_secretarias_secretaria`(`secretaria` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of secretarias
@@ -2718,20 +1952,58 @@ CREATE TABLE `usuarios`  (
   `lastmodify` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_usu_pass`(`usu` ASC, `pass` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of usuarios
 -- ----------------------------
-INSERT INTO `usuarios` VALUES (1, 'General', '123', NULL, '', '2023-09-04');
+INSERT INTO `usuarios` VALUES (1, 'General', '123', '', '', '2024-10-17');
 INSERT INTO `usuarios` VALUES (2, 'Adjunto', '123', NULL, NULL, '2023-09-04');
 INSERT INTO `usuarios` VALUES (3, 'Defensa', '123', NULL, NULL, '2023-09-04');
-INSERT INTO `usuarios` VALUES (4, 'Organizacion', '123', NULL, NULL, '2023-09-04');
+INSERT INTO `usuarios` VALUES (4, 'Organizacion', '123', '123', '', '2024-10-17');
 INSERT INTO `usuarios` VALUES (5, 'Economia', '123', NULL, NULL, '2023-09-04');
 INSERT INTO `usuarios` VALUES (6, 'Asistencia Social', '123', NULL, NULL, '2023-09-04');
 INSERT INTO `usuarios` VALUES (7, 'Prensa y propaganda', '123', NULL, NULL, '2023-09-04');
 INSERT INTO `usuarios` VALUES (8, 'Seguridad y Salud laboral', '123', NULL, NULL, '2023-09-04');
-INSERT INTO `usuarios` VALUES (9, 'Actas y archivos', '123', NULL, NULL, '2023-09-04');
+INSERT INTO `usuarios` VALUES (9, 'Actas y archivos', '123', '123', '', '2024-10-17');
+
+-- ----------------------------
+-- Procedure structure for sp_actualizar_usuario
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_actualizar_usuario`;
+delimiter ;;
+CREATE PROCEDURE `sp_actualizar_usuario`(IN p_usuario VARCHAR(255),
+    IN p_nueva_pass VARCHAR(255),
+    IN p_beforepass VARCHAR(255),
+    IN p_email VARCHAR(255),
+    IN p_fecha_modificacion DATETIME)
+BEGIN
+    -- Verificar si la contraseña anterior coincide
+    DECLARE v_id INT;
+    DECLARE v_pass_actual VARCHAR(255);
+
+    -- Obtener el id y la contraseña actual del usuario
+    SELECT id, pass INTO v_id, v_pass_actual
+    FROM usuarios
+    WHERE usu = p_usuario;
+
+    -- Verificar si la contraseña anterior coincide
+    IF v_pass_actual = p_beforepass THEN
+        -- Actualizar los datos del usuario
+        UPDATE usuarios
+        SET pass = p_nueva_pass,
+            beforepass = p_beforepass,
+            email = p_email,
+            lastmodify = p_fecha_modificacion
+        WHERE id = v_id;
+    ELSE
+        -- Lanzar un error si la contraseña no coincide
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Contraseña incorrecta';
+    END IF;
+END
+;;
+delimiter ;
 
 -- ----------------------------
 -- Procedure structure for sp_authenticate_user
@@ -3153,34 +2425,34 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `sp_insertar_actualizar_licencia`;
 delimiter ;;
-CREATE PROCEDURE `sp_insertar_actualizar_licencia`(IN id INT,
-    IN fecha DATE,
-    IN id_dirigente VARCHAR(255),
-    IN tipo VARCHAR(255),
-    IN motivo VARCHAR(255),
-    IN estado_asistencia VARCHAR(255),
-    IN registro VARCHAR(255),
-    IN estado_canje VARCHAR(255),
-    IN tardanza FLOAT,
-    IN monto FLOAT,
-    IN movilidad FLOAT)
+CREATE PROCEDURE `sp_insertar_actualizar_licencia`(IN p_id INT,
+    IN p_fecha DATE,
+    IN p_id_dirigente VARCHAR(255),
+    IN p_tipo VARCHAR(255),
+    IN p_motivo VARCHAR(255),
+    IN p_estado_asistencia VARCHAR(255),
+    IN p_registro VARCHAR(255),
+    IN p_estado_canje VARCHAR(255),
+    IN p_tardanza FLOAT,
+    IN p_monto FLOAT,
+    IN p_movilidad FLOAT)
 BEGIN
-    IF id IS NOT NULL THEN
+    IF p_id IS NOT NULL THEN
         UPDATE licencias
-        SET fecha = fecha,
-            id_dirigente = id_dirigente,
-            tipo = tipo,
-            motivo = motivo,
-            estado_asistencia = estado_asistencia,
-            registro = registro,
-            estado_canje = estado_canje,
-            tardanza = tardanza,
-            monto = monto,
-            movilidad = movilidad
-        WHERE id = id;
+        SET fecha = p_fecha,
+            id_dirigente = p_id_dirigente,
+            tipo = p_tipo,
+            motivo = p_motivo,
+            estado_asistencia = p_estado_asistencia,
+            registro = p_registro,
+            estado_canje = p_estado_canje,
+            tardanza = p_tardanza,
+            monto = p_monto,
+            movilidad = p_movilidad
+        WHERE id = p_id;
     ELSE
         INSERT INTO licencias (fecha, id_dirigente, tipo, motivo, estado_asistencia, registro, estado_canje, tardanza, monto, movilidad)
-        VALUES (fecha, id_dirigente, tipo, motivo, estado_asistencia, registro, estado_canje, tardanza, monto, movilidad);
+        VALUES (p_fecha, p_id_dirigente, p_tipo, p_motivo, p_estado_asistencia, p_registro, p_estado_canje, p_tardanza, p_monto, p_movilidad);
     END IF;
 END
 ;;
@@ -3452,6 +2724,18 @@ BEGIN
     SELECT nacido, inicial, primaria, secundaria, superior
     FROM escolaridades
     WHERE id_afiliado = afiliado_id;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for sp_obtener_secretarias
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `sp_obtener_secretarias`;
+delimiter ;;
+CREATE PROCEDURE `sp_obtener_secretarias`()
+BEGIN
+    SELECT usu FROM usuarios ORDER BY id ASC;
 END
 ;;
 delimiter ;

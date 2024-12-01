@@ -1,7 +1,7 @@
 {
-    "usuario": "admin",
-    "password": "Ft9oZVF1",
-    "host":"mysql-134847-0.cloudclusters.net",
+    "usuario": "root",
+    "password": "root",
+    "host":"localhost",
     "db": "sutrakomaq",
-    "port":10005
+    "port":3306
 }
